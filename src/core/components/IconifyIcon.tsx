@@ -17,6 +17,10 @@ export type IconifyProps = SafeOmit<IconProps, 'icon'> & {
   icon: keyof typeof availableIcons
 }
 
+/**
+ * @example
+ * <IconifyIcon icon="partyPopper" />
+ */
 export const IconifyIcon = ({ className, icon, ...rest }: IconifyProps) => {
   return (
     <Icon
