@@ -8,7 +8,7 @@ import { apiPath } from '../../core/utils/apiPath'
 
 export const createUser = async (dto: CreateUserDto) => {
   const { data } = await axiosInstance.post(
-    apiPath.createUser(),
+    apiPath.user.createUser(),
     createUserDtoSchema.parse(dto)
   )
   return userDtoSchema.parse(data)

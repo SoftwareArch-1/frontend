@@ -8,7 +8,7 @@ import { apiPath } from '../../core/utils/apiPath'
 
 export const login = async (creds: LoginCredentials) => {
   const { data } = await axiosInstance.post(
-    apiPath.login(),
+    apiPath.user.login(),
     credentialsSchema.parse(creds)
   )
   return userDtoSchema.parse(data)
