@@ -6,7 +6,7 @@
 
 @layer base {
   html {
-    @apply font-Inter bg-slate-100;
+    @apply bg-slate-100 font-Inter;
   }
 }
 
