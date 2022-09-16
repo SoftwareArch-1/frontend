@@ -3,3 +3,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    @apply font-Inter bg-slate-100;
+  }
+}
+
+@layer components {
+}
