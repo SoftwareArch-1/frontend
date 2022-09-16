@@ -2,7 +2,11 @@
 module.exports = {
   content: ['./pages/**/*.{js,ts,jsx,tsx}', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        Inter: ['Inter', 'sans-serif'],
+      },
+    },
   },
   plugins: [require('prettier-plugin-tailwindcss')],
 }
