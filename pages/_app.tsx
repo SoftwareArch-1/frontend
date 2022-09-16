@@ -1,5 +1,7 @@
 import '../styles/globals.css'
 
+import dayjs from 'dayjs'
+
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 import type { AppProps } from 'next/app'
@@ -11,6 +13,8 @@ const queryClient = new QueryClient({
     },
   },
 })
+
+dayjs.extend(require('dayjs/plugin/relativeTime'))
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
