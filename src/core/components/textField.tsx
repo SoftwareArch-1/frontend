@@ -6,8 +6,12 @@ const TextField: React.FC<{
   placeholder: string
   className?: string
   hintText?: string
-  useFormRegisterReturn: UseFormRegisterReturn
+  type?: string
+  error?: boolean
+  errorText?: string
+  useFormRegisterReturn?: UseFormRegisterReturn
 }> = (props) => {
+  const { useFormRegisterReturn } = props
   return (
     <div className="flex flex-col">
       <label
@@ -22,18 +26,16 @@ const TextField: React.FC<{
         }`}
         id={props.id}
         placeholder={props.placeholder}
-        ref={props.useFormRegisterReturn.ref}
-        onChange={props.useFormRegisterReturn.onChange}
-        onBlur={props.useFormRegisterReturn.onBlur}
-        name={props.useFormRegisterReturn.name}
+        type={props.type}
+        {...useFormRegisterReturn}
       ></input>
-      <p
-        className={`font-Inter text-xs ${
-          props.hintText == null ? 'text-transparent' : 'text-slate-300'
-        }`}
-      >
-        {props.hintText ?? 'asdf'}
-      </p>
+      {props.error && (
+        <p className="font-Inter text-xs text-red-500">{props.errorText}</p>
+      )}
+      {props.hintText && !props.error && (
+        <p className="font-Inter text-xs text-slate-300">{props.hintText}</p>
+      )}
+      {!props.hintText && !props.error && <div className="h-[1rem]"></div>}
     </div>
   )
 }
