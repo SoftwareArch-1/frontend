@@ -3,7 +3,7 @@ import { UseFormRegisterReturn } from 'react-hook-form'
 const TextField: React.FC<{
   label: string
   id: string
-  placeholder: string
+  placeholder?: string
   className?: string
   hintText?: string
   type?: string

@@ -14,13 +14,20 @@ const SignUpInfoPageContent = () => {
           Create Your <span className="text-sky-500">Meety</span>
         </h1>
         <form className="mb-[20px] flex flex-col items-center">
-          <TextField label="Name" placeholder="enter your name" id="name" />
+          <TextField
+            label="Name"
+            placeholder="enter your name"
+            id="name"
+            type="text"
+          />
           <div className="h-[10px]"></div>
           <TextField
             label="Surname"
             placeholder="enter your surname"
             id="surname"
+            type="text"
           />
+          <TextField label="Date of Birth" id="date" type="date" />
           <div className="h-[90px]"></div>
           <button
             type="submit"
