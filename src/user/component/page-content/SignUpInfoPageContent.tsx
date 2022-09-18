@@ -10,7 +10,7 @@ const SignUpInfoPageContent = () => {
       </Head>
 
       <WithSignInBackground>
-        <h1 className="mb-[90px] font-Inter text-4xl font-bold text-white">
+        <h1 className="mb-[90px] text-4xl font-bold text-white">
           Create Your <span className="text-sky-500">Meety</span>
         </h1>
         <form className="mb-[20px] flex flex-col items-center">

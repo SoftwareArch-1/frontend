@@ -36,7 +36,7 @@ export const LoginPageContent = () => {
         <title>Login</title>
       </Head>
       <WithSignInBackground>
-        <h1 className="mb-[90px] font-Inter text-4xl font-bold text-white">
+        <h1 className="mb-[90px] text-4xl font-bold text-white">
           Welcome to <span className="text-sky-500">Meety</span>
         </h1>
         <form
