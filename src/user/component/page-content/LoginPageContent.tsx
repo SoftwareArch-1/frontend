@@ -49,35 +49,15 @@ export const LoginPageContent = () => {
             id="email"
             type="text"
             error={errors.email}
-            useFormRegisterReturn={register('email', {
-              required: {
-                value: true,
-                message: 'Require email address',
-              },
-              pattern: {
-                value:
-                  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                message: 'Invalid Email',
-              },
-            })}
+            useFormRegisterReturn={register('email')}
           />
           <div className="h-[10px]"></div>
           <TextField
             label="Password"
             placeholder="enter your password"
-            id="password"
             type="password"
             error={errors.password}
-            useFormRegisterReturn={register('password', {
-              required: {
-                value: true,
-                message: 'Require password',
-              },
-              minLength: {
-                value: 8,
-                message: 'Require at least 8 characters',
-              },
-            })}
+            useFormRegisterReturn={register('password')}
           />
           <div className="h-[90px]"></div>
           <button
