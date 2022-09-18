@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { FieldError, UseFormRegisterReturn } from 'react-hook-form'
 import { IconifyIcon } from './IconifyIcon'
+import classNames from 'classnames'
 
 const TextField: React.FC<{
   label: string
-  id: string
+  id?: string
   placeholder?: string
   className?: string
   hintText?: string
@@ -20,11 +21,18 @@ const TextField: React.FC<{
   }
   return (
     <div className="flex flex-col">
-      <label
-        htmlFor={props.id}
-        className="font-Inter text-sm text-white opacity-75"
-      >
+      <label className="flex flex-col font-Inter text-sm text-white opacity-75">
         {props.label}
+        <input
+          className={classNames(
+            'h-[40px] w-[300px] border-0 border-b-2 border-sky-500 bg-transparent p-0 font-Inter text-base text-white placeholder:text-slate-300 focus-visible:border-sky-500 focus-visible:ring-0',
+            props.className
+          )}
+          id={props.id}
+          placeholder={props.placeholder}
+          type={props.type}
+          {...useFormRegisterReturn}
+        ></input>
       </label>
       <div className="relative">
         <input
