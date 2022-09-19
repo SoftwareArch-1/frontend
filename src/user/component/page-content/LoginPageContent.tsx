@@ -46,7 +46,6 @@ export const LoginPageContent = () => {
           <TextField
             label="Email Address"
             placeholder="enter your email address"
-            id="email"
             type="text"
             error={errors.email}
             useFormRegisterReturn={register('email')}
