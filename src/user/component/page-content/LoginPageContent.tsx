@@ -1,15 +1,19 @@
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 
-import { LoginCredentials } from '../../../core/sync-with-backend/dto/user/login'
+import TextField from '../../../core/components/textField'
+import {
+  credentialsSchema,
+  LoginCredentials,
+} from '../../../core/sync-with-backend/dto/user/login'
+import { pagePath } from '../../../core/utils/pagePath'
 import { login } from '../../api/login'
 import { useUserStore } from '../../userStore'
-import TextField from '../../../core/components/textField'
 import WithSignInBackground from '../withSigninBackground'
-import { useRouter } from 'next/router'
-import { pagePath } from '../../../core/utils/pagePath'
 
 export const LoginPageContent = () => {
   const router = useRouter()
@@ -18,15 +22,18 @@ export const LoginPageContent = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginCredentials>()
+  } = useForm<LoginCredentials>({
+    resolver: zodResolver(credentialsSchema),
+  })
+
   const update = useUserStore((state) => state.update)
+
   const { mutate: loginMutate } = useMutation(login, {
-    onSuccess: (userDto) => update(() => userDto),
+    onSuccess: (userDto) => update(userDto),
     onError: (error) => console.error(error),
   })
 
   const onSubmit = handleSubmit((data) => {
-    console.log('asdf')
     loginMutate(data)
   })
 
