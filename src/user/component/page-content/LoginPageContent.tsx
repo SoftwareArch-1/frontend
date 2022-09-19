@@ -14,7 +14,11 @@ import { pagePath } from '../../../core/utils/pagePath'
 export const LoginPageContent = () => {
   const router = useRouter()
 
-  const { register, handleSubmit } = useForm<LoginCredentials>()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginCredentials>()
   const update = useUserStore((state) => state.update)
   const { mutate: loginMutate } = useMutation(login, {
     onSuccess: (userDto) => update(() => userDto),
@@ -22,7 +26,7 @@ export const LoginPageContent = () => {
   })
 
   const onSubmit = handleSubmit((data) => {
-    console.log(data)
+    console.log('asdf')
     loginMutate(data)
   })
 
@@ -43,8 +47,19 @@ export const LoginPageContent = () => {
             label="Email Address"
             placeholder="enter your email address"
             id="email"
-            type="email"
-            useFormRegisterReturn={register('email')}
+            type="text"
+            error={errors.email}
+            useFormRegisterReturn={register('email', {
+              required: {
+                value: true,
+                message: 'Require email address',
+              },
+              pattern: {
+                value:
+                  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                message: 'Invalid Email',
+              },
+            })}
           />
           <div className="h-[10px]"></div>
           <TextField
@@ -52,7 +67,17 @@ export const LoginPageContent = () => {
             placeholder="enter your password"
             id="password"
             type="password"
-            useFormRegisterReturn={register('password')}
+            error={errors.password}
+            useFormRegisterReturn={register('password', {
+              required: {
+                value: true,
+                message: 'Require password',
+              },
+              minLength: {
+                value: 8,
+                message: 'Require at least 8 characters',
+              },
+            })}
           />
           <div className="h-[90px]"></div>
           <button
