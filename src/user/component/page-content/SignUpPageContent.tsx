@@ -1,7 +1,12 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+
+import { zodResolver } from '@hookform/resolvers/zod'
+
 import TextField from '../../../core/components/textField'
+import { signUpFormSchema } from '../../../core/constant/zod/form-schema/signUpFormSchema'
 import { pagePath } from '../../../core/utils/pagePath'
 import WithSignInBackground from '../withSigninBackground'
 
@@ -13,11 +18,9 @@ const SignUpPageContent = () => {
     handleSubmit,
     setError,
     formState: { errors },
-  } = useForm<{
-    email: string
-    password: string
-    confirmPassword: string
-  }>()
+  } = useForm<z.infer<typeof signUpFormSchema>>({
+    resolver: zodResolver(signUpFormSchema),
+  })
 
   const onSubmit = handleSubmit((data) => {
     console.log(data)
@@ -51,14 +54,7 @@ const SignUpPageContent = () => {
             placeholder="enter your email address"
             id="text"
             error={errors.email}
-            useFormRegisterReturn={register('email', {
-              required: { value: true, message: 'Required' },
-              pattern: {
-                value:
-                  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                message: 'Invalid Email',
-              },
-            })}
+            useFormRegisterReturn={register('email')}
           />
           <div className="h-[10px]"></div>
           <TextField
@@ -68,16 +64,7 @@ const SignUpPageContent = () => {
             type="password"
             hintText="require at least 8 characters"
             error={errors.password}
-            useFormRegisterReturn={register('password', {
-              required: {
-                value: true,
-                message: 'Require password',
-              },
-              minLength: {
-                value: 8,
-                message: 'Require at least 8 characters',
-              },
-            })}
+            useFormRegisterReturn={register('password')}
           />
           <div className="h-[10px]"></div>
           <TextField
@@ -86,16 +73,7 @@ const SignUpPageContent = () => {
             id="confirmPassword"
             type="password"
             error={errors.confirmPassword}
-            useFormRegisterReturn={register('confirmPassword', {
-              required: {
-                value: true,
-                message: 'Require confirm password',
-              },
-              minLength: {
-                value: 8,
-                message: 'Require at least 8 characters',
-              },
-            })}
+            useFormRegisterReturn={register('confirmPassword')}
           />
           <div className="h-[90px]"></div>
           <button
