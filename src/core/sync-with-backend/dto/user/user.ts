@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-import { dateSchema } from '../../../constant/zodDateSchema'
+import { dateSchema } from '../../../constant/zod/zodDateSchema'
 
 export const userDtoSchema = z.object({
   id: z.string().uuid(),
