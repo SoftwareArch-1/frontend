@@ -8,10 +8,21 @@ import TextField from '../../../core/components/textField'
 import { signUpFormSchema } from '../../../core/constant/zod/form-schema/signUpFormSchema'
 import WithSignInBackground from '../withSigninBackground'
 import { useState } from 'react'
+import { useMutation } from '@tanstack/react-query'
+import { createUser } from '../../api/create'
+import { useUserStore } from '../../userStore'
+import { createUserDtoSchema } from '../../../core/sync-with-backend/dto/user/createUserDto'
 
 const SignUpPageContent = () => {
   const [page, setPage] = useState(true)
   const [firstSubmit, setFirstSubmit] = useState(false)
+
+  const update = useUserStore((state) => state.update)
+
+  const { mutate: createUserMutate } = useMutation(createUser, {
+    onSuccess: (userDto) => update(userDto),
+    onError: (error) => console.error(error),
+  })
 
   const {
     register,
@@ -41,7 +52,8 @@ const SignUpPageContent = () => {
   }
 
   const onSubmit = handleSubmit((data) => {
-    console.log(data)
+    const createUserData = createUserDtoSchema.parse(data)
+    createUserMutate(createUserData)
   })
 
   return (
