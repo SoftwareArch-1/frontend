@@ -5,5 +5,4 @@
 export const pagePath = {
   HomePage: () => '/',
   SignUpPage: () => '/signup',
-  SignUpInfoPage: () => '/signup/info',
 }

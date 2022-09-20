@@ -1,10 +1,15 @@
 import { z } from 'zod'
+import { emailSchema } from '../../../constant/zod/emailSchema'
+import { passwordSchema } from '../../../constant/zod/passwordSchema'
+import { requireStringSchema } from '../../../constant/zod/requireStringSchema'
+import { dateSchema } from '../../../constant/zod/zodDateSchema'
 
 export const createUserDtoSchema = z.object({
-  email: z.string().email(),
-  name: z.string(),
-  surname: z.string(),
-  password: z.string(),
+  email: emailSchema,
+  name: requireStringSchema,
+  surname: requireStringSchema,
+  password: passwordSchema,
+  birthday: dateSchema,
 })
 
 export type CreateUserDto = z.infer<typeof createUserDtoSchema>

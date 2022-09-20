@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { ChangeEventHandler, useState } from 'react'
 import { FieldError, UseFormRegisterReturn } from 'react-hook-form'
 import { IconifyIcon } from './IconifyIcon'
 import classNames from 'classnames'
