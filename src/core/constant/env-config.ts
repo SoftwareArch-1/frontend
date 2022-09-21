@@ -1,10 +1,10 @@
-const notUndef = (env: string | undefined) => {
+const envDef = (name: string, env: string | undefined) => {
   if (env === undefined) {
-    throw new Error('Environment variable not defined')
+    throw new Error(`Environment variable ${name} is not defined`)
   }
   return env
 }
 
 export const config = Object.freeze({
-  gatewayUrl: notUndef(process.env.NEXT_PUBLIC_API_GATEWAY_URL),
+  gatewayUrl: envDef('gatewayUrl', process.env.NEXT_PUBLIC_API_GATEWAY_URL),
 })
