@@ -1,6 +1,4 @@
-const baseUrl = {
-  gatewayUrl: process.env.NEXT_PUBLIC_API_GATEWAY_URL,
-} as const
+import { config } from '../constant/env-config'
 
 /**
  * @example
@@ -9,8 +7,8 @@ const baseUrl = {
 export const apiPath = {
   /** for user service */
   user: {
-    login: () => `${baseUrl.gatewayUrl}/login`,
-    createUser: () => `${baseUrl.gatewayUrl}/create-user`,
+    login: () => `${config.gatewayUrl}/login`,
+    createUser: () => `${config.gatewayUrl}/create-user`,
   },
 
   /** for activity service */
