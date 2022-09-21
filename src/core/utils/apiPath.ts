@@ -1,6 +1,5 @@
 const baseUrl = {
-  user: process.env.NEXT_PUBLIC_USER_API_URL,
-  activity: process.env.NEXT_PUBLIC_ACTIVITY_API_URL,
+  gatewayUrl: process.env.NEXT_PUBLIC_API_GATEWAY_URL,
 } as const
 
 /**
@@ -10,8 +9,8 @@ const baseUrl = {
 export const apiPath = {
   /** for user service */
   user: {
-    login: () => `${baseUrl.user}/login`,
-    createUser: () => `${baseUrl.user}/create`,
+    login: () => `${baseUrl.gatewayUrl}/login`,
+    createUser: () => `${baseUrl.gatewayUrl}/create-user`,
   },
 
   /** for activity service */
