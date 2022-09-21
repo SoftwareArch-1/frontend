@@ -6,5 +6,8 @@ const envDef = (name: string, env: string | undefined) => {
 }
 
 export const config = Object.freeze({
-  gatewayUrl: envDef('gatewayUrl', process.env.NEXT_PUBLIC_API_GATEWAY_URL),
+  gatewayUrl: envDef(
+    'NEXT_PUBLIC_API_GATEWAY_URL',
+    process.env.NEXT_PUBLIC_API_GATEWAY_URL
+  ),
 })
