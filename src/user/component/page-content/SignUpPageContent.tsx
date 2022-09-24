@@ -15,6 +15,7 @@ import { createUserDtoSchema } from '../../../core/sync-with-backend/dto/user/cr
 
 const SignUpPageContent = () => {
   const [onFirstPage, setOnFirstPage] = useState(true)
+  const [firstSubmit, setFirstSubmit] = useState(false)
 
   const update = useUserStore((state) => state.update)
 
@@ -35,6 +36,7 @@ const SignUpPageContent = () => {
   })
 
   const emailPasswordSubmit = async () => {
+    setFirstSubmit((prev) => !prev)
     const result = await trigger(['email', 'password', 'confirmPassword'])
     if (!result) {
       return
@@ -78,7 +80,9 @@ const SignUpPageContent = () => {
                 error={errors.email}
                 useFormRegisterReturn={register('email', {
                   onChange: async () => {
-                    await trigger('email')
+                    if (firstSubmit) {
+                      await trigger('email')
+                    }
                   },
                 })}
               />
@@ -92,7 +96,9 @@ const SignUpPageContent = () => {
                 error={errors.password}
                 useFormRegisterReturn={register('password', {
                   onChange: async () => {
-                    await trigger('password')
+                    if (firstSubmit) {
+                      await trigger('password')
+                    }
                   },
                 })}
               />
@@ -105,7 +111,9 @@ const SignUpPageContent = () => {
                 error={errors.confirmPassword}
                 useFormRegisterReturn={register('confirmPassword', {
                   onChange: async () => {
-                    await trigger('confirmPassword')
+                    if (firstSubmit) {
+                      await trigger('confirmPassword')
+                    }
                   },
                 })}
               />
