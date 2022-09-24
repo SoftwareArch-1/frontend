@@ -83,6 +83,7 @@ const SignUpPageContent = () => {
                 label="Email Address"
                 placeholder="enter your email address"
                 id="text"
+                type="text"
                 error={errors.email}
                 useFormRegisterReturn={register('email', {
                   onChange: async (e) => {
