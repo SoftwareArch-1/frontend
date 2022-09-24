@@ -5,7 +5,7 @@ interface UserCardProps {
   profilePicture?: string
   name: string
   interest: string[]
-  detail: string
+  detail?: string
   className?: string
 }
 
@@ -17,7 +17,7 @@ const UserCard = ({
   className,
 }: UserCardProps) => {
   return (
-    <section className="w-100 flex max-w-screen-sm flex-col items-center justify-center gap-y-[20px] rounded-lg bg-white px-[25px] py-5 shadow-md">
+    <section className="w-100 flex flex-col items-center justify-center gap-y-[20px] rounded-lg bg-white px-[25px] py-5 shadow-md">
       <img
         src="https://images.unsplash.com/photo-1497316730643-415fac54a2af?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80"
         className="aspect-square h-5/6 max-h-[250px] w-5/6 max-w-[250px] rounded-full object-cover"
@@ -42,7 +42,9 @@ const UserCard = ({
           }}
         />
       </div>
-      <p className="text-base text-slate-800">{detail}</p>
+      <p className="max-w-[500px] text-base text-slate-800">
+        {detail ?? 'No description'}
+      </p>
     </section>
   )
 }
