@@ -61,16 +61,9 @@ const SignUpPageContent = () => {
       </Head>
 
       <WithSignInBackground>
-        {onFirstPage && (
-          <h1 className="mb-[90px] text-4xl font-bold text-white">
-            Create Your <span className="text-sky-500">Meety</span>
-          </h1>
-        )}
-        {!onFirstPage && (
-          <h1 className="mb-[90px] text-4xl font-bold text-white">
-            Create Your <span className="text-sky-500">Meety</span>
-          </h1>
-        )}
+        <h1 className="mb-[90px] text-4xl font-bold text-white">
+          Create Your <span className="text-sky-500">Meety</span>
+        </h1>
         <form
           className="mb-[20px] flex flex-col items-center"
           onSubmit={onSubmit}
