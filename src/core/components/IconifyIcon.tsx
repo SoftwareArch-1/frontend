@@ -10,6 +10,7 @@ const availableIcons = {
   partyPopper: 'mdi:party-popper',
   eyeOffOutline: 'mdi:eye-off-outline',
   eyeOutline: 'mdi:eye-outline',
+  pencil: 'mdi:pencil',
 } as const
 
 /**
