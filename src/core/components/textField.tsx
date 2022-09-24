@@ -26,7 +26,7 @@ const TextField: React.FC<{
         <div className="relative">
           <input
             className={classNames(
-              'h-[40px] w-[300px] border-b-2 border-sky-500 bg-transparent font-Inter text-base text-white placeholder-slate-100 focus:outline-none',
+              'h-[40px] w-[300px] border-b-2 border-sky-500 bg-transparent text-white placeholder-slate-100 focus:outline-none',
               props.className
             )}
             id={props.id}
@@ -52,13 +52,13 @@ const TextField: React.FC<{
       </label>
 
       {props.error && (
-        <p className="font-Inter text-xs text-red-500">{props.error.message}</p>
+        <p className="text-xs text-red-500">{props.error.message}</p>
       )}
       {props.hintText && !props.error && (
-        <p className="font-Inter text-xs text-slate-300">{props.hintText}</p>
+        <p className="text-xs text-slate-300">{props.hintText}</p>
       )}
       {!props.hintText && !props.error && (
-        <p className="font-Inter text-xs text-transparent">{props.label}</p>
+        <p className="text-xs text-transparent">{props.label}</p>
       )}
     </div>
   )
