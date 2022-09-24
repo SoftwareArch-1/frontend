@@ -8,6 +8,8 @@ import { SafeOmit } from '../utils/types'
 
 const availableIcons = {
   partyPopper: 'mdi:party-popper',
+  eyeOffOutline: 'mdi:eye-off-outline',
+  eyeOutline: 'mdi:eye-outline',
 } as const
 
 /**
