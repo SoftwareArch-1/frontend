@@ -14,8 +14,7 @@ import { useUserStore } from '../../userStore'
 import { createUserDtoSchema } from '../../../core/sync-with-backend/dto/user/createUserDto'
 
 const SignUpPageContent = () => {
-  const [page, setPage] = useState(true)
-  const [firstSubmit, setFirstSubmit] = useState(false)
+  const [onFirstPage, setOnFirstPage] = useState(true)
 
   const update = useUserStore((state) => state.update)
 
@@ -36,7 +35,6 @@ const SignUpPageContent = () => {
   })
 
   const emailPasswordSubmit = async () => {
-    setFirstSubmit((prev) => !prev)
     const result = await trigger(['email', 'password', 'confirmPassword'])
     if (!result) {
       return
@@ -48,7 +46,7 @@ const SignUpPageContent = () => {
       })
       return
     }
-    setPage((prev) => !prev)
+    setOnFirstPage((prev) => !prev)
   }
 
   const onSubmit = handleSubmit((data) => {
@@ -63,12 +61,12 @@ const SignUpPageContent = () => {
       </Head>
 
       <WithSignInBackground>
-        {page && (
+        {onFirstPage && (
           <h1 className="mb-[90px] text-4xl font-bold text-white">
             Create Your <span className="text-sky-500">Meety</span>
           </h1>
         )}
-        {!page && (
+        {!onFirstPage && (
           <h1 className="mb-[90px] text-4xl font-bold text-white">
             Create Your <span className="text-sky-500">Meety</span>
           </h1>
@@ -77,7 +75,7 @@ const SignUpPageContent = () => {
           className="mb-[20px] flex flex-col items-center"
           onSubmit={onSubmit}
         >
-          {page && (
+          {onFirstPage && (
             <>
               <TextField
                 label="Email Address"
@@ -86,10 +84,8 @@ const SignUpPageContent = () => {
                 type="text"
                 error={errors.email}
                 useFormRegisterReturn={register('email', {
-                  onChange: async (e) => {
-                    if (firstSubmit) {
-                      await trigger('email')
-                    }
+                  onChange: async () => {
+                    await trigger('email')
                   },
                 })}
               />
@@ -102,10 +98,8 @@ const SignUpPageContent = () => {
                 hintText="require at least 8 characters"
                 error={errors.password}
                 useFormRegisterReturn={register('password', {
-                  onChange: async (e) => {
-                    if (firstSubmit) {
-                      await trigger('password')
-                    }
+                  onChange: async () => {
+                    await trigger('password')
                   },
                 })}
               />
@@ -117,10 +111,8 @@ const SignUpPageContent = () => {
                 type="password"
                 error={errors.confirmPassword}
                 useFormRegisterReturn={register('confirmPassword', {
-                  onChange: async (e) => {
-                    if (firstSubmit) {
-                      await trigger('confirmPassword')
-                    }
+                  onChange: async () => {
+                    await trigger('confirmPassword')
                   },
                 })}
               />
@@ -134,7 +126,8 @@ const SignUpPageContent = () => {
               </button>
             </>
           )}
-          {!page && (
+
+          {!onFirstPage && (
             <>
               <TextField
                 label="Name"
