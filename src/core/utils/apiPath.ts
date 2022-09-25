@@ -9,6 +9,7 @@ export const apiPath = {
   user: {
     login: () => `${config.gatewayUrl}/login`,
     createUser: () => `${config.gatewayUrl}/create-user`,
+    updateDetail: () => `${config.gatewayUrl}/update-detail`,
   },
 
   /** for activity service */

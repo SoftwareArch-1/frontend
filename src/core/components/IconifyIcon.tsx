@@ -11,6 +11,8 @@ const availableIcons = {
   eyeOffOutline: 'mdi:eye-off-outline',
   eyeOutline: 'mdi:eye-outline',
   pencil: 'mdi:pencil',
+  'close-thick': 'mdi:close-thick',
+  'check-bold': 'mdi:check-bold',
 } as const
 
 /**
