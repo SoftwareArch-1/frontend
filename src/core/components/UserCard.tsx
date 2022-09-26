@@ -38,6 +38,7 @@ const UserCard = () => {
   })
 
   const onSubmit = handleSubmit((data) => {
+    console.log(data)
     updateDetailMutate(data)
     setEditDetail((prev) => !prev)
   })
