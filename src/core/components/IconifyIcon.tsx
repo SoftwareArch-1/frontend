@@ -13,6 +13,7 @@ const availableIcons = {
   pencil: 'mdi:pencil',
   'close-thick': 'mdi:close-thick',
   'check-bold': 'mdi:check-bold',
+  magnify: 'mdi:magnify',
 } as const
 
 /**

@@ -16,7 +16,7 @@ export const AccountInfoList = () => {
   )
 
   return (
-    <section className="bg-white p-4">
+    <section className="rounded-[10px] bg-white p-4 shadow-md">
       <ul className="flex flex-col gap-4">
         <InfoItem
           label="Name"

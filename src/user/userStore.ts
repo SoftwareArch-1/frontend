@@ -24,6 +24,8 @@ export const useUserStore = create<UserStore>()((set, get) => ({
   name: undefined,
   surname: undefined,
   birthday: undefined,
+  detail: undefined,
+  interest: undefined,
 
   update: (updater) => {
     const prev = get()
