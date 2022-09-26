@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { updateDetail } from '../../user/api/updateDetail'
+import { updateUser } from '../../user/api/updateDetail'
 import { useUserStore } from '../../user/userStore'
 import { updateUserDto } from '../sync-with-backend/dto/user/updateUser'
 import { IconifyIcon } from './IconifyIcon'
@@ -32,7 +32,7 @@ const UserCard = ({
 
   const update = useUserStore((state) => state.update)
 
-  const { mutate: updateDetailMutate } = useMutation(updateDetail, {
+  const { mutate: updateDetailMutate } = useMutation(updateUser, {
     onSuccess: (userDto) => update(userDto),
     onError: (error) => console.error(error),
   })
@@ -49,8 +49,8 @@ const UserCard = ({
         className="aspect-square h-5/6 max-h-[250px] w-5/6 max-w-[250px] rounded-full object-cover"
       ></img>
       <p className="text-2xl font-bold text-slate-800">{name}</p>
-      {/* <div className="flex max-w-[500px] flex-wrap place-content-center gap-x-5 gap-y-5"> */}
-      <div className="grid max-w-[500px] grid-cols-3 gap-5 md:grid-cols-5">
+      <div className="flex max-w-[500px] flex-wrap place-content-center gap-x-5 gap-y-5">
+        {/* <div className="grid max-w-[500px] grid-cols-3 gap-5 md:grid-cols-5"> */}
         {interest.map((tag) => (
           <InterestTag name={tag} key={tag} />
         ))}
