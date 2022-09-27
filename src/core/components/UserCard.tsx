@@ -49,7 +49,7 @@ const UserCard = () => {
         open={isOpenInterestModal}
         onClose={() => setIsOpenInterestModal(false)}
       >
-        <InterestModalContent />
+        <InterestModalContent initInterest={interest ?? []} />
       </Modal>
       <section className="w-100 flex flex-col items-center justify-center gap-y-[20px] rounded-[10px] bg-white px-[25px] py-5 shadow-md">
         <img

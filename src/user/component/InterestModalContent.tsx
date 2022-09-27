@@ -8,9 +8,11 @@ import { getInterest } from '../api/getInterest'
 import { interestSchemaType } from '../../core/constant/zod/interestSchema'
 import LoadingSpinner from '../../core/components/LoadingSpinner'
 
-const InterestModalContent = () => {
-  console.log('build')
+interface InterestModalProps {
+  initInterest: string[]
+}
 
+const InterestModalContent = ({ initInterest }: InterestModalProps) => {
   const [isLoading, setIsLoading] = useState(false)
   const [interests, setInterests] = useState<interestSchemaType[] | []>([])
 
@@ -65,6 +67,7 @@ const InterestModalContent = () => {
         type="checkbox"
         value={interest.id}
         name={interest.name}
+        defaultChecked={initInterest.includes(interest.name)}
         className="mr-5 h-[16px] w-[16px] appearance-none rounded-full bg-slate-200 align-middle checked:bg-sky-500"
       />
       <label className="align-middle text-base">{interest.name}</label>
