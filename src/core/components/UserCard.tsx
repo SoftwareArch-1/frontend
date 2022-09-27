@@ -56,7 +56,9 @@ const UserCard = () => {
           src="https://images.unsplash.com/photo-1497316730643-415fac54a2af?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80"
           className="aspect-square h-5/6 max-h-[250px] w-5/6 max-w-[250px] rounded-full object-cover"
         ></img>
-        <p className="text-2xl font-bold text-slate-800">{name}</p>
+        <p className="text-2xl font-bold text-slate-800">
+          {name ?? 'John doe'}
+        </p>
         <div className="flex max-w-[500px] flex-wrap place-content-center gap-x-5 gap-y-5">
           {interest &&
             interest.map((tag) => <InterestTag name={tag} key={tag} />)}
