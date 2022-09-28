@@ -3,26 +3,25 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import shallow from 'zustand/shallow'
 import { updateUser } from '../../user/api/updateDetail'
-import InterestModalContent from '../../user/component/InterestModalContent'
+// import InterestModalContent from '../../user/component/InterestModalContent'
 import { useUserStore } from '../../user/userStore'
 import { updateUserDto } from '../sync-with-backend/dto/user/updateUser'
 import { IconifyIcon } from './IconifyIcon'
-import InterestTag from './InterestTag'
-import { Modal } from './Modal'
+// import InterestTag from './InterestTag'
+// import { Modal } from './Modal'
 
 const UserCard = () => {
-  const { name, surname, detail, interest } = useUserStore(
+  const { name, surname, detail } = useUserStore(
     ({ name, surname, detail, interest }) => ({
       name,
       surname,
       detail,
-      interest,
     }),
     shallow
   )
 
   const [editDetail, setEditDetail] = useState(false)
-  const [isOpenInterestModal, setIsOpenInterestModal] = useState(false)
+  // const [isOpenInterestModal, setIsOpenInterestModal] = useState(false)
 
   const { register, handleSubmit, setValue } = useForm<updateUserDto>({
     defaultValues: {
@@ -45,21 +44,21 @@ const UserCard = () => {
 
   return (
     <>
-      <Modal
+      {/* <Modal
         open={isOpenInterestModal}
         onClose={() => setIsOpenInterestModal(false)}
       >
         <InterestModalContent initInterest={interest ?? []} />
-      </Modal>
+      </Modal> */}
       <section className="w-100 flex flex-col items-center justify-center gap-y-[20px] rounded-[10px] bg-white px-[25px] py-5 shadow-md">
         <img
           src="https://images.unsplash.com/photo-1497316730643-415fac54a2af?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80"
           className="aspect-square h-5/6 max-h-[250px] w-5/6 max-w-[250px] rounded-full object-cover"
         ></img>
         <p className="text-2xl font-bold text-slate-800">
-          {name ?? 'John doe'}
+          {name ?? 'John'} {surname ?? 'Doe'}
         </p>
-        <div className="flex max-w-[500px] flex-wrap place-content-center gap-x-5 gap-y-5">
+        {/* <div className="flex max-w-[500px] flex-wrap place-content-center gap-x-5 gap-y-5">
           {interest &&
             interest.map((tag) => <InterestTag name={tag} key={tag} />)}
           <div
@@ -68,7 +67,7 @@ const UserCard = () => {
           >
             +
           </div>
-        </div>
+        </div> */}
         <form
           onSubmit={onSubmit}
           className="flex w-full max-w-[500px] flex-col items-center justify-center gap-y-[20px]"
@@ -88,7 +87,7 @@ const UserCard = () => {
               <div className="flex gap-x-5">
                 <IconifyIcon
                   icon="close-thick"
-                  className="text-red-500"
+                  className="text-slate-500"
                   onClick={() => {
                     setValue('detail', detail ?? '')
                     setEditDetail((prev) => !prev)
@@ -97,7 +96,7 @@ const UserCard = () => {
                 <button>
                   <IconifyIcon
                     icon="check-bold"
-                    className="text-green-500"
+                    className="text-sky-500"
                     type="submit"
                   />
                 </button>
