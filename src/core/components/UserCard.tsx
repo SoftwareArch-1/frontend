@@ -3,16 +3,13 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import shallow from 'zustand/shallow'
 import { updateUser } from '../../user/api/updateDetail'
-// import InterestModalContent from '../../user/component/InterestModalContent'
 import { useUserStore } from '../../user/userStore'
 import { updateUserDto } from '../sync-with-backend/dto/user/updateUser'
 import { IconifyIcon } from './IconifyIcon'
-// import InterestTag from './InterestTag'
-// import { Modal } from './Modal'
 
 const UserCard = () => {
   const { name, surname, detail } = useUserStore(
-    ({ name, surname, detail, interest }) => ({
+    ({ name, surname, detail }) => ({
       name,
       surname,
       detail,
@@ -21,7 +18,6 @@ const UserCard = () => {
   )
 
   const [editDetail, setEditDetail] = useState(false)
-  // const [isOpenInterestModal, setIsOpenInterestModal] = useState(false)
 
   const { register, handleSubmit, setValue } = useForm<updateUserDto>({
     defaultValues: {
@@ -44,12 +40,6 @@ const UserCard = () => {
 
   return (
     <>
-      {/* <Modal
-        open={isOpenInterestModal}
-        onClose={() => setIsOpenInterestModal(false)}
-      >
-        <InterestModalContent initInterest={interest ?? []} />
-      </Modal> */}
       <section className="w-100 flex flex-col items-center justify-center gap-y-[20px] rounded-[10px] bg-white px-[25px] py-5 shadow-md">
         <img
           src="https://images.unsplash.com/photo-1497316730643-415fac54a2af?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80"
@@ -58,16 +48,6 @@ const UserCard = () => {
         <p className="text-2xl font-bold text-slate-800">
           {name ?? 'John'} {surname ?? 'Doe'}
         </p>
-        {/* <div className="flex max-w-[500px] flex-wrap place-content-center gap-x-5 gap-y-5">
-          {interest &&
-            interest.map((tag) => <InterestTag name={tag} key={tag} />)}
-          <div
-            className="rounded-full bg-sky-600 py-1.5 px-3 text-center text-xs text-white"
-            onClick={() => setIsOpenInterestModal(true)}
-          >
-            +
-          </div>
-        </div> */}
         <form
           onSubmit={onSubmit}
           className="flex w-full max-w-[500px] flex-col items-center justify-center gap-y-[20px]"
