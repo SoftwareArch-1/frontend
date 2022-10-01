@@ -2,7 +2,6 @@ import { z } from 'zod'
 
 export const updateUserDtoSchema = z
   .object({
-    interest: z.string().array(),
     detail: z.string(),
   })
   .partial()
