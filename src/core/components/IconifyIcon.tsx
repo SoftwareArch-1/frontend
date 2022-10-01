@@ -14,6 +14,9 @@ const availableIcons = {
   'close-thick': 'mdi:close-thick',
   'check-bold': 'mdi:check-bold',
   magnify: 'mdi:magnify',
+  'calendar-month': 'mdi:calendar-month',
+  account: 'mdi:account',
+  'map-marker': 'mdi:map-marker',
 } as const
 
 /**
