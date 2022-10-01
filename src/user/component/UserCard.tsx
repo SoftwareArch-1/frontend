@@ -1,22 +1,18 @@
 import { useMutation } from '@tanstack/react-query'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import shallow from 'zustand/shallow'
+import { IconifyIcon } from '../../core/components/IconifyIcon'
+import { updateUserDto } from '../../core/sync-with-backend/dto/user/updateUser'
 import { updateUser } from '../../user/api/updateDetail'
 import { useUserStore } from '../../user/userStore'
-import { updateUserDto } from '../sync-with-backend/dto/user/updateUser'
-import { IconifyIcon } from './IconifyIcon'
 
-const UserCard = () => {
-  const { name, surname, detail } = useUserStore(
-    ({ name, surname, detail }) => ({
-      name,
-      surname,
-      detail,
-    }),
-    shallow
-  )
+interface UserCardProps {
+  name: string
+  surname: string
+  detail?: string
+}
 
+const UserCard = ({ name, surname, detail }: UserCardProps) => {
   const [editDetail, setEditDetail] = useState(false)
 
   const { register, handleSubmit, setValue } = useForm<updateUserDto>({
@@ -46,7 +42,7 @@ const UserCard = () => {
           className="aspect-square h-5/6 max-h-[250px] w-5/6 max-w-[250px] rounded-full object-cover"
         ></img>
         <p className="text-2xl font-bold text-slate-800">
-          {name ?? 'John'} {surname ?? 'Doe'}
+          {name} {surname}
         </p>
         <form
           onSubmit={onSubmit}
