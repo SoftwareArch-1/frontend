@@ -11,9 +11,10 @@ interface UserCardProps {
   name: string
   surname: string
   detail?: string
+  editable: boolean
 }
 
-const UserCard = ({ name, surname, detail }: UserCardProps) => {
+const UserCard = ({ name, surname, detail, editable }: UserCardProps) => {
   const [editDetail, setEditDetail] = useState(false)
 
   const { register, handleSubmit, setValue } = useForm<updateUserDto>({
@@ -56,33 +57,37 @@ const UserCard = ({ name, surname, detail }: UserCardProps) => {
         >
           <div className="flex w-full max-w-[500px] items-center justify-between">
             <p className="text-lg font-bold text-slate-800">About Me</p>
-            {!editDetail && (
-              <IconifyIcon
-                icon="pencil"
-                className="text-sky-500"
-                onClick={() => {
-                  setEditDetail((prev) => !prev)
-                }}
-              />
-            )}
-            {editDetail && (
-              <div className="flex gap-x-5">
-                <IconifyIcon
-                  icon="close-thick"
-                  className="text-slate-500"
-                  onClick={() => {
-                    setValue('detail', detail ?? '')
-                    setEditDetail((prev) => !prev)
-                  }}
-                />
-                <button>
+            {editable && (
+              <>
+                {!editDetail && (
                   <IconifyIcon
-                    icon="check-bold"
+                    icon="pencil"
                     className="text-sky-500"
-                    type="submit"
+                    onClick={() => {
+                      setEditDetail((prev) => !prev)
+                    }}
                   />
-                </button>
-              </div>
+                )}
+                {editDetail && (
+                  <div className="flex gap-x-5">
+                    <IconifyIcon
+                      icon="close-thick"
+                      className="text-slate-500"
+                      onClick={() => {
+                        setValue('detail', detail ?? '')
+                        setEditDetail((prev) => !prev)
+                      }}
+                    />
+                    <button>
+                      <IconifyIcon
+                        icon="check-bold"
+                        className="text-sky-500"
+                        type="submit"
+                      />
+                    </button>
+                  </div>
+                )}
+              </>
             )}
           </div>
           {!editDetail && (

@@ -25,6 +25,7 @@ export const ProfilePageContent = () => {
           name={name ?? 'John'}
           surname={surname ?? 'Doe'}
           detail={detail}
+          editable={true}
         />
         <AccountInfoList
           name={name ?? 'John'}
