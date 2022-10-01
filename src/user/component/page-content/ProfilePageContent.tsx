@@ -1,5 +1,4 @@
 import { AccountInfoList } from '../AccountInfoList'
-// import shallow from 'zustand/shallow'
 import { Nav } from '../../../core/components/Nav'
 import UserCard from '../UserCard'
 import { useUserStore } from '../../userStore'

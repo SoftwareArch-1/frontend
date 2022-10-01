@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { IconifyIcon } from '../../core/components/IconifyIcon'
 import { updateUserDto } from '../../core/sync-with-backend/dto/user/updateUser'
-import { updateUser } from '../../user/api/updateDetail'
+import { updateUser } from '../api/update'
 import { useUserStore } from '../../user/userStore'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 
