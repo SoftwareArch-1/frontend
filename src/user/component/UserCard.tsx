@@ -5,6 +5,7 @@ import { IconifyIcon } from '../../core/components/IconifyIcon'
 import { updateUserDto } from '../../core/sync-with-backend/dto/user/updateUser'
 import { updateUser } from '../../user/api/updateDetail'
 import { useUserStore } from '../../user/userStore'
+import { useAutoAnimate } from '@formkit/auto-animate/react'
 
 interface UserCardProps {
   name: string
@@ -34,6 +35,10 @@ const UserCard = ({ name, surname, detail }: UserCardProps) => {
     setEditDetail((prev) => !prev)
   })
 
+  const [animateParent] = useAutoAnimate<any>({
+    duration: 150,
+  })
+
   return (
     <>
       <section className="w-100 flex flex-col items-center justify-center gap-y-[20px] rounded-[10px] bg-white px-[25px] py-5 shadow-md">
@@ -45,6 +50,7 @@ const UserCard = ({ name, surname, detail }: UserCardProps) => {
           {name} {surname}
         </p>
         <form
+          ref={animateParent}
           onSubmit={onSubmit}
           className="flex w-full max-w-[500px] flex-col items-center justify-center gap-y-[20px]"
         >
@@ -86,6 +92,7 @@ const UserCard = ({ name, surname, detail }: UserCardProps) => {
           )}
           {editDetail && (
             <textarea
+              autoFocus
               className="block w-full resize-y rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
               placeholder="Your message..."
               {...register('detail')}
