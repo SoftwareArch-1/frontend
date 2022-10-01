@@ -1,31 +1,27 @@
 import dayjs from 'dayjs'
-import shallow from 'zustand/shallow'
 import { InfoItem } from '../../core/components/InfoItem'
 
-import { useUserStore } from '../userStore'
+export interface AccountInfoListProps {
+  name: string
+  surname: string
+  email: string
+  birthday: Date
+}
 
-export const AccountInfoList = () => {
-  const { name, surname, email, birthday } = useUserStore(
-    ({ name, surname, email, birthday }) => ({
-      name,
-      surname,
-      email,
-      birthday,
-    }),
-    shallow
-  )
-
+export const AccountInfoList = ({
+  birthday,
+  email,
+  name,
+  surname,
+}: AccountInfoListProps) => {
   return (
-    <section className="bg-white p-4">
+    <section className="rounded-[10px] bg-white p-4 shadow-md">
       <ul className="flex flex-col gap-4">
-        <InfoItem
-          label="Name"
-          value={name && surname ? `${name} ${surname}` : 'John Doe'}
-        />
-        <InfoItem label="Email" value={email ?? 'johndoe@example.com'} />
+        <InfoItem label="Name" value={`${name} ${surname}`} />
+        <InfoItem label="Email" value={email} />
         <InfoItem
           label="Day of Birth"
-          value={dayjs(birthday ?? new Date()).format(
+          value={dayjs(birthday).format(
             // ex 01 Jan 2000
             'DD MMM YYYY'
           )}

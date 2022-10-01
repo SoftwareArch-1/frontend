@@ -8,6 +8,7 @@ export const userDtoSchema = z.object({
   name: z.string(),
   surname: z.string(),
   birthday: dateSchema,
+  detail: z.string(),
 })
 
 export type User = z.infer<typeof userDtoSchema>
