@@ -7,4 +7,5 @@ export const pagePath = {
   SignUpPage: () => '/signup',
   ProfilePage: () => '/me',
   ActivityPage: () => '/activity',
+  MyActivityPage: () => '/activity/me',
 }

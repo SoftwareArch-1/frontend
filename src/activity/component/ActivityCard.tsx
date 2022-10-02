@@ -6,7 +6,7 @@ interface ActivityCardProp {
   description: string
   maxParticipant: number
   currentParticipant: number
-  place: string
+  place?: string
   date: string
 }
 
@@ -44,10 +44,12 @@ const ActivityCard = ({
               {currentParticipant} / {maxParticipant}
             </p>
           </div>
-          <div className="flex items-center gap-x-[5px] text-xs text-slate-500">
-            <IconifyIcon icon="map-marker" />
-            <p>{place}</p>
-          </div>
+          {place && (
+            <div className="flex items-center gap-x-[5px] text-xs text-slate-500">
+              <IconifyIcon icon="map-marker" />
+              <p>{place}</p>
+            </div>
+          )}
         </div>
       </div>
     </div>

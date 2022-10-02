@@ -17,6 +17,9 @@ const availableIcons = {
   'calendar-month': 'mdi:calendar-month',
   account: 'mdi:account',
   'map-marker': 'mdi:map-marker',
+  filter: 'mdi:filter',
+  sort: 'mdi:sort',
+  plus: 'mdi:plus',
 } as const
 
 /**
