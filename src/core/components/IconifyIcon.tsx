@@ -20,6 +20,8 @@ const availableIcons = {
   filter: 'mdi:filter',
   sort: 'mdi:sort',
   plus: 'mdi:plus',
+  close: 'mdi:close',
+  check: 'mdi:check',
 } as const
 
 /**

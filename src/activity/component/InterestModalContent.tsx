@@ -72,7 +72,7 @@ const InterestModalContent = ({
 
   return (
     <div>
-      <SearchBar onSearch={fetchInterest} />
+      <SearchBar onSearch={fetchInterest} placeHolder="Search Interest Tag" />
       <div className="h-[30px]"></div>
       <form onSubmit={onSubmit}>
         <ul className="h-[200px] space-y-3 overflow-scroll overflow-x-hidden">

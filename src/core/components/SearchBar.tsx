@@ -5,9 +5,10 @@ import { useDebounce } from 'react-use'
 
 interface ISeacrBarProp {
   onSearch: (searchItem: string) => void
+  placeHolder: string
 }
 
-const SearchBar = ({ onSearch }: ISeacrBarProp) => {
+const SearchBar = ({ onSearch, placeHolder }: ISeacrBarProp) => {
   const { register, watch } = useForm({
     defaultValues: {
       searchBar: '',
@@ -39,8 +40,8 @@ const SearchBar = ({ onSearch }: ISeacrBarProp) => {
       <input
         type="search"
         id="default-search"
-        className="block w-full rounded-[30px]  bg-slate-200 p-4 pl-10 text-sm text-gray-900"
-        placeholder="Search Interest"
+        className="block w-full rounded-[30px]  bg-slate-200 px-10 py-2.5 text-sm text-gray-900"
+        placeholder={placeHolder}
         {...register('searchBar')}
       />
       {/* </form> */}
