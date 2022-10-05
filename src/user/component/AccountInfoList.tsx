@@ -1,4 +1,5 @@
-import dayjs from 'dayjs'
+import { useEffect, useMemo, useState } from 'react'
+
 import { InfoItem } from '../../core/components/InfoItem'
 
 export interface AccountInfoListProps {
@@ -14,17 +15,35 @@ export const AccountInfoList = ({
   name,
   surname,
 }: AccountInfoListProps) => {
+  const [fullName, setFullName] = useState(`${name} ${surname}`)
+  const [emailAddress, setEmailAddress] = useState(email)
+  const [birthDate, setBirthDate] = useState(birthday)
+
+  useEffect(() => {
+    setFullName(`${name} ${surname}`)
+    setEmailAddress(email)
+    setBirthDate(birthday)
+  }, [birthday, email, name, surname])
+
   return (
     <section className="rounded-[10px] bg-white p-4 shadow-md">
       <ul className="flex flex-col gap-4">
-        <InfoItem label="Name" value={`${name} ${surname}`} />
-        <InfoItem label="Email" value={email} />
+        <InfoItem
+          label="Name"
+          onChange={(e) => setFullName(e.target.value)}
+          value={fullName}
+        />
+        <InfoItem
+          label="Email"
+          type="email"
+          onChange={(e) => setEmailAddress(e.target.value)}
+          value={emailAddress}
+        />
         <InfoItem
           label="Day of Birth"
-          value={dayjs(birthday).format(
-            // ex 01 Jan 2000
-            'DD MMM YYYY'
-          )}
+          type="date"
+          onChange={(e) => setBirthDate(new Date(e.target.value))}
+          value={birthDate.toISOString().split('T')[0]}
         />
       </ul>
     </section>
