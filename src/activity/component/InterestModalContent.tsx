@@ -10,11 +10,13 @@ import LoadingSpinner from '../../core/components/LoadingSpinner'
 interface InterestModalProps {
   initInterest: string[]
   onFilter: (data: string[]) => void
+  multipleSelect?: boolean
 }
 
 const InterestModalContent = ({
   initInterest,
   onFilter,
+  multipleSelect = false,
 }: InterestModalProps) => {
   const [isLoading, setIsLoading] = useState(false)
   const [interests, setInterests] = useState<interestSchemaType[] | []>([])
@@ -60,9 +62,9 @@ const InterestModalContent = ({
   const interestsCheckBoxList = interests.map((interest) => (
     <li key={interest.id}>
       <input
-        type="checkbox"
+        type={multipleSelect ? 'checkbox' : 'radio'}
         value={interest.name}
-        name={interest.name}
+        name={multipleSelect ? interest.name : 'radio'}
         defaultChecked={initInterest.includes(interest.name)}
         className="mr-5 h-[16px] w-[16px] appearance-none rounded-full bg-slate-200 align-middle checked:bg-sky-500"
       />
@@ -88,7 +90,7 @@ const InterestModalContent = ({
             className="rounded-lg bg-sky-500 px-3 py-1.5 text-base text-white"
             type="submit"
           >
-            save
+            select
           </button>
         </div>
       </form>

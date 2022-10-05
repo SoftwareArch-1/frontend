@@ -8,6 +8,7 @@ import SearchBar from '../../../core/components/SearchBar'
 import ActivityCard from '../ActivityCard'
 import ActivityDetailCard from '../ActivityDetailCard'
 import InterestModalContent from '../InterestModalContent'
+import ParticipantCard from '../ParticipantCard'
 import RequestCard from '../RequestCard'
 
 const dummyActivity = [
@@ -52,7 +53,11 @@ const ActivityPageContent = () => {
   return (
     <>
       <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <InterestModalContent initInterest={filter} onFilter={onFilter} />
+        <InterestModalContent
+          initInterest={filter}
+          onFilter={onFilter}
+          multipleSelect
+        />
       </Modal>
       <Nav />
       <div className="flex flex-col gap-y-[5px] px-5 pt-[25px] pb-5">
@@ -93,6 +98,12 @@ const ActivityPageContent = () => {
           tag="Game"
           description="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quam ad dignissimos dolor doloremque, totam est enim consequuntur reprehenderit nemo quis!"
           location="Bangkok"
+        />
+        <ParticipantCard
+          name="John Doe"
+          description="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quam ad dignissimos dolor doloremque, totam est enim consequuntur reprehenderit nemo quis!"
+          line="Line Id"
+          discord="Discord Id"
         />
       </div>
       <FloatingActionButton

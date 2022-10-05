@@ -40,7 +40,7 @@ const SearchBar = ({ onSearch, placeHolder }: ISeacrBarProp) => {
       <input
         type="search"
         id="default-search"
-        className="block w-full rounded-[30px]  bg-slate-200 px-10 py-2.5 text-sm text-gray-900"
+        className="block w-full rounded-[30px]  bg-slate-200 py-2.5 pl-10 pr-3 text-sm text-gray-900"
         placeholder={placeHolder}
         {...register('searchBar')}
       />

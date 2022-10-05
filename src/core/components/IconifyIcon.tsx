@@ -22,6 +22,8 @@ const availableIcons = {
   plus: 'mdi:plus',
   close: 'mdi:close',
   check: 'mdi:check',
+  line: 'bi:line',
+  discord: 'bi:discord',
 } as const
 
 /**
