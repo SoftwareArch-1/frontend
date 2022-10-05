@@ -43,7 +43,7 @@ export const InfoItem = ({
         key="label"
       >
         <span>{label}</span>
-        {true && (
+        {editable && (
           <>
             {!editing && (
               <IconifyIcon
