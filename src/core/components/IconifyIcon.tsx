@@ -14,6 +14,16 @@ const availableIcons = {
   'close-thick': 'mdi:close-thick',
   'check-bold': 'mdi:check-bold',
   magnify: 'mdi:magnify',
+  'calendar-month': 'mdi:calendar-month',
+  account: 'mdi:account',
+  'map-marker': 'mdi:map-marker',
+  filter: 'mdi:filter',
+  sort: 'mdi:sort',
+  plus: 'mdi:plus',
+  close: 'mdi:close',
+  check: 'mdi:check',
+  line: 'bi:line',
+  discord: 'bi:discord',
 } as const
 
 /**

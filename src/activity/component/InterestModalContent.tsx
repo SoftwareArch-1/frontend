@@ -1,26 +1,27 @@
 import SearchBar from '../../core/components/SearchBar'
-import { useUserStore } from '../userStore'
+import { useUserStore } from '../../user/userStore'
 import { useMutation } from '@tanstack/react-query'
-import { updateUser } from '../api/update'
+import { updateUser } from '../../user/api/update'
 import { FormEventHandler, useEffect, useState } from 'react'
-import { getInterest } from '../api/getInterest'
+import { getInterest } from '../../user/api/getInterest'
 import { interestSchemaType } from '../../core/constant/zod/interestSchema'
 import LoadingSpinner from '../../core/components/LoadingSpinner'
 
 interface InterestModalProps {
   initInterest: string[]
+  onFilter: (data: string[]) => void
+  multipleSelect?: boolean
 }
 
-const InterestModalContent = ({ initInterest }: InterestModalProps) => {
+const InterestModalContent = ({
+  initInterest,
+  onFilter,
+  multipleSelect = false,
+}: InterestModalProps) => {
   const [isLoading, setIsLoading] = useState(false)
   const [interests, setInterests] = useState<interestSchemaType[] | []>([])
 
   const update = useUserStore((state) => state.update)
-
-  const { mutate: updateInterestMutate } = useMutation(updateUser, {
-    onSuccess: (userDto) => update(userDto),
-    onError: (error) => console.error(error),
-  })
 
   const { mutate: fetchInterestMutate } = useMutation(getInterest, {
     onSuccess: (fetchedInterests) => {
@@ -42,11 +43,9 @@ const InterestModalContent = ({ initInterest }: InterestModalProps) => {
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
-    console.log(Object.fromEntries(formData))
-
-    //TODO: format data
-
-    // updateInterestMutate()
+    const form = Object.fromEntries(formData)
+    const formArray = Object.keys(form)
+    onFilter(formArray)
   }
 
   const fetchInterest = (search?: string) => {
@@ -63,9 +62,9 @@ const InterestModalContent = ({ initInterest }: InterestModalProps) => {
   const interestsCheckBoxList = interests.map((interest) => (
     <li key={interest.id}>
       <input
-        type="checkbox"
-        value={interest.id}
-        name={interest.name}
+        type={multipleSelect ? 'checkbox' : 'radio'}
+        value={interest.name}
+        name={multipleSelect ? interest.name : 'radio'}
         defaultChecked={initInterest.includes(interest.name)}
         className="mr-5 h-[16px] w-[16px] appearance-none rounded-full bg-slate-200 align-middle checked:bg-sky-500"
       />
@@ -75,7 +74,7 @@ const InterestModalContent = ({ initInterest }: InterestModalProps) => {
 
   return (
     <div>
-      <SearchBar onSearch={fetchInterest} />
+      <SearchBar onSearch={fetchInterest} placeHolder="Search Interest Tag" />
       <div className="h-[30px]"></div>
       <form onSubmit={onSubmit}>
         <ul className="h-[200px] space-y-3 overflow-scroll overflow-x-hidden">
@@ -91,7 +90,7 @@ const InterestModalContent = ({ initInterest }: InterestModalProps) => {
             className="rounded-lg bg-sky-500 px-3 py-1.5 text-base text-white"
             type="submit"
           >
-            save
+            select
           </button>
         </div>
       </form>
