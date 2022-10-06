@@ -2,6 +2,7 @@ import { useMutation } from '@tanstack/react-query'
 import dayjs from 'dayjs'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import { useEffectOnce } from 'react-use'
 import FloatingActionButton from '../../../core/components/FloatingActionButton'
 import { IconifyIcon } from '../../../core/components/IconifyIcon'
 import LoadingSpinner from '../../../core/components/LoadingSpinner'
@@ -42,6 +43,7 @@ const ActivityPageContent = () => {
   })
 
   const fetchActivities = () => {
+    console.log('fecth')
     setIsLoading(true)
     fetchActivitiesMutate()
   }
@@ -53,10 +55,8 @@ const ActivityPageContent = () => {
   }, [])
 
   const onSort = () => {
-    // console.log(activities, activities.reverse())
     setActivities((prev) => {
       const reverse = prev.slice().reverse()
-      console.log(reverse)
       return reverse
     })
   }
