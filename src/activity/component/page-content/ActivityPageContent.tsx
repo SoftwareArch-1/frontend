@@ -1,61 +1,95 @@
+import { useMutation } from '@tanstack/react-query'
 import dayjs from 'dayjs'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import FloatingActionButton from '../../../core/components/FloatingActionButton'
 import { IconifyIcon } from '../../../core/components/IconifyIcon'
+import LoadingSpinner from '../../../core/components/LoadingSpinner'
 import { Modal } from '../../../core/components/Modal'
 import { Nav } from '../../../core/components/Nav'
 import SearchBar from '../../../core/components/SearchBar'
 import { pagePath } from '../../../core/utils/pagePath'
+import { activityListDetailDto } from '../../../core/sync-with-backend/dto/activity/activityListDetailDto'
+import { getActivities } from '../../api/getActivities'
 import ActivityCard from '../ActivityCard'
-import ActivityDetailCard from '../ActivityDetailCard'
 import InterestModalContent from '../InterestModalContent'
-import ParticipantCard from '../ParticipantCard'
-import RequestCard from '../RequestCard'
-
-const dummyActivity = [
-  {
-    date: new Date(2022, 10, 20),
-    currentParticipant: 1,
-    description: 'Play street basketball 3v3 (4 teams)',
-    maxParticipant: 12,
-    place: 'Suanluang',
-    tag: 'Sport',
-    title: 'Play Basketball',
-  },
-  {
-    date: new Date(2022, 10, 20),
-    currentParticipant: 1,
-    description: 'Play soccer 11v11 (2 teams)',
-    maxParticipant: 22,
-    place: 'Suanluang',
-    tag: 'Sport',
-    title: 'Play Soccer',
-  },
-  {
-    date: new Date(2022, 10, 5),
-    currentParticipant: 3,
-    description: 'Play valorant (1 team) have discord',
-    maxParticipant: 5,
-    tag: 'Game',
-    title: 'Play Valorant',
-  },
-]
 
 const ActivityPageContent = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [filter, setFilter] = useState<string[]>([])
+  const [isLoading, setIsLoading] = useState(false)
+  const [allActivities, setAllActivities] = useState<
+    activityListDetailDto[] | []
+  >([])
+  const [activities, setActivities] = useState<activityListDetailDto[] | []>([])
+
+  const { mutate: fetchActivitiesMutate } = useMutation(getActivities, {
+    onSuccess: (fetchedActivities) => {
+      // setInterests(fetchedInterests.interests)
+      // setIsLoading(false)
+
+      //mock check loading
+      setTimeout(function () {
+        setActivities(fetchedActivities.activities)
+        setAllActivities(fetchedActivities.activities)
+        setIsLoading(false)
+      }, 1000)
+    },
+    onError: (error) => {
+      console.error(error)
+      setIsLoading(false)
+    },
+  })
+
+  const fetchActivities = () => {
+    setIsLoading(true)
+    fetchActivitiesMutate()
+  }
+
+  useEffect(() => {
+    if (!isLoading) {
+      fetchActivities()
+    }
+  }, [])
+
+  const onSort = () => {
+    // console.log(activities, activities.reverse())
+    setActivities((prev) => {
+      const reverse = prev.slice().reverse()
+      console.log(reverse)
+      return reverse
+    })
+  }
 
   const router = useRouter()
 
   const onFilter = (filterArray: string[]) => {
     setFilter(filterArray)
-    console.log(filterArray)
+    const result = allActivities.filter((activity) =>
+      filterArray.includes(activity.tag)
+    )
+    setActivities(result)
     setIsModalOpen(false)
   }
 
+  const activitiesList = activities.map((activityItem) => (
+    <ActivityCard
+      currentParticipant={activityItem.currentParticipant}
+      date={dayjs(activityItem.date).format(
+        // ex 01 Jan 2000
+        'DD/MM/YYYY'
+      )}
+      description={activityItem.description}
+      maxParticipant={activityItem.maxParticipant}
+      location={activityItem.location}
+      tag={activityItem.tag}
+      title={activityItem.title}
+      key={activityItem.title}
+    />
+  ))
+
   return (
-    <>
+    <div className="flex h-screen flex-col">
       <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <InterestModalContent
           initInterest={filter}
@@ -64,7 +98,7 @@ const ActivityPageContent = () => {
         />
       </Modal>
       <Nav />
-      <div className="flex flex-col gap-y-[5px] px-5 pt-[25px] pb-5">
+      <div className="flex h-full flex-col gap-y-3 px-5 pt-[25px] pb-5">
         <div className="flex w-full flex-row items-center gap-x-2.5">
           <div className="w-full">
             <SearchBar
@@ -73,25 +107,16 @@ const ActivityPageContent = () => {
             />
           </div>
           <IconifyIcon icon="filter" onClick={() => setIsModalOpen(true)} />
-          <IconifyIcon icon="sort" />
+          <IconifyIcon icon="sort" onClick={onSort} />
         </div>
-        <div className="flex flex-col gap-y-3">
-          {dummyActivity.map((activityItem) => (
-            <ActivityCard
-              currentParticipant={activityItem.currentParticipant}
-              date={dayjs(activityItem.date).format(
-                // ex 01 Jan 2000
-                'DD/MM/YYYY'
-              )}
-              description={activityItem.description}
-              maxParticipant={activityItem.maxParticipant}
-              place={activityItem.place}
-              tag={activityItem.tag}
-              title={activityItem.title}
-              key={activityItem.title}
-            />
-          ))}
-        </div>
+        {isLoading && (
+          <div className="flex h-full w-full flex-col items-center justify-center">
+            <LoadingSpinner />
+          </div>
+        )}
+        {!isLoading && (
+          <div className="flex flex-col gap-y-3 pb-5">{activitiesList}</div>
+        )}
       </div>
       <FloatingActionButton
         className="bg-sky-500"
@@ -103,7 +128,7 @@ const ActivityPageContent = () => {
       >
         <IconifyIcon icon="plus" className="h-7 w-7 text-white" />
       </FloatingActionButton>
-    </>
+    </div>
   )
 }
 

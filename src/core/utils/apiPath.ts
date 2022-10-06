@@ -15,5 +15,7 @@ export const apiPath = {
   },
 
   /** for activity service */
-  activity: {},
+  activity: {
+    getActivities: () => `${config.gatewayUrl}/activities`,
+  },
 } as const
