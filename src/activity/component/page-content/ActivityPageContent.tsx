@@ -61,11 +61,13 @@ const ActivityPageContent = () => {
       </Modal>
       <Nav />
       <div className="flex flex-col gap-y-[5px] px-5 pt-[25px] pb-5">
-        <SearchBar
-          onSearch={(data) => console.log(data)}
-          placeHolder="Search Activity"
-        />
-        <div className="flex flex-row justify-end gap-x-4 px-[5px]">
+        <div className="flex w-full flex-row items-center gap-x-2.5">
+          <div className="w-full">
+            <SearchBar
+              onSearch={(data) => console.log(data)}
+              placeHolder="Search Activity"
+            />
+          </div>
           <IconifyIcon icon="filter" onClick={() => setIsModalOpen(true)} />
           <IconifyIcon icon="sort" />
         </div>
@@ -86,25 +88,6 @@ const ActivityPageContent = () => {
             />
           ))}
         </div>
-        <ActivityDetailCard
-          name="John Doe"
-          title="Play CSGO"
-          currentParticipant={1}
-          maxParticipant={5}
-          date={dayjs(new Date(2022, 10, 5)).format(
-            // ex 01 Jan 2000
-            'DD/MM/YYYY'
-          )}
-          tag="Game"
-          description="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quam ad dignissimos dolor doloremque, totam est enim consequuntur reprehenderit nemo quis!"
-          location="Bangkok"
-        />
-        <ParticipantCard
-          name="John Doe"
-          description="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quam ad dignissimos dolor doloremque, totam est enim consequuntur reprehenderit nemo quis!"
-          line="Line Id"
-          discord="Discord Id"
-        />
       </div>
       <FloatingActionButton
         className="bg-sky-500"
