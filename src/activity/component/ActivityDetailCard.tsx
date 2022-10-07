@@ -1,3 +1,4 @@
+import { MouseEventHandler } from 'react'
 import ButtonLong from '../../core/components/ButtonLong'
 import { IconifyIcon } from '../../core/components/IconifyIcon'
 import InterestTag from '../../core/components/InterestTag'
@@ -11,6 +12,8 @@ interface ActivityCardDetailProps {
   tag: string
   description: string
   location?: string
+  buttonText: string
+  onClick: MouseEventHandler<HTMLButtonElement>
 }
 
 const ActivityDetailCard = ({
@@ -22,6 +25,8 @@ const ActivityDetailCard = ({
   tag,
   description,
   location,
+  buttonText,
+  onClick,
 }: ActivityCardDetailProps) => {
   return (
     <div className="w-full rounded-[10px] bg-white px-2.5 py-2.5 shadow-md">
@@ -67,12 +72,7 @@ const ActivityDetailCard = ({
       </div>
       <div className="h-[40px]"></div>
       <div className="flex items-center justify-center">
-        <ButtonLong
-          onClick={() => {
-            console.log('click')
-          }}
-          text="Join"
-        />
+        <ButtonLong onClick={onClick} text={buttonText} />
       </div>
     </div>
   )

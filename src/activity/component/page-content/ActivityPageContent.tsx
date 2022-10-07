@@ -65,11 +65,16 @@ const ActivityPageContent = () => {
 
   const onFilter = (filterArray: string[]) => {
     setFilter(filterArray)
-    const result = allActivities.filter((activity) =>
-      filterArray.includes(activity.tag)
-    )
-    setActivities(result)
-    setIsModalOpen(false)
+    if (filterArray.length === 0) {
+      setActivities(allActivities)
+      setIsModalOpen(false)
+    } else {
+      const result = allActivities.filter((activity) =>
+        filterArray.includes(activity.tag)
+      )
+      setActivities(result)
+      setIsModalOpen(false)
+    }
   }
 
   const activitiesList = activities.map((activityItem) => (

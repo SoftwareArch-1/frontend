@@ -1,6 +1,7 @@
 import { IconifyIcon } from '../../core/components/IconifyIcon'
 
 interface RequestCardProps {
+  id: string
   name: string
   detail?: string
   onCancel: () => void
@@ -8,6 +9,7 @@ interface RequestCardProps {
 }
 
 const RequestCard = ({
+  id,
   name,
   detail,
   onCancel,

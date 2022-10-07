@@ -1,6 +1,7 @@
 import { IconifyIcon } from '../../core/components/IconifyIcon'
 
 interface ParticipantCardProps {
+  id: string
   name: string
   description?: string
   line?: string
@@ -8,6 +9,7 @@ interface ParticipantCardProps {
 }
 
 const ParticipantCard = ({
+  id,
   name,
   description,
   line,
