@@ -1,13 +1,15 @@
-import * as z from 'zod';
+import * as z from 'zod'
+
+import { dateSchema } from '../../../../constant/zod/zodDateSchema'
 
 export const ActivityModel = z.object({
   id: z.string(),
-  createdAt: z.date(),
-  updatedAt: z.date(),
+  createdAt: dateSchema,
+  updatedAt: dateSchema,
   name: z.string(),
   description: z.string(),
   ownerId: z.string(),
-  targetDate: z.date(),
+  targetDate: dateSchema,
   maxParticipants: z.number().int(),
   requireLine: z.boolean(),
   requireDiscord: z.boolean(),
@@ -15,4 +17,4 @@ export const ActivityModel = z.object({
   location: z.string().nullish(),
   joinedUserIds: z.string().array(),
   pendingUserIds: z.string().array(),
-});
+})
