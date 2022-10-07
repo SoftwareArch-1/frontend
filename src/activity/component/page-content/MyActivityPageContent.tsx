@@ -10,8 +10,12 @@ import { useMutation } from '@tanstack/react-query'
 import { getMyActivities } from '../../api/getMyActivities'
 import { useEffectOnce } from 'react-use'
 import LoadingSpinner from '../../../core/components/LoadingSpinner'
+import { useRouter } from 'next/router'
+import { pagePath } from '../../../core/utils/pagePath'
 
 const MyActivityPageContent = () => {
+  const router = useRouter()
+
   const [isLoading, setIsLoading] = useState(false)
 
   const [createdActivities, setCreatedActivities] = useState<
@@ -118,7 +122,10 @@ const MyActivityPageContent = () => {
                     location={activityItem.location}
                     tag={activityItem.tag}
                     title={activityItem.title}
-                    key={activityItem.title}
+                    key={activityItem.id}
+                    onClick={() => {
+                      router.push(pagePath.ActivityDetailPage(activityItem.id))
+                    }}
                   />
                 ))}
               </Tab.Panel>
@@ -135,7 +142,10 @@ const MyActivityPageContent = () => {
                     location={activityItem.location}
                     tag={activityItem.tag}
                     title={activityItem.title}
-                    key={activityItem.title}
+                    key={activityItem.id}
+                    onClick={() => {
+                      router.push(pagePath.ActivityDetailPage(activityItem.id))
+                    }}
                   />
                 ))}
               </Tab.Panel>

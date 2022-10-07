@@ -3,6 +3,7 @@ import { requireStringSchema } from '../../../constant/zod/requireStringSchema'
 import { dateSchema } from '../../../constant/zod/zodDateSchema'
 
 export const activityListDetailDtoSchema = z.object({
+  id: requireStringSchema,
   title: requireStringSchema,
   tag: requireStringSchema,
   description: requireStringSchema,

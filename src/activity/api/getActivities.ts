@@ -5,6 +5,7 @@ import { apiPath } from '../../core/utils/apiPath'
 const mockActivities = {
   activities: [
     {
+      id: 'a1',
       date: new Date(2022, 10, 20),
       currentParticipant: 1,
       description: 'Play street basketball 3v3 (4 teams)',
@@ -14,6 +15,7 @@ const mockActivities = {
       title: 'Play Basketball',
     },
     {
+      id: 'a2',
       date: new Date(2022, 10, 20),
       currentParticipant: 1,
       description: 'Play soccer 11v11 (2 teams)',
@@ -23,6 +25,7 @@ const mockActivities = {
       title: 'Play Soccer',
     },
     {
+      id: 'a3',
       date: new Date(2022, 10, 5),
       currentParticipant: 3,
       description: 'Play valorant (1 team) have discord',

@@ -1,90 +1,90 @@
 import dayjs from 'dayjs'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Nav } from '../../../core/components/Nav'
 import { ParticipantDto } from '../../../core/sync-with-backend/dto/activity/participantDto'
 import { PendingDto } from '../../../core/sync-with-backend/dto/activity/pendingDto'
+import { getActivity } from '../../api/getActivity'
 import ActivityDetailCard from '../ActivityDetailCard'
 import ParticipantList from '../ParticipantList'
 import ParticipantListTabs from '../ParticipantListTabs'
-
-const dummyParticipant = [
-  {
-    id: 'p-1',
-    name: 'John Doe',
-    description: 'sjhjlsdgklj',
-    line: 'Line Id',
-    discord: 'Discord',
-  },
-  {
-    id: 'p-2',
-    name: 'John Doe',
-    description: 'sjhjlsdgklj',
-    line: 'Line Id',
-  },
-  {
-    id: 'p-3',
-    name: 'John Doe',
-    description: 'sjhjlsdgklj',
-    line: 'Line Id',
-  },
-  {
-    id: 'p-4',
-    name: 'John Doe',
-    description: 'sjhjlsdgklj',
-    line: 'Line Id',
-  },
-]
-
-const dummyPending = [
-  {
-    id: 'pe-1',
-    name: 'John Doe',
-    description: 'sjhjlsdgklj',
-  },
-  {
-    id: 'pe-2',
-    name: 'John Doe',
-    description: 'sjhjlsdgklj',
-  },
-  {
-    id: 'pe-3',
-    name: 'John Doe',
-    description: 'sjhjlsdgklj',
-  },
-]
+import { useMutation } from '@tanstack/react-query'
+import { activityDetailDto } from '../../../core/sync-with-backend/dto/activity/activityDetail'
 
 const ActivityDetailPageContent = () => {
   const router = useRouter()
   const { id } = router.query
 
-  const [pending, setPending] = useState<PendingDto[] | []>(dummyPending)
-  // const [pending, setPending] = useState<PendingDto[] | []>([])
-  const [participant, setParticipant] = useState<ParticipantDto[] | []>(
-    dummyParticipant
-  )
+  // const [pending, setPending] = useState<PendingDto[] | []>(dummyPending)
+  // // const [pending, setPending] = useState<PendingDto[] | []>([])
+  // const [participant, setParticipant] = useState<ParticipantDto[] | []>(
+  //   dummyParticipant
+  // )
+
+  const [activityDetail, setActivityDetail] = useState<
+    activityDetailDto | undefined
+  >()
+
+  const [isLoading, setIsLoading] = useState(false)
+
+  const { mutate: fetchActivityDetailMutate } = useMutation(getActivity, {
+    onSuccess: (fetchedActivities) => {
+      console.log(fetchedActivities)
+      setTimeout(function () {
+        // setCreatedActivities(fetchedActivities.createdActivities)
+        // setJoinedActivities(fetchedActivities.joinedActivities)
+        setActivityDetail(fetchedActivities)
+        setIsLoading(false)
+      }, 1000)
+    },
+    onError: (error) => {
+      console.error(error)
+      setIsLoading(false)
+    },
+  })
+
+  const fecthActivityDetail = () => {
+    setIsLoading(true)
+    fetchActivityDetailMutate(String(id))
+  }
+
+  useEffect(() => {
+    if (!isLoading) {
+      fecthActivityDetail()
+    }
+  }, [])
 
   return (
     <>
       <Nav />
       <div className="flex flex-col gap-y-5 px-3 py-5">
-        <ActivityDetailCard
-          name={'John Doe'}
-          title={'Play PUBG'}
-          currentParticipant={2}
-          maxParticipant={4}
-          date={dayjs(new Date()).format(
-            // ex 01 Jan 2000
-            'DD/MM/YYYY'
-          )}
-          tag={'Game'}
-          description={'Play public match PUBG'}
-          buttonText="Join"
-          onClick={() => {}}
-        />
-        {pending.length === 0 && <ParticipantList participant={participant} />}
-        {pending.length !== 0 && (
-          <ParticipantListTabs participant={participant} pending={pending} />
+        {activityDetail && (
+          <>
+            <ActivityDetailCard
+              name={activityDetail.ownerName}
+              title={activityDetail.title}
+              currentParticipant={activityDetail.currentParticipant}
+              maxParticipant={activityDetail.maxParticipant}
+              date={dayjs(activityDetail.date).format(
+                // ex 01 Jan 2000
+                'DD/MM/YYYY'
+              )}
+              tag={activityDetail.tag}
+              description={activityDetail.description}
+              buttonText={activityDetail.status === 'joined' ? 'Chat' : 'Join'}
+              location={activityDetail.location}
+              onClick={() => {}}
+            />
+            {!activityDetail.pending && (
+              <ParticipantList participant={activityDetail.participant} />
+            )}
+            {activityDetail.pending && (
+              <ParticipantListTabs
+                participant={activityDetail.participant}
+                pending={activityDetail.pending}
+              />
+            )}
+          </>
         )}
       </div>
     </>

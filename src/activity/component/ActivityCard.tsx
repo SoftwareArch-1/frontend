@@ -1,3 +1,4 @@
+import { MouseEventHandler } from 'react'
 import { IconifyIcon } from '../../core/components/IconifyIcon'
 
 interface ActivityCardProp {
@@ -8,6 +9,7 @@ interface ActivityCardProp {
   currentParticipant: number
   location?: string
   date: string
+  onClick?: MouseEventHandler<HTMLDivElement>
 }
 
 const ActivityCard = ({
@@ -18,9 +20,13 @@ const ActivityCard = ({
   currentParticipant,
   location,
   date,
+  onClick,
 }: ActivityCardProp) => {
   return (
-    <div className="flex w-full overflow-hidden rounded-[10px] shadow-md">
+    <div
+      className="flex w-full overflow-hidden rounded-[10px] shadow-md"
+      onClick={onClick}
+    >
       <div className="flex w-[40px] items-center justify-center bg-orange-500">
         <p className="-rotate-90 text-white">{tag}</p>
       </div>

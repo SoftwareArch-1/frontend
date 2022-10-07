@@ -11,11 +11,14 @@ import { Nav } from '../../../core/components/Nav'
 import SearchBar from '../../../core/components/SearchBar'
 import { pagePath } from '../../../core/utils/pagePath'
 import { activityListDetailDto } from '../../../core/sync-with-backend/dto/activity/activityListDetailDto'
+import { pagePath } from '../../../core/utils/pagePath'
 import { getActivities } from '../../api/getActivities'
 import ActivityCard from '../ActivityCard'
 import InterestModalContent from '../InterestModalContent'
 
 const ActivityPageContent = () => {
+  const router = useRouter()
+
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [filter, setFilter] = useState<string[]>([])
   const [isLoading, setIsLoading] = useState(false)
@@ -89,7 +92,10 @@ const ActivityPageContent = () => {
       location={activityItem.location}
       tag={activityItem.tag}
       title={activityItem.title}
-      key={activityItem.title}
+      key={activityItem.id}
+      onClick={() => {
+        router.push(pagePath.ActivityDetailPage(activityItem.id))
+      }}
     />
   ))
 
