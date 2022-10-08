@@ -12,10 +12,10 @@ const mockMyActivities = {
       description: 'Play basketball at park',
       ownerId: '1234567',
       targetDate: new Date(2022, 10, 10),
-      currentParticipants: 1,
       maxParticipants: 10,
       tag: 'Sport',
       location: 'Chatuchak',
+      joinedUserIds: ['23458'],
     },
     {
       id: 'a2',
@@ -25,10 +25,10 @@ const mockMyActivities = {
       description: 'Play football at park',
       ownerId: 'o;tkfgfg',
       targetDate: new Date(2022, 10, 12),
-      currentParticipants: 17,
       maxParticipants: 22,
       tag: 'Sport',
       location: 'Suanluang',
+      joinedUserIds: ['23458', 'askdf'],
     },
     {
       id: 'a3',
@@ -38,9 +38,9 @@ const mockMyActivities = {
       description: 'Play CSGO public match',
       ownerId: 'asdjhjg',
       targetDate: new Date(2022, 10, 15),
-      currentParticipants: 4,
       maxParticipants: 5,
       tag: 'Game',
+      joinedUserIds: ['adsfikgh', 'asfjg', 'adsfh', 'asdj', 'hjrfg'],
     },
   ],
   joinedActivities: [
@@ -56,6 +56,7 @@ const mockMyActivities = {
       maxParticipants: 10,
       tag: 'Sport',
       location: 'Chatuchak',
+      joinedUserIds: ['asfig', 'asdujg', 'asfk'],
     },
     {
       id: 'j3',
@@ -68,6 +69,7 @@ const mockMyActivities = {
       currentParticipants: 4,
       maxParticipants: 5,
       tag: 'Game',
+      joinedUserIds: ['asfig', 'asdujg', 'asfk'],
     },
   ],
 }

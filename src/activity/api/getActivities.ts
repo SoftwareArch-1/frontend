@@ -15,6 +15,7 @@ const mockActivities = [
     maxParticipants: 10,
     tag: 'Sport',
     location: 'Chatuchak',
+    joinedUserIds: ['1', '2', '3'],
   },
   {
     id: 'a2',
@@ -26,8 +27,9 @@ const mockActivities = [
     targetDate: new Date(2022, 10, 12),
     currentParticipants: 17,
     maxParticipants: 22,
-    tag: 'Sport',
+    tag: 'Shopping',
     location: 'Suanluang',
+    joinedUserIds: ['1', '3'],
   },
   {
     id: 'a3',
@@ -40,6 +42,7 @@ const mockActivities = [
     currentParticipants: 4,
     maxParticipants: 5,
     tag: 'Game',
+    joinedUserIds: ['23458'],
   },
 ]
 

@@ -10,14 +10,13 @@ const mockActivity = {
   description: 'Play overwatch2 public match',
   ownerId: 'owenerId',
   targetDate: new Date(2022, 10, 12),
-  currentParticipants: 4,
   maxParticipants: 5,
   requireLine: false,
   requireDiscord: true,
   tag: 'Game',
   ownerName: 'Baimon Perasit',
   isOwner: false,
-  isJoin: true,
+  joinedUserIds: ['p1', 'p2', 'p3', 'p4'],
   joinedUsers: [
     {
       id: 'p1',
@@ -37,17 +36,47 @@ const mockActivity = {
       id: 'p3',
       name: 'Jane Doe',
       description: 'Just wanna play games',
-      lineId: 'Line Id',
+      lineId: null,
       discordId: 'Jane',
     },
     {
       id: 'p4',
       name: 'Noname',
       description: 'Just wanna play games',
-      lineId: 'Line Id',
+      lineId: null,
       discordId: '555',
     },
   ],
+  // pendingUsers: [
+  //   {
+  //     id: 'p1',
+  //     name: 'Baimon Perasit',
+  //     description: 'Just wanna play games',
+  //     lineId: 'Line Id',
+  //     discordId: 'baimon munk',
+  //   },
+  //   {
+  //     id: 'p2',
+  //     name: 'John Dow',
+  //     description: 'Hardworking but lazy',
+  //     lineId: 'Line Id',
+  //     discordId: 'John',
+  //   },
+  //   {
+  //     id: 'p3',
+  //     name: 'Jane Doe',
+  //     description: 'Just wanna play games',
+  //     lineId: 'Line Id',
+  //     discordId: 'Jane',
+  //   },
+  //   {
+  //     id: 'p4',
+  //     name: 'Noname',
+  //     description: 'Just wanna play games',
+  //     lineId: 'Line Id',
+  //     discordId: '555',
+  //   },
+  // ],
 }
 
 export const getActivity = async (id: string) => {

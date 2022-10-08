@@ -10,7 +10,6 @@ export const ActivityModel = z.object({
   description: z.string(),
   ownerId: z.string(),
   targetDate: dateSchema,
-  currentParticipants: z.number().int(),
   maxParticipants: z.number().int(),
   requireLine: z.boolean(),
   requireDiscord: z.boolean(),

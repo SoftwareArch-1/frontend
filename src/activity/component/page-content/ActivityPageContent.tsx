@@ -13,10 +13,17 @@ import ParticipantList from '../ParticipantList'
 import ParticipantListTabs from '../ParticipantListTabs'
 import { useMutation } from '@tanstack/react-query'
 import { FindOneActivity } from '../../../core/sync-with-backend/dto/activity/dto/findOne.dto'
+import { useUserStore } from '../../../user/userStore'
 
 const ActivityPageContent = () => {
   const router = useRouter()
   const { id } = router.query
+
+  const { id: userId } = useUserStore(({ id }) => ({
+    id,
+  }))
+
+  console.log(userId)
 
   const [activityDetail, setActivityDetail] = useState<
     FindOneActivity | undefined
@@ -26,7 +33,6 @@ const ActivityPageContent = () => {
 
   const { mutate: fetchActivityDetailMutate } = useMutation(getActivity, {
     onSuccess: (fetchedActivities) => {
-      console.log(fetchedActivities)
       setTimeout(function () {
         setActivityDetail(fetchedActivities)
         setIsLoading(false)
@@ -98,7 +104,7 @@ const ActivityPageContent = () => {
             <ActivityDetailCard
               name={activityDetail.ownerName}
               title={activityDetail.name}
-              currentParticipant={activityDetail.currentParticipants}
+              currentParticipant={activityDetail.joinedUsers.length}
               maxParticipant={activityDetail.maxParticipants}
               date={dayjs(activityDetail.targetDate).format(
                 // ex 01 Jan 2000
@@ -106,7 +112,11 @@ const ActivityPageContent = () => {
               )}
               tag={activityDetail.tag}
               description={activityDetail.description}
-              buttonText={activityDetail.isJoin ? 'Chat' : 'Join'}
+              buttonText={
+                activityDetail.joinedUserIds.includes(userId ?? '')
+                  ? 'Chat'
+                  : 'Join'
+              }
               location={activityDetail.location}
               onClick={() => {}}
             />
@@ -116,7 +126,7 @@ const ActivityPageContent = () => {
             {activityDetail.isOwner && (
               <ParticipantListTabs
                 participant={activityDetail.joinedUsers}
-                pending={activityDetail.pendingUsers!}
+                pending={activityDetail.pendingUsers ?? []}
               />
             )}
           </>

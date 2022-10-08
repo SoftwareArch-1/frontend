@@ -3,7 +3,6 @@ import { ActivityModel } from '../zod'
 
 export const eachInAll = ActivityModel.omit({
   pendingUserIds: true,
-  joinedUserIds: true,
   ownerId: true,
   requireLine: true,
   requireDiscord: true,

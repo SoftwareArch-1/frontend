@@ -11,18 +11,16 @@ import { ActivityModel } from '../zod'
 //   joinedUsers: activityUser.array(),
 //   isOwner: z.boolean(), // tells if the request comes from the owner of the activity or not
 //   isJoin: z.boolean(),
-//   pendingUsers: z.union([activityUser.array(), z.undefined()]),
+//   pendingUsers: activityUser.array().nullish(),
 // })
 
 export const findOneActivity = ActivityModel.omit({
   pendingUserIds: true,
-  joinedUserIds: true,
 }).extend({
   ownerName: z.string(),
   joinedUsers: activityUser.array(),
   isOwner: z.boolean(), // tells if the request comes from the owner of the activity or not
-  isJoin: z.boolean(),
-  pendingUsers: z.union([activityUser.array(), z.undefined()]),
+  pendingUsers: activityUser.array().nullish(),
 })
 
 export type FindOneActivity = z.infer<typeof findOneActivity>

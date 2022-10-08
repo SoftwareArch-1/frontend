@@ -3,7 +3,7 @@ import { IconifyIcon } from '../../core/components/IconifyIcon'
 interface RequestCardProps {
   id: string
   name: string
-  detail?: string
+  detail?: string | null
   onCancel: () => void
   onConfirm: () => void
 }

@@ -1,5 +1,7 @@
+import classNames from 'classnames'
 import { MouseEventHandler } from 'react'
 import { IconifyIcon } from '../../core/components/IconifyIcon'
+import { getTagColor } from '../constant/activityTagColor'
 
 interface ActivityCardProp {
   tag: string
@@ -27,7 +29,12 @@ const ActivityCard = ({
       className="flex w-full overflow-hidden rounded-[10px] shadow-md"
       onClick={onClick}
     >
-      <div className="flex w-[40px] items-center justify-center bg-orange-500">
+      <div
+        className={classNames(
+          'flex w-[40px] items-center justify-center bg-orange-500',
+          getTagColor(tag)
+        )}
+      >
         <p className="-rotate-90 text-white">{tag}</p>
       </div>
       <div className="flex w-full flex-col gap-y-[10px] overflow-hidden bg-white px-[15px] py-2">
