@@ -4,7 +4,6 @@ import classNames from 'classnames'
 import { IconifyIcon } from '../../../core/components/IconifyIcon'
 import ActivityCard from '../ActivityCard'
 import dayjs from 'dayjs'
-import { activityListDetailDto } from '../../../core/sync-with-backend/dto/activity/activityListDetailDto'
 import { useEffect, useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { getMyActivities } from '../../api/getMyActivities'
@@ -12,6 +11,7 @@ import { useEffectOnce } from 'react-use'
 import LoadingSpinner from '../../../core/components/LoadingSpinner'
 import { useRouter } from 'next/router'
 import { pagePath } from '../../../core/utils/pagePath'
+import { EachActvity } from '../../../core/sync-with-backend/dto/activity/dto/finAll.dto'
 
 const MyActivityPageContent = () => {
   const router = useRouter()
@@ -19,11 +19,11 @@ const MyActivityPageContent = () => {
   const [isLoading, setIsLoading] = useState(false)
 
   const [createdActivities, setCreatedActivities] = useState<
-    activityListDetailDto[] | []
+    EachActvity[] | []
   >([])
-  const [joinedActivities, setJoinedActivities] = useState<
-    activityListDetailDto[] | []
-  >([])
+  const [joinedActivities, setJoinedActivities] = useState<EachActvity[] | []>(
+    []
+  )
 
   const { mutate: fetchMyActivitiesMutate } = useMutation(getMyActivities, {
     onSuccess: (fetchedActivities) => {
@@ -48,7 +48,6 @@ const MyActivityPageContent = () => {
       const reverse = prev.slice().reverse()
       return reverse
     })
-
     setJoinedActivities((prev) => {
       const reverse = prev.slice().reverse()
       return reverse
@@ -112,16 +111,16 @@ const MyActivityPageContent = () => {
               <Tab.Panel className="flex flex-col gap-y-3">
                 {createdActivities.map((activityItem) => (
                   <ActivityCard
-                    currentParticipant={activityItem.currentParticipant}
-                    date={dayjs(activityItem.date).format(
+                    currentParticipant={activityItem.currentParticipants}
+                    date={dayjs(activityItem.targetDate).format(
                       // ex 01 Jan 2000
                       'DD/MM/YYYY'
                     )}
                     description={activityItem.description}
-                    maxParticipant={activityItem.maxParticipant}
+                    maxParticipant={activityItem.maxParticipants}
                     location={activityItem.location}
                     tag={activityItem.tag}
-                    title={activityItem.title}
+                    title={activityItem.name}
                     key={activityItem.id}
                     onClick={() => {
                       router.push(pagePath.ActivityDetailPage(activityItem.id))
@@ -132,16 +131,16 @@ const MyActivityPageContent = () => {
               <Tab.Panel className="flex flex-col gap-y-3">
                 {joinedActivities.map((activityItem) => (
                   <ActivityCard
-                    currentParticipant={activityItem.currentParticipant}
-                    date={dayjs(activityItem.date).format(
+                    currentParticipant={activityItem.currentParticipants}
+                    date={dayjs(activityItem.targetDate).format(
                       // ex 01 Jan 2000
                       'DD/MM/YYYY'
                     )}
                     description={activityItem.description}
-                    maxParticipant={activityItem.maxParticipant}
+                    maxParticipant={activityItem.maxParticipants}
                     location={activityItem.location}
                     tag={activityItem.tag}
-                    title={activityItem.title}
+                    title={activityItem.name}
                     key={activityItem.id}
                     onClick={() => {
                       router.push(pagePath.ActivityDetailPage(activityItem.id))

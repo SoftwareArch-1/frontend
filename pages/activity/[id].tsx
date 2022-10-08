@@ -1,6 +1,6 @@
-import ActivityDetailPageContent from '../../src/activity/component/page-content/ActivityDetailPageContent'
+import ActivityPageContent from '../../src/activity/component/page-content/ActivityPageContent'
 
 const ActivityDetailPage = () => {
-  return <ActivityDetailPageContent />
+  return <ActivityPageContent />
 }
 export default ActivityDetailPage

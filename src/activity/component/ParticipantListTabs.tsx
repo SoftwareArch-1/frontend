@@ -1,13 +1,12 @@
 import { Tab } from '@headlessui/react'
 import classNames from 'classnames'
-import { ParticipantDto } from '../../core/sync-with-backend/dto/activity/participantDto'
-import { PendingDto } from '../../core/sync-with-backend/dto/activity/pendingDto'
+import { ActivityUser } from '../../core/sync-with-backend/dto/activity/activity-user'
 import ParticipantCard from './ParticipantCard'
 import RequestCard from './RequestCard'
 
 interface ParticipantListTabsProps {
-  participant: ParticipantDto[] | []
-  pending: PendingDto[] | []
+  participant: ActivityUser[] | []
+  pending: ActivityUser[] | []
 }
 
 const ParticipantListTabs = ({
@@ -52,8 +51,8 @@ const ParticipantListTabs = ({
               name={person.name}
               id={person.id}
               description={person.description}
-              discord={person.discord}
-              line={person.line}
+              discord={person.discordId}
+              line={person.lineId}
               key={person.id}
             />
           ))}

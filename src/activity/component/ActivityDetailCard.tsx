@@ -11,7 +11,7 @@ interface ActivityCardDetailProps {
   date: string
   tag: string
   description: string
-  location?: string
+  location?: string | null
   buttonText: string
   onClick: MouseEventHandler<HTMLButtonElement>
 }

@@ -7,7 +7,7 @@ interface ActivityCardProp {
   description: string
   maxParticipant: number
   currentParticipant: number
-  location?: string
+  location?: string | null
   date: string
   onClick?: MouseEventHandler<HTMLDivElement>
 }

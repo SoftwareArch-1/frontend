@@ -1,8 +1,8 @@
-import { ParticipantDto } from '../../core/sync-with-backend/dto/activity/participantDto'
+import { ActivityUser } from '../../core/sync-with-backend/dto/activity/activity-user'
 import ParticipantCard from './ParticipantCard'
 
 interface ParticipantListProps {
-  participant: ParticipantDto[] | []
+  participant: ActivityUser[] | []
 }
 
 const ParticipantList = ({ participant }: ParticipantListProps) => {
@@ -17,8 +17,8 @@ const ParticipantList = ({ participant }: ParticipantListProps) => {
             name={person.name}
             id={person.id}
             description={person.description}
-            discord={person.discord}
-            line={person.line}
+            discord={person.discordId}
+            line={person.lineId}
             key={person.id}
           />
         ))}

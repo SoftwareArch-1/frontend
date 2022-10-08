@@ -1,45 +1,51 @@
 import { axiosInstance } from '../../core/constant/axiosInstance'
-import { activityListDtoSchema } from '../../core/sync-with-backend/dto/activity/activityListDto'
+import { findAllActivitiesDto } from '../../core/sync-with-backend/dto/activity/dto/finAll.dto'
 import { apiPath } from '../../core/utils/apiPath'
 
-const mockActivities = {
-  activities: [
-    {
-      id: 'a1',
-      date: new Date(2022, 10, 20),
-      currentParticipant: 1,
-      description: 'Play street basketball 3v3 (4 teams)',
-      maxParticipant: 12,
-      location: 'Suanluang',
-      tag: 'Sport',
-      title: 'Play Basketball',
-    },
-    {
-      id: 'a2',
-      date: new Date(2022, 10, 20),
-      currentParticipant: 1,
-      description: 'Play soccer 11v11 (2 teams)',
-      maxParticipant: 22,
-      location: 'Suanluang',
-      tag: 'Sport',
-      title: 'Play Soccer',
-    },
-    {
-      id: 'a3',
-      date: new Date(2022, 10, 5),
-      currentParticipant: 3,
-      description: 'Play valorant (1 team) have discord',
-      maxParticipant: 5,
-      tag: 'Game',
-      title: 'Play Valorant',
-    },
-  ],
-}
+const mockActivities = [
+  {
+    id: 'a1',
+    createdAt: new Date(2022, 10, 1),
+    updatedAt: new Date(2022, 10, 1),
+    name: 'Play Basketball',
+    description: 'Play basketball at park',
+    ownerId: '1234567',
+    targetDate: new Date(2022, 10, 10),
+    currentParticipants: 1,
+    maxParticipants: 10,
+    tag: 'Sport',
+    location: 'Chatuchak',
+  },
+  {
+    id: 'a2',
+    createdAt: new Date(2022, 10, 1),
+    updatedAt: new Date(2022, 10, 1),
+    name: 'Play Football',
+    description: 'Play football at park',
+    ownerId: 'o;tkfgfg',
+    targetDate: new Date(2022, 10, 12),
+    currentParticipants: 17,
+    maxParticipants: 22,
+    tag: 'Sport',
+    location: 'Suanluang',
+  },
+  {
+    id: 'a3',
+    createdAt: new Date(2022, 10, 1),
+    updatedAt: new Date(2022, 10, 1),
+    name: 'Play CSGO',
+    description: 'Play CSGO public match',
+    ownerId: 'asdjhjg',
+    targetDate: new Date(2022, 10, 15),
+    currentParticipants: 4,
+    maxParticipants: 5,
+    tag: 'Game',
+  },
+]
 
 export const getActivities = async () => {
   //   const { data } = await axiosInstance.get(apiPath.activity.getActivities())
   //   return activityListDtoSchema.parse(data)
 
-  //mock database
-  return activityListDtoSchema.parse(mockActivities)
+  return findAllActivitiesDto.parse(mockActivities)
 }
