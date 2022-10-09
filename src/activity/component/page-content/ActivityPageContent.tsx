@@ -14,6 +14,9 @@ import ParticipantListTabs from '../ParticipantListTabs'
 import { useMutation } from '@tanstack/react-query'
 import { FindOneActivity } from '../../../core/sync-with-backend/dto/activity/dto/findOne.dto'
 import { useUserStore } from '../../../user/userStore'
+import { joinActivity } from '../../api/joinActivity'
+import { updateParticipant } from '../../api/updateParticipant'
+import { updateParticipantDtoSchema } from '../../../core/sync-with-backend/dto/activity/dto/updateParticipantDto'
 
 const ActivityPageContent = () => {
   const router = useRouter()
@@ -23,13 +26,38 @@ const ActivityPageContent = () => {
     id,
   }))
 
-  console.log(userId)
-
   const [activityDetail, setActivityDetail] = useState<
     FindOneActivity | undefined
   >()
 
   const [isLoading, setIsLoading] = useState(false)
+
+  const { mutate: joinActivityMutate } = useMutation(joinActivity, {
+    onSuccess: () => {
+      fecthActivityDetail()
+    },
+    onError: (error) => {
+      console.error(error)
+    },
+  })
+
+  const { mutate: updateParticipantMutate } = useMutation(updateParticipant, {
+    onSuccess: () => {
+      fecthActivityDetail()
+    },
+    onError: (error) => {
+      console.error(error)
+    },
+  })
+
+  const onUpdateParticipant = (userId: string, accept: boolean) => {
+    const data = updateParticipantDtoSchema.parse({
+      activityId: id,
+      userId,
+      accept,
+    })
+    console.log(data)
+  }
 
   const { mutate: fetchActivityDetailMutate } = useMutation(getActivity, {
     onSuccess: (fetchedActivities) => {
@@ -118,7 +146,11 @@ const ActivityPageContent = () => {
                   : 'Join'
               }
               location={activityDetail.location}
-              onClick={() => {}}
+              onClick={
+                activityDetail.joinedUserIds.includes(userId ?? '')
+                  ? () => {}
+                  : () => joinActivityMutate(String(id))
+              }
             />
             {!activityDetail.isOwner && (
               <ParticipantList participant={activityDetail.joinedUsers} />
@@ -127,6 +159,7 @@ const ActivityPageContent = () => {
               <ParticipantListTabs
                 participant={activityDetail.joinedUsers}
                 pending={activityDetail.pendingUsers ?? []}
+                onUpdateParticipant={onUpdateParticipant}
               />
             )}
           </>

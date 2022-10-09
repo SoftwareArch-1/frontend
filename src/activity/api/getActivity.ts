@@ -1,5 +1,3 @@
-// import { activityDetailDtoSchema } from '../../core/sync-with-backend/dto/activity/activityDetail'
-
 import { findOneActivity } from '../../core/sync-with-backend/dto/activity/dto/findOne.dto'
 
 const mockActivity = {
@@ -15,7 +13,7 @@ const mockActivity = {
   requireDiscord: true,
   tag: 'Game',
   ownerName: 'Baimon Perasit',
-  isOwner: false,
+  isOwner: true,
   joinedUserIds: ['p1', 'p2', 'p3', 'p4'],
   joinedUsers: [
     {
@@ -47,36 +45,36 @@ const mockActivity = {
       discordId: '555',
     },
   ],
-  // pendingUsers: [
-  //   {
-  //     id: 'p1',
-  //     name: 'Baimon Perasit',
-  //     description: 'Just wanna play games',
-  //     lineId: 'Line Id',
-  //     discordId: 'baimon munk',
-  //   },
-  //   {
-  //     id: 'p2',
-  //     name: 'John Dow',
-  //     description: 'Hardworking but lazy',
-  //     lineId: 'Line Id',
-  //     discordId: 'John',
-  //   },
-  //   {
-  //     id: 'p3',
-  //     name: 'Jane Doe',
-  //     description: 'Just wanna play games',
-  //     lineId: 'Line Id',
-  //     discordId: 'Jane',
-  //   },
-  //   {
-  //     id: 'p4',
-  //     name: 'Noname',
-  //     description: 'Just wanna play games',
-  //     lineId: 'Line Id',
-  //     discordId: '555',
-  //   },
-  // ],
+  pendingUsers: [
+    {
+      id: 'p1',
+      name: 'Baimon Perasit',
+      description: 'Just wanna play games',
+      lineId: 'Line Id',
+      discordId: 'baimon munk',
+    },
+    {
+      id: 'p2',
+      name: 'John Dow',
+      description: 'Hardworking but lazy',
+      lineId: 'Line Id',
+      discordId: 'John',
+    },
+    {
+      id: 'p3',
+      name: 'Jane Doe',
+      description: 'Just wanna play games',
+      lineId: 'Line Id',
+      discordId: 'Jane',
+    },
+    {
+      id: 'p4',
+      name: 'Noname',
+      description: 'Just wanna play games',
+      lineId: 'Line Id',
+      discordId: '555',
+    },
+  ],
 }
 
 export const getActivity = async (id: string) => {

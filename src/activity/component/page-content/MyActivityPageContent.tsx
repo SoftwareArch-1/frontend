@@ -111,7 +111,7 @@ const MyActivityPageContent = () => {
               <Tab.Panel className="flex flex-col gap-y-3">
                 {createdActivities.map((activityItem) => (
                   <ActivityCard
-                    currentParticipant={activityItem.currentParticipants}
+                    currentParticipant={activityItem.joinedUserIds.length}
                     date={dayjs(activityItem.targetDate).format(
                       // ex 01 Jan 2000
                       'DD/MM/YYYY'
@@ -131,7 +131,7 @@ const MyActivityPageContent = () => {
               <Tab.Panel className="flex flex-col gap-y-3">
                 {joinedActivities.map((activityItem) => (
                   <ActivityCard
-                    currentParticipant={activityItem.currentParticipants}
+                    currentParticipant={activityItem.joinedUserIds.length}
                     date={dayjs(activityItem.targetDate).format(
                       // ex 01 Jan 2000
                       'DD/MM/YYYY'

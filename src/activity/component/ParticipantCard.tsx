@@ -1,3 +1,4 @@
+import { MouseEventHandler } from 'react'
 import { IconifyIcon } from '../../core/components/IconifyIcon'
 
 interface ParticipantCardProps {

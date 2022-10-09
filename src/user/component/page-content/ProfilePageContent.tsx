@@ -5,11 +5,11 @@ import { useUserStore } from '../../userStore'
 import shallow from 'zustand/shallow'
 
 export const ProfilePageContent = () => {
-  const { name, surname, detail, birthday, email } = useUserStore(
-    ({ name, surname, detail, birthday, email }) => ({
+  const { name, surname, description, birthday, email } = useUserStore(
+    ({ name, surname, description, birthday, email }) => ({
       name,
       surname,
-      detail,
+      description,
       birthday,
       email,
     }),
@@ -23,7 +23,7 @@ export const ProfilePageContent = () => {
         <UserCard
           name={name ?? 'John'}
           surname={surname ?? 'Doe'}
-          detail={detail}
+          detail={description}
           editable={true}
         />
         <AccountInfoList
