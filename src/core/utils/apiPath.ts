@@ -7,8 +7,8 @@ import { config } from '../constant/env-config'
 export const apiPath = {
   /** for user service */
   user: {
-    login: () => `${config.gatewayUrl}/login`,
-    createUser: () => `${config.gatewayUrl}/create-user`,
+    login: () => `${config.gatewayUrl}/auth/login`,
+    createUser: () => `${config.gatewayUrl}/user`,
     updateUser: () => `${config.gatewayUrl}/update-user`,
     review: () => `${config.gatewayUrl}/review`,
     profile: (id: string) => `${config.gatewayUrl}/user/${id}`,
@@ -16,6 +16,7 @@ export const apiPath = {
 
   /** for activity service */
   activity: {
-    getActivities: () => `${config.gatewayUrl}/activities`,
+    getActivities: () => `${config.gatewayUrl}/activity`,
+    getActivityById: (id: string) => `${config.gatewayUrl}/activity/${id}`,
   },
 } as const

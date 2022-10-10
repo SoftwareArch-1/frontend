@@ -11,5 +11,5 @@ export const signUpFormSchema = z.object({
   confirmPassword: passwordSchema,
   name: requireStringSchema,
   surname: requireStringSchema,
-  birthday: dateSchema,
+  birthDate: dateSchema,
 })

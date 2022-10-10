@@ -12,15 +12,21 @@ import { useMutation } from '@tanstack/react-query'
 import { createUser } from '../../api/create'
 import { useUserStore } from '../../userStore'
 import { createUserDtoSchema } from '../../../core/sync-with-backend/dto/user/createUserDto'
+import { useRouter } from 'next/router'
+import { pagePath } from '../../../core/utils/pagePath'
 
 const SignUpPageContent = () => {
+  const router = useRouter()
   const [onFirstPage, setOnFirstPage] = useState(true)
   const [firstSubmit, setFirstSubmit] = useState(false)
 
   const update = useUserStore((state) => state.update)
 
   const { mutate: createUserMutate } = useMutation(createUser, {
-    onSuccess: (userDto) => update(userDto),
+    onSuccess: (userDto) => {
+      update(userDto)
+      router.push(pagePath.ProfilePage())
+    },
     onError: (error) => console.error(error),
   })
 
@@ -147,9 +153,9 @@ const SignUpPageContent = () => {
               />
               <TextField
                 label="Date of Birth"
-                error={errors.birthday}
+                error={errors.birthDate}
                 type="date"
-                useFormRegisterReturn={register('birthday')}
+                useFormRegisterReturn={register('birthDate')}
               />
               <div className="h-[90px]"></div>
               <button

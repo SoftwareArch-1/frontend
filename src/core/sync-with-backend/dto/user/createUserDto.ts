@@ -9,7 +9,7 @@ export const createUserDtoSchema = z.object({
   name: requireStringSchema,
   surname: requireStringSchema,
   password: passwordSchema,
-  birthday: dateSchema,
+  birthDate: dateSchema,
 })
 
 export type CreateUserDto = z.infer<typeof createUserDtoSchema>

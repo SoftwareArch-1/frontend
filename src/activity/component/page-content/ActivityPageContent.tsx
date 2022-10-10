@@ -132,7 +132,7 @@ const ActivityPageContent = () => {
             <ActivityDetailCard
               name={activityDetail.ownerName}
               title={activityDetail.name}
-              currentParticipant={activityDetail.joinedUsers.length}
+              currentParticipant={activityDetail.joinedUsers.length + 1}
               maxParticipant={activityDetail.maxParticipants}
               date={dayjs(activityDetail.targetDate).format(
                 // ex 01 Jan 2000

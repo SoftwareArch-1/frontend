@@ -80,7 +80,7 @@ const ActivitiesPageContent = () => {
 
   const activitiesList = activitiesFilterd.map((activityItem) => (
     <ActivityCard
-      currentParticipant={activityItem.joinedUserIds.length}
+      currentParticipant={activityItem.joinedUserIds.length + 1}
       date={dayjs(activityItem.targetDate).format(
         // ex 01 Jan 2000
         'DD/MM/YYYY'

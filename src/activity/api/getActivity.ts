@@ -1,4 +1,6 @@
+import { axiosInstance } from '../../core/constant/axiosInstance'
 import { findOneActivity } from '../../core/sync-with-backend/dto/activity/dto/findOne.dto'
+import { apiPath } from '../../core/utils/apiPath'
 
 const mockActivity = {
   id: '1',
@@ -78,9 +80,8 @@ const mockActivity = {
 }
 
 export const getActivity = async (id: string) => {
-  //   console.log(id)
-  //   const { data } = await axiosInstance.get(apiPath.activity.getActivities())
-  //   return activityListDtoSchema.parse(data)
-  //mock database
-  return findOneActivity.parse(mockActivity)
+  const { data } = await axiosInstance.get(apiPath.activity.getActivityById(id))
+  return findOneActivity.parse(data)
+  // mock database
+  // return findOneActivity.parse(mockActivity)
 }

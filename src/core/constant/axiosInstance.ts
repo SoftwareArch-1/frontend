@@ -1,5 +1,24 @@
 import axios from 'axios'
+import Router from 'next/router'
+import errorMap from 'zod/lib/locales/en'
+import { pagePath } from '../utils/pagePath'
 
 export const axiosInstance = axios.create({
   withCredentials: true,
 })
+
+axiosInstance.interceptors.response.use(
+  function (response) {
+    // Any status code that lie within the range of 2xx cause this function to trigger
+    // Do something with response data
+    return response
+  },
+  function (error) {
+    if (error.response.status === 401) {
+      Router.push(pagePath.SignUpPage())
+    }
+    // Any status codes that falls outside the range of 2xx cause this function to trigger
+    // Do something with response error
+    return Promise.reject(error)
+  }
+)
