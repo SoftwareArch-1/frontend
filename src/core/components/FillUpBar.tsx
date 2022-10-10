@@ -11,45 +11,22 @@ export interface FillUpBarProps {
   className?: string
 }
 
-export const FillUpBar = ({
-  label,
-  value,
-  className,
-  as = 'li',
-}: FillUpBarProps) => {
-  return createElement(
-    as,
-    {
-      className: classNames(
-        'flex flex-row h-[15px] gap-1 pb-2 items-center',
-        className
-      ),
-    },
-    [
-      <span 
-        className="text-black" 
-        key="label">
-          {label}
-      </span>,
-      <div 
-        className="h-[10px] w-[120px] rounded-lg bg-black border-radius-[10px] overflow-hidden" 
-        key="value">
-          <div 
-            className="h-[100%] rounded-lg bg-sky-500" 
-            style={{width: `${value}%`}}
-            key="a">
-          </div>
-      </div>,
-      // <div key ="label">
-      //   <div className='column'>
-      //     a
-      //   </div>
-      //   <div className='column'>
-      //     b
-      //   </div>
-      //   {/* <span>{label}</span>
-      //   <span className='bg-sky-500'></span> */}
-      // </div>
-    ]
+export const FillUpBar = ({ label, value }: FillUpBarProps) => {
+  return (
+    <div className="flex h-[15px] flex-row items-center gap-1 pb-2">
+      <span className="text-black" key="label">
+        {label}
+      </span>
+      <div
+        className="border-radius-[10px] h-[10px] w-[120px] overflow-hidden rounded-lg bg-black"
+        key="value"
+      >
+        <div
+          className="h-[100%] rounded-lg bg-sky-500"
+          style={{ width: `${value}%` }}
+          key="a"
+        ></div>
+      </div>
+    </div>
   )
 }

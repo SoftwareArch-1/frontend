@@ -24,6 +24,10 @@ const availableIcons = {
   check: 'mdi:check',
   line: 'bi:line',
   discord: 'bi:discord',
+  starOultine: 'material-symbols:star-outline',
+  starSolid: 'material-symbols:star',
+  lineIcon: 'bi:line',
+  discordIcon: 'logos:discord-icon',
 } as const
 
 /**
