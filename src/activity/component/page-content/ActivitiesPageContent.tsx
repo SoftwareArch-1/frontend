@@ -19,8 +19,8 @@ const ActivitiesPageContent = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [filter, setFilter] = useState<string[]>([])
+  const [search, setSearch] = useState<string>('')
   const [isLoading, setIsLoading] = useState(false)
-  const [allActivities, setAllActivities] = useState<EachActvity[] | []>([])
   const [activities, setActivities] = useState<EachActvity[] | []>([])
 
   const { mutate: fetchActivitiesMutate } = useMutation(getActivities, {
@@ -28,7 +28,7 @@ const ActivitiesPageContent = () => {
       //mock check loading
       setTimeout(function () {
         setActivities(fetchedActivities)
-        setAllActivities(fetchedActivities)
+        // setAllActivities(fetchedActivities)
         setIsLoading(false)
       }, 1000)
     },
@@ -59,19 +59,26 @@ const ActivitiesPageContent = () => {
 
   const onFilter = (filterArray: string[]) => {
     setFilter(filterArray)
-    if (filterArray.length === 0) {
-      setActivities(allActivities)
-      setIsModalOpen(false)
-    } else {
-      const result = allActivities.filter((activity) =>
-        filterArray.includes(activity.tag)
-      )
-      setActivities(result)
-      setIsModalOpen(false)
-    }
+    setIsModalOpen(false)
   }
 
-  const activitiesList = activities.map((activityItem) => (
+  const onSearch = (searchText: string) => {
+    setSearch(searchText)
+  }
+
+  const activitiesFilterd = activities.filter((activityItem) => {
+    if (filter.length === 0 && search === '') {
+      return true
+    } else if (filter.length === 0 && search !== '') {
+      return activityItem.name.includes(search)
+    } else {
+      return (
+        activityItem.name.includes(search) && filter.includes(activityItem.tag)
+      )
+    }
+  })
+
+  const activitiesList = activitiesFilterd.map((activityItem) => (
     <ActivityCard
       currentParticipant={activityItem.joinedUserIds.length}
       date={dayjs(activityItem.targetDate).format(
@@ -103,10 +110,7 @@ const ActivitiesPageContent = () => {
       <div className="flex h-full flex-col gap-y-3 px-5 pt-[25px] pb-5">
         <div className="flex w-full flex-row items-center gap-x-2.5">
           <div className="w-full">
-            <SearchBar
-              onSearch={(data) => console.log(data)}
-              placeHolder="Search Activity"
-            />
+            <SearchBar onSearch={onSearch} placeHolder="Search Activity" />
           </div>
           <IconifyIcon icon="filter" onClick={() => setIsModalOpen(true)} />
           <IconifyIcon icon="sort" onClick={onSort} />

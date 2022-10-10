@@ -44,6 +44,19 @@ const mockActivities = [
     tag: 'Game',
     joinedUserIds: ['23458'],
   },
+  {
+    id: 'a4',
+    createdAt: new Date(2022, 10, 1),
+    updatedAt: new Date(2022, 10, 1),
+    name: 'Play Valorant',
+    description: 'Play Valorant public match',
+    ownerId: 'asdjhjg',
+    targetDate: new Date(2022, 10, 15),
+    currentParticipants: 4,
+    maxParticipants: 5,
+    tag: 'Game',
+    joinedUserIds: ['asfg'],
+  },
 ]
 
 export const getActivities = async () => {
