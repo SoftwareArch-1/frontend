@@ -4,8 +4,6 @@ import { dateSchema } from '../../../../constant/zod/zodDateSchema'
 
 export const ActivityModel = z.object({
   id: z.string(),
-  createdAt: dateSchema,
-  updatedAt: dateSchema,
   name: z.string(),
   description: z.string(),
   ownerId: z.string(),
@@ -17,4 +15,4 @@ export const ActivityModel = z.object({
   location: z.string().nullish(),
   joinedUserIds: z.string().array(),
   pendingUserIds: z.string().array(),
-})
+});
