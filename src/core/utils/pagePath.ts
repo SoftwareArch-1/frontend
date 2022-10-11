@@ -8,5 +8,6 @@ export const pagePath = {
   ProfilePage: () => '/me',
   ActivityPage: () => '/activity',
   MyActivityPage: () => '/activity/me',
-  ViewProfilePage: (id: string) => `/profile/${id}`
+  ViewProfilePage: (id: string) => `/profile/${id}`,
+  CreateActivityPage: () => '/activity/create',
 }

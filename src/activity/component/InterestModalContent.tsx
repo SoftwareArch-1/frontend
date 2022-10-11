@@ -19,7 +19,16 @@ const InterestModalContent = ({
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
     const form = Object.fromEntries(formData)
-    const formArray = Object.keys(form)
+    let formArray: string[]
+    if (!multipleSelect) {
+      formArray = []
+      Object.entries(form).forEach(([key, value]) =>
+        formArray.push(String(value))
+      )
+    } else {
+      formArray = Object.keys(form)
+    }
+    console.log(formArray)
     onFilter(formArray)
   }
 
