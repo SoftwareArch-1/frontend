@@ -14,6 +14,7 @@ import { pagePath } from '../../../core/utils/pagePath'
 import { login } from '../../api/login'
 import { useUserStore } from '../../userStore'
 import WithSignInBackground from '../withSigninBackground'
+import { axiosInstance } from '../../../core/constant/axiosInstance'
 
 export const LoginPageContent = () => {
   const router = useRouter()
@@ -29,7 +30,14 @@ export const LoginPageContent = () => {
   const update = useUserStore((state) => state.update)
 
   const { mutate: loginMutate } = useMutation(login, {
-    onSuccess: (userDto) => update(userDto),
+    onSuccess: (userDto) => {
+      update(userDto.user.profile)
+      update({ accessToken: userDto.access_token })
+      axiosInstance.defaults.headers.common[
+        'Authorization'
+      ] = `Bearer ${userDto.access_token}`
+      router.push(pagePath.ProfilePage())
+    },
     onError: (error) => console.error(error),
   })
 
@@ -54,8 +62,8 @@ export const LoginPageContent = () => {
             label="Email Address"
             placeholder="enter your email address"
             type="text"
-            error={errors.email}
-            useFormRegisterReturn={register('email')}
+            error={errors.username}
+            useFormRegisterReturn={register('username')}
           />
           <div className="h-[10px]"></div>
           <TextField

@@ -10,7 +10,7 @@ import { useAutoAnimate } from '@formkit/auto-animate/react'
 interface UserCardProps {
   name: string
   surname: string
-  detail?: string
+  detail?: string | null
   editable: boolean
 }
 

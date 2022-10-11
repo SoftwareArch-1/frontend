@@ -39,12 +39,12 @@ export const AccountInfoList = ({
           onChange={(e) => setEmailAddress(e.target.value)}
           value={emailAddress}
         />
-        <InfoItem
+        {/* <InfoItem
           label="Day of Birth"
           type="date"
           onChange={(e) => setBirthDate(new Date(e.target.value))}
           value={birthDate.toISOString().split('T')[0]}
-        />
+        /> */}
       </ul>
     </section>
   )

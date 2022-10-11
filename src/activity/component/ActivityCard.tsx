@@ -1,4 +1,7 @@
+import classNames from 'classnames'
+import { MouseEventHandler } from 'react'
 import { IconifyIcon } from '../../core/components/IconifyIcon'
+import { getTagColor } from '../constant/activityTagColor'
 
 interface ActivityCardProp {
   tag: string
@@ -6,8 +9,9 @@ interface ActivityCardProp {
   description: string
   maxParticipant: number
   currentParticipant: number
-  place?: string
+  location?: string | null
   date: string
+  onClick?: MouseEventHandler<HTMLDivElement>
 }
 
 const ActivityCard = ({
@@ -16,12 +20,21 @@ const ActivityCard = ({
   description,
   maxParticipant,
   currentParticipant,
-  place,
+  location,
   date,
+  onClick,
 }: ActivityCardProp) => {
   return (
-    <div className="flex w-full overflow-hidden rounded-[10px] shadow-md">
-      <div className="flex w-[40px] items-center justify-center bg-orange-500">
+    <div
+      className="flex w-full overflow-hidden rounded-[10px] shadow-md"
+      onClick={onClick}
+    >
+      <div
+        className={classNames(
+          'flex w-[40px] items-center justify-center bg-orange-500',
+          getTagColor(tag)
+        )}
+      >
         <p className="-rotate-90 text-white">{tag}</p>
       </div>
       <div className="flex w-full flex-col gap-y-[10px] overflow-hidden bg-white px-[15px] py-2">
@@ -44,10 +57,10 @@ const ActivityCard = ({
               {currentParticipant} / {maxParticipant}
             </p>
           </div>
-          {place && (
+          {location && (
             <div className="flex items-center gap-x-[5px] text-xs text-slate-500">
               <IconifyIcon icon="map-marker" />
-              <p>{place}</p>
+              <p>{location}</p>
             </div>
           )}
         </div>

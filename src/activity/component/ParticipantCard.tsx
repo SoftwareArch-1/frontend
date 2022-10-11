@@ -1,13 +1,16 @@
+import { MouseEventHandler } from 'react'
 import { IconifyIcon } from '../../core/components/IconifyIcon'
 
 interface ParticipantCardProps {
+  id: string
   name: string
-  description?: string
-  line?: string
-  discord?: string
+  description?: string | null
+  line?: string | null
+  discord?: string | null
 }
 
 const ParticipantCard = ({
+  id,
   name,
   description,
   line,

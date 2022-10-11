@@ -1,108 +1,124 @@
 import dayjs from 'dayjs'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
-import FloatingActionButton from '../../../core/components/FloatingActionButton'
-import { IconifyIcon } from '../../../core/components/IconifyIcon'
-import { Modal } from '../../../core/components/Modal'
 import { Nav } from '../../../core/components/Nav'
-import SearchBar from '../../../core/components/SearchBar'
-import { pagePath } from '../../../core/utils/pagePath'
-import ActivityCard from '../ActivityCard'
+import { getActivity } from '../../api/getActivity'
 import ActivityDetailCard from '../ActivityDetailCard'
-import InterestModalContent from '../InterestModalContent'
-import ParticipantCard from '../ParticipantCard'
-import RequestCard from '../RequestCard'
-
-const dummyActivity = [
-  {
-    date: new Date(2022, 10, 20),
-    currentParticipant: 1,
-    description: 'Play street basketball 3v3 (4 teams)',
-    maxParticipant: 12,
-    place: 'Suanluang',
-    tag: 'Sport',
-    title: 'Play Basketball',
-  },
-  {
-    date: new Date(2022, 10, 20),
-    currentParticipant: 1,
-    description: 'Play soccer 11v11 (2 teams)',
-    maxParticipant: 22,
-    place: 'Suanluang',
-    tag: 'Sport',
-    title: 'Play Soccer',
-  },
-  {
-    date: new Date(2022, 10, 5),
-    currentParticipant: 3,
-    description: 'Play valorant (1 team) have discord',
-    maxParticipant: 5,
-    tag: 'Game',
-    title: 'Play Valorant',
-  },
-]
+import ParticipantList from '../ParticipantList'
+import ParticipantListTabs from '../ParticipantListTabs'
+import { useMutation, useQuery } from '@tanstack/react-query'
+import { useUserStore } from '../../../user/userStore'
+import { joinActivity } from '../../api/joinActivity'
+import { acceptParticipant } from '../../api/acceptParticipant'
+import { rejectParticipant } from '../../api/rejectParticipant'
+import { FindOneActivity } from '../../../core/sync-with-backend/dto/activity/dto/findOne.dto'
+import { useState } from 'react'
 
 const ActivityPageContent = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [filter, setFilter] = useState<string[]>([])
-
   const router = useRouter()
+  const { id } = router.query
 
-  const onFilter = (filterArray: string[]) => {
-    setFilter(filterArray)
-    console.log(filterArray)
-    setIsModalOpen(false)
+  const { id: userId } = useUserStore(({ id }) => ({
+    id,
+  }))
+
+  const [activityDetail, setActivityDetail] = useState<FindOneActivity>()
+
+  const { mutate: joinActivityMutate } = useMutation(joinActivity, {
+    onSuccess: (data) => {
+      setActivityDetail(data)
+    },
+    onError: (error) => {
+      console.error(error)
+    },
+  })
+
+  const { mutate: acceptParticipantMutate } = useMutation(acceptParticipant, {
+    onSuccess: (data) => {
+      setActivityDetail(data)
+    },
+    onError: (error) => {
+      console.error(error)
+    },
+  })
+
+  const onAccept = (joinedId: string) => {
+    acceptParticipantMutate({
+      activityId: String(id),
+      joinerId: joinedId,
+    })
   }
+
+  const { mutate: rejectParticipantMutate } = useMutation(rejectParticipant, {
+    onSuccess: (data) => {
+      setActivityDetail(data)
+    },
+    onError: (error) => {
+      console.error(error)
+    },
+  })
+
+  const onReject = (joinedId: string) => {
+    rejectParticipantMutate({
+      activityId: String(id),
+      joinerId: joinedId,
+    })
+  }
+
+  const { refetch: refetchActivity } = useQuery(
+    ['getActivity'],
+    () => getActivity(String(id)),
+    {
+      onSuccess: (data) => {
+        setActivityDetail(data)
+      },
+    }
+  )
 
   return (
     <>
-      <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <InterestModalContent
-          initInterest={filter}
-          onFilter={onFilter}
-          multipleSelect
-        />
-      </Modal>
       <Nav />
-      <div className="flex flex-col gap-y-[5px] px-5 pt-[25px] pb-5">
-        <div className="flex w-full flex-row items-center gap-x-2.5">
-          <div className="w-full">
-            <SearchBar
-              onSearch={(data) => console.log(data)}
-              placeHolder="Search Activity"
-            />
-          </div>
-          <IconifyIcon icon="filter" onClick={() => setIsModalOpen(true)} />
-          <IconifyIcon icon="sort" />
-        </div>
-        <div className="flex flex-col gap-y-3">
-          {dummyActivity.map((activityItem) => (
-            <ActivityCard
-              currentParticipant={activityItem.currentParticipant}
-              date={dayjs(activityItem.date).format(
+      <div className="flex flex-col gap-y-5 px-3 py-5">
+        {activityDetail && (
+          <>
+            <ActivityDetailCard
+              name={activityDetail.ownerName}
+              title={activityDetail.name}
+              currentParticipant={activityDetail.joinedUsers.length}
+              maxParticipant={activityDetail.maxParticipants}
+              date={dayjs(activityDetail.targetDate).format(
                 // ex 01 Jan 2000
                 'DD/MM/YYYY'
               )}
-              description={activityItem.description}
-              maxParticipant={activityItem.maxParticipant}
-              place={activityItem.place}
-              tag={activityItem.tag}
-              title={activityItem.title}
-              key={activityItem.title}
+              tag={activityDetail.tag}
+              description={activityDetail.description}
+              buttonText={
+                activityDetail.joinedUserIds.includes(userId ?? '')
+                  ? 'Chat'
+                  : 'Join'
+              }
+              location={activityDetail.location}
+              onClick={
+                activityDetail.status === 'not-joined'
+                  ? () => {}
+                  : activityDetail.status === 'pending'
+                  ? () => {}
+                  : () => {}
+              }
             />
-          ))}
-        </div>
+            {activityDetail.status !== 'owned' && (
+              <ParticipantList participant={activityDetail.joinedUsers} />
+            )}
+            {activityDetail.status == 'owned' && (
+              <ParticipantListTabs
+                participant={activityDetail.joinedUsers}
+                pending={activityDetail.pendingUsers ?? []}
+                onAccept={onAccept}
+                onReject={onReject}
+              />
+            )}
+          </>
+        )}
       </div>
-      <FloatingActionButton
-        className="bg-sky-500"
-        onClick={() => {
-          console.log('Go to create Activity page')
-          router.push(pagePath.CreateActivityPage())
-          //router.push(pagePath.CreateActivityPage())
-        }}
-      >
-        <IconifyIcon icon="plus" className="h-7 w-7 text-white" />
-      </FloatingActionButton>
     </>
   )
 }

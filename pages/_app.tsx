@@ -5,6 +5,9 @@ import dayjs from 'dayjs'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 import type { AppProps } from 'next/app'
+import { useEffect } from 'react'
+import { useUserStore } from '../src/user/userStore'
+import { getMe } from '../src/core/api/getMe'
 
 const queryClient = new QueryClient({
   defaultOptions: {
