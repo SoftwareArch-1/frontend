@@ -40,7 +40,7 @@ export const findOneActivity = ActivityModel.omit({
 }).extend({
   ownerName: z.string(),
   joinedUsers: activityUser.array(),
-  isOwner: z.boolean(), // tells if the request comes from the owner of the activity or not
+  status: z.enum(['pending', 'joined', 'owned', 'not-joined']),
   pendingUsers: activityUser.array().nullish(),
 })
 

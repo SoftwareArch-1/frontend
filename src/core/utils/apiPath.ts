@@ -18,5 +18,11 @@ export const apiPath = {
   activity: {
     getActivities: () => `${config.gatewayUrl}/activity`,
     getActivityById: (id: string) => `${config.gatewayUrl}/activity/${id}`,
+    getJoinedActivities: (id: string) =>
+      `${config.gatewayUrl}/activity/joined/${id}`,
+    getOwnedActivities: (id: string) =>
+      `${config.gatewayUrl}/activity/owned/${id}`,
+    acceptParticipant: () => `${config.gatewayUrl}/activity/accept-join`,
+    rejectParticipant: () => `${config.gatewayUrl}/activity/decline-join`,
   },
 } as const

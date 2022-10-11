@@ -4,7 +4,7 @@ import { emailSchema } from '../../../constant/zod/emailSchema'
 import { passwordSchema } from '../../../constant/zod/passwordSchema'
 
 export const credentialsSchema = z.object({
-  email: emailSchema,
+  username: emailSchema,
   password: passwordSchema,
 })
 

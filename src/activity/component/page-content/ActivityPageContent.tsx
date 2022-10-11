@@ -1,6 +1,5 @@
 import dayjs from 'dayjs'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
 import { Nav } from '../../../core/components/Nav'
 import SearchBar from '../../../core/components/SearchBar'
 import { pagePath } from '../../../core/utils/pagePath'
@@ -12,11 +11,10 @@ import ActivityDetailCard from '../ActivityDetailCard'
 import ParticipantList from '../ParticipantList'
 import ParticipantListTabs from '../ParticipantListTabs'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { FindOneActivity } from '../../../core/sync-with-backend/dto/activity/dto/findOne.dto'
 import { useUserStore } from '../../../user/userStore'
 import { joinActivity } from '../../api/joinActivity'
-import { updateParticipant } from '../../api/updateParticipant'
-import { updateParticipantDtoSchema } from '../../../core/sync-with-backend/dto/activity/dto/updateParticipantDto'
+import { acceptParticipant } from '../../api/acceptParticipant'
+import { rejectParticipant } from '../../api/rejectParticipant'
 
 const ActivityPageContent = () => {
   const router = useRouter()
@@ -26,7 +24,16 @@ const ActivityPageContent = () => {
     id,
   }))
 
-  const { mutate: joinActivityMutate } = useMutation(joinActivity, {
+  // const { mutate: joinActivityMutate } = useMutation(joinActivity, {
+  //   onSuccess: () => {
+  //     refetchActivity()
+  //   },
+  //   onError: (error) => {
+  //     console.error(error)
+  //   },
+  // })
+
+  const { mutate: acceptParticipantMutate } = useMutation(acceptParticipant, {
     onSuccess: () => {
       refetchActivity()
     },
@@ -35,22 +42,27 @@ const ActivityPageContent = () => {
     },
   })
 
-  const { mutate: updateParticipantMutate } = useMutation(updateParticipant, {
-    onSuccess: () => {
-      refetchActivity()
-    },
-    onError: (error) => {
-      console.error(error)
-    },
-  })
-
-  const onUpdateParticipant = (userId: string, accept: boolean) => {
-    const data = updateParticipantDtoSchema.parse({
-      activityId: id,
-      userId,
-      accept,
+  const onAccept = (joinedId: string) => {
+    acceptParticipantMutate({
+      activityId: String(id),
+      joinerId: joinedId,
     })
-    console.log(data)
+  }
+
+  const { mutate: rejectParticipantMutate } = useMutation(rejectParticipant, {
+    onSuccess: () => {
+      refetchActivity()
+    },
+    onError: (error) => {
+      console.error(error)
+    },
+  })
+
+  const onReject = (joinedId: string) => {
+    rejectParticipantMutate({
+      activityId: String(id),
+      joinerId: joinedId,
+    })
   }
 
   const { data: activityDetail, refetch: refetchActivity } = useQuery(
@@ -122,19 +134,22 @@ const ActivityPageContent = () => {
               }
               location={activityDetail.location}
               onClick={
-                activityDetail.joinedUserIds.includes(userId ?? '')
+                activityDetail.status === 'not-joined'
                   ? () => {}
-                  : () => joinActivityMutate(String(id))
+                  : activityDetail.status === 'pending'
+                  ? () => {}
+                  : () => {}
               }
             />
-            {!activityDetail.isOwner && (
+            {activityDetail.status !== 'owned' && (
               <ParticipantList participant={activityDetail.joinedUsers} />
             )}
-            {activityDetail.isOwner && (
+            {activityDetail.status == 'owned' && (
               <ParticipantListTabs
                 participant={activityDetail.joinedUsers}
                 pending={activityDetail.pendingUsers ?? []}
-                onUpdateParticipant={onUpdateParticipant}
+                onAccept={onAccept}
+                onReject={onReject}
               />
             )}
           </>

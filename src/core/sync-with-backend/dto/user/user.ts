@@ -9,6 +9,8 @@ export const userDtoSchema = z.object({
   surname: z.string(),
   birthDate: dateSchema,
   description: z.string().nullable(),
+  discord: z.string().nullable(),
+  line: z.string().nullable(),
 })
 
 export type User = z.infer<typeof userDtoSchema>

@@ -30,7 +30,7 @@ export const LoginPageContent = () => {
 
   const { mutate: loginMutate } = useMutation(login, {
     onSuccess: (userDto) => {
-      update(userDto)
+      update(userDto.user.profile)
       router.push(pagePath.ProfilePage())
     },
     onError: (error) => console.error(error),
@@ -57,8 +57,8 @@ export const LoginPageContent = () => {
             label="Email Address"
             placeholder="enter your email address"
             type="text"
-            error={errors.email}
-            useFormRegisterReturn={register('email')}
+            error={errors.username}
+            useFormRegisterReturn={register('username')}
           />
           <div className="h-[10px]"></div>
           <TextField

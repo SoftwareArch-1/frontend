@@ -7,13 +7,15 @@ import RequestCard from './RequestCard'
 interface ParticipantListTabsProps {
   participant: ActivityUser[] | []
   pending: ActivityUser[] | []
-  onUpdateParticipant: (userId: string, accept: boolean) => void
+  onAccept: (userId: string) => void
+  onReject: (userId: string) => void
 }
 
 const ParticipantListTabs = ({
   participant,
   pending,
-  onUpdateParticipant,
+  onAccept,
+  onReject,
 }: ParticipantListTabsProps) => {
   return (
     <Tab.Group>
@@ -67,10 +69,10 @@ const ParticipantListTabs = ({
               name={person.name}
               detail={person.description}
               onCancel={() => {
-                onUpdateParticipant(person.id, false)
+                onAccept(person.id)
               }}
               onConfirm={() => {
-                onUpdateParticipant(person.id, true)
+                onReject(person.id)
               }}
             />
           ))}

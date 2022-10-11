@@ -56,8 +56,6 @@ const ActivitiesPageContent = () => {
     }
   })
 
-  console.log(activitiesFilterd)
-
   const activitiesList = activitiesFilterd.map((activityItem) => (
     <ActivityCard
       currentParticipant={activityItem.joinedUserIds.length}

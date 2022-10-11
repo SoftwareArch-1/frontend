@@ -4,18 +4,17 @@ import classNames from 'classnames'
 import { IconifyIcon } from '../../../core/components/IconifyIcon'
 import ActivityCard from '../ActivityCard'
 import dayjs from 'dayjs'
-import { useEffect, useState } from 'react'
-import { useMutation } from '@tanstack/react-query'
-import { getMyActivities } from '../../api/getMyActivities'
+import { useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
 import LoadingSpinner from '../../../core/components/LoadingSpinner'
 import { useRouter } from 'next/router'
 import { pagePath } from '../../../core/utils/pagePath'
 import { EachActvity } from '../../../core/sync-with-backend/dto/activity/dto/finAll.dto'
+import { getJoinedActivity } from '../../api/getJoinedActivities'
+import { getOwnedActivity } from '../../api/getOwnedActivities'
 
 const MyActivityPageContent = () => {
   const router = useRouter()
-
-  const [isLoading, setIsLoading] = useState(false)
 
   const [createdActivities, setCreatedActivities] = useState<
     EachActvity[] | []
@@ -24,23 +23,25 @@ const MyActivityPageContent = () => {
     []
   )
 
-  const { mutate: fetchMyActivitiesMutate } = useMutation(getMyActivities, {
-    onSuccess: (fetchedActivities) => {
-      // setInterests(fetchedInterests.interests)
-      // setIsLoading(false)
+  const { isLoading: joinedActivityIsLoading } = useQuery(
+    ['fetchActivities'],
+    () => getJoinedActivity(''),
+    {
+      onSuccess: (data) => {
+        setJoinedActivities(data)
+      },
+    }
+  )
 
-      //mock check loading
-      setTimeout(function () {
-        setCreatedActivities(fetchedActivities.createdActivities)
-        setJoinedActivities(fetchedActivities.joinedActivities)
-        setIsLoading(false)
-      }, 1000)
-    },
-    onError: (error) => {
-      console.error(error)
-      setIsLoading(false)
-    },
-  })
+  const { isLoading: ownedActivityIsLoading } = useQuery(
+    ['fetchActivities'],
+    () => getOwnedActivity(''),
+    {
+      onSuccess: (data) => {
+        setCreatedActivities(data)
+      },
+    }
+  )
 
   const onSort = () => {
     setCreatedActivities((prev) => {
@@ -52,17 +53,6 @@ const MyActivityPageContent = () => {
       return reverse
     })
   }
-
-  const fecthMyActivities = () => {
-    setIsLoading(true)
-    fetchMyActivitiesMutate()
-  }
-
-  useEffect(() => {
-    if (!isLoading) {
-      fecthMyActivities()
-    }
-  }, [])
 
   return (
     <div className="flex h-screen flex-col">
@@ -100,12 +90,12 @@ const MyActivityPageContent = () => {
           <div className="flex flex-row justify-end gap-x-4 px-[5px]">
             <IconifyIcon icon="sort" onClick={onSort} />
           </div>
-          {isLoading && (
+          {joinedActivityIsLoading && ownedActivityIsLoading && (
             <div className="flex h-full w-full flex-col items-center justify-center">
               <LoadingSpinner />
             </div>
           )}
-          {!isLoading && (
+          {!joinedActivityIsLoading && !ownedActivityIsLoading && (
             <Tab.Panels>
               <Tab.Panel className="flex flex-col gap-y-3">
                 {createdActivities.map((activityItem) => (
