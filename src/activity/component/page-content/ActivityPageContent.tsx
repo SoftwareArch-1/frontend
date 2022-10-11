@@ -1,11 +1,6 @@
 import dayjs from 'dayjs'
 import { useRouter } from 'next/router'
 import { Nav } from '../../../core/components/Nav'
-import SearchBar from '../../../core/components/SearchBar'
-import { pagePath } from '../../../core/utils/pagePath'
-import { getActivities } from '../../api/getActivities'
-import ActivityCard from '../ActivityCard'
-import InterestModalContent from '../InterestModalContent'
 import { getActivity } from '../../api/getActivity'
 import ActivityDetailCard from '../ActivityDetailCard'
 import ParticipantList from '../ParticipantList'
@@ -79,46 +74,6 @@ const ActivityPageContent = () => {
     }
   )
 
-  const onSort = () => {
-    // setActivities((prev) => {
-    //   const reverse = prev.slice().reverse()
-    //   return reverse
-    // })
-  }
-
-  // const onFilter = (filterArray: string[]) => {
-  //   setFilter(filterArray)
-  //   if (filterArray.length === 0) {
-  //     setActivities(allActivities)
-  //     setIsModalOpen(false)
-  //   } else {
-  //     const result = allActivities.filter((activity) =>
-  //       filterArray.includes(activity.tag)
-  //     )
-  //     setActivities(result)
-  //     setIsModalOpen(false)
-  //   }
-  // }
-
-  // const activitiesList = activities.map((activityItem) => (
-  //   <ActivityCard
-  //     currentParticipant={activityItem.currentParticipant}
-  //     date={dayjs(activityItem.date).format(
-  //       // ex 01 Jan 2000
-  //       'DD/MM/YYYY'
-  //     )}
-  //     description={activityItem.description}
-  //     maxParticipant={activityItem.maxParticipant}
-  //     location={activityItem.location}
-  //     tag={activityItem.tag}
-  //     title={activityItem.title}
-  //     key={activityItem.id}
-  //     onClick={() => {
-  //       router.push(pagePath.ActivityDetailPage(activityItem.id))
-  //     }}
-  //   />
-  // ))
-
   return (
     <>
       <Nav />
@@ -164,16 +119,6 @@ const ActivityPageContent = () => {
           </>
         )}
       </div>
-      {/* <FloatingActionButton
-        className="bg-sky-500"
-        onClick={() => {
-          console.log('Go to create Activity page')
-          router.push(pagePath.CreateActivityPage())
-          //router.push(pagePath.CreateActivityPage())
-        }}
-      >
-        <IconifyIcon icon="plus" className="h-7 w-7 text-white" />
-      </FloatingActionButton> */}
     </>
   )
 }
