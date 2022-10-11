@@ -11,6 +11,7 @@ export const apiPath = {
     createUser: () => `${config.gatewayUrl}/create-user`,
     updateUser: () => `${config.gatewayUrl}/update-user`,
     review: () => `${config.gatewayUrl}/review`,
+    profile: (id: string) => `${config.gatewayUrl}/user/${id}`,
   },
 
   /** for activity service */
