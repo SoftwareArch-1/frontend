@@ -10,16 +10,21 @@ import { pagePath } from '../../../core/utils/pagePath'
 export const ProfilePageContent = () => {
   const router = useRouter()
 
-  const { name, surname, description, birthDate, email } = useUserStore(
-    ({ name, surname, description, birthDate, email }) => ({
-      name,
-      surname,
-      description,
-      birthDate,
-      email,
-    }),
-    shallow
-  )
+  const { name, surname, description, birthDate, email, discord, line } =
+    useUserStore(
+      ({ name, surname, description, birthDate, email, discord, line }) => ({
+        name,
+        surname,
+        description,
+        birthDate,
+        email,
+        discord,
+        line,
+      }),
+      shallow
+    )
+
+  console.log(birthDate)
 
   return (
     <>
@@ -36,6 +41,8 @@ export const ProfilePageContent = () => {
           surname={surname ?? 'Doe'}
           email={email ?? 'email@example.com'}
           birthday={birthDate ?? new Date()}
+          line={line}
+          discord={discord}
         />
         <FloatingActionButton
           className="bg-sky-500"

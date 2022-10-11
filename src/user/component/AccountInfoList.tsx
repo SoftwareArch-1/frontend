@@ -7,6 +7,8 @@ export interface AccountInfoListProps {
   surname: string
   email: string
   birthday: Date
+  discord?: string | null
+  line?: string | null
 }
 
 export const AccountInfoList = ({
@@ -14,10 +16,14 @@ export const AccountInfoList = ({
   email,
   name,
   surname,
+  discord,
+  line,
 }: AccountInfoListProps) => {
   const [fullName, setFullName] = useState(`${name} ${surname}`)
   const [emailAddress, setEmailAddress] = useState(email)
   const [birthDate, setBirthDate] = useState(birthday)
+  const [discordId, setDiscord] = useState(discord)
+  const [lineId, setLine] = useState(line)
 
   useEffect(() => {
     setFullName(`${name} ${surname}`)
@@ -39,12 +45,34 @@ export const AccountInfoList = ({
           onChange={(e) => setEmailAddress(e.target.value)}
           value={emailAddress}
         />
-        {/* <InfoItem
+        <InfoItem
           label="Day of Birth"
           type="date"
           onChange={(e) => setBirthDate(new Date(e.target.value))}
           value={birthDate.toISOString().split('T')[0]}
-        /> */}
+        />
+        {
+          <InfoItem
+            label="Discord"
+            type="text"
+            onChange={(e) => {
+              setDiscord(e.target.value)
+            }}
+            value={discordId ?? ''}
+            editable
+          />
+        }
+        {
+          <InfoItem
+            label="Line"
+            type="text"
+            onChange={(e) => {
+              setLine(e.target.value)
+            }}
+            value={lineId ?? ''}
+            editable
+          />
+        }
       </ul>
     </section>
   )

@@ -14,6 +14,7 @@ import { useUserStore } from '../../userStore'
 import { createUserDtoSchema } from '../../../core/sync-with-backend/dto/user/createUserDto'
 import { useRouter } from 'next/router'
 import { pagePath } from '../../../core/utils/pagePath'
+import { axiosInstance } from '../../../core/constant/axiosInstance'
 
 const SignUpPageContent = () => {
   const router = useRouter()
@@ -24,7 +25,11 @@ const SignUpPageContent = () => {
 
   const { mutate: createUserMutate } = useMutation(createUser, {
     onSuccess: (userDto) => {
-      update(userDto)
+      update(userDto.user.profile)
+      update({ accessToken: userDto.access_token })
+      axiosInstance.defaults.headers.common[
+        'Authorization'
+      ] = `Bearer ${userDto.access_token}`
       router.push(pagePath.ProfilePage())
     },
     onError: (error) => console.error(error),

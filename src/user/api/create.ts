@@ -3,7 +3,7 @@ import {
   CreateUserDto,
   createUserDtoSchema,
 } from '../../core/sync-with-backend/dto/user/createUserDto'
-import { userDtoSchema } from '../../core/sync-with-backend/dto/user/user'
+import { LoginDtoSchema } from '../../core/sync-with-backend/dto/user/LoginDto'
 import { apiPath } from '../../core/utils/apiPath'
 
 export const createUser = async (dto: CreateUserDto) => {
@@ -11,5 +11,5 @@ export const createUser = async (dto: CreateUserDto) => {
     apiPath.user.createUser(),
     createUserDtoSchema.parse(dto)
   )
-  return userDtoSchema.parse(data)
+  return LoginDtoSchema.parse(data)
 }
