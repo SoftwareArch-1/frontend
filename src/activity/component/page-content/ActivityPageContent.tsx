@@ -1,10 +1,12 @@
 import dayjs from 'dayjs'
+import { useRouter } from 'next/router'
 import { useState } from 'react'
 import FloatingActionButton from '../../../core/components/FloatingActionButton'
 import { IconifyIcon } from '../../../core/components/IconifyIcon'
 import { Modal } from '../../../core/components/Modal'
 import { Nav } from '../../../core/components/Nav'
 import SearchBar from '../../../core/components/SearchBar'
+import { pagePath } from '../../../core/utils/pagePath'
 import ActivityCard from '../ActivityCard'
 import ActivityDetailCard from '../ActivityDetailCard'
 import InterestModalContent from '../InterestModalContent'
@@ -43,6 +45,8 @@ const dummyActivity = [
 const ActivityPageContent = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [filter, setFilter] = useState<string[]>([])
+
+  const router = useRouter()
 
   const onFilter = (filterArray: string[]) => {
     setFilter(filterArray)
@@ -93,6 +97,7 @@ const ActivityPageContent = () => {
         className="bg-sky-500"
         onClick={() => {
           console.log('Go to create Activity page')
+          router.push(pagePath.CreateActivityPage())
           //router.push(pagePath.CreateActivityPage())
         }}
       >

@@ -19,7 +19,7 @@ const ViewProfilePageContent = () => {
   const { id } = router.query
 
   const { data } = useQuery([getProfile.name], () =>
-    getProfile(String(id))
+    getProfile(String(id)), {enabled: !!id}
   )
 
   return (
