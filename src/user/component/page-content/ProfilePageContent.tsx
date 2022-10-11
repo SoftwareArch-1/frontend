@@ -43,6 +43,7 @@ export const ProfilePageContent = () => {
           birthday={birthDate ?? new Date()}
           line={line}
           discord={discord}
+          editable={true}
         />
         <FloatingActionButton
           className="bg-sky-500"
