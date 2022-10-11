@@ -15,13 +15,6 @@ const CreateActivityPageContent = () => {
 
   return (
     <>
-      <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <InterestModalContent
-          initInterest={filter}
-          onFilter={onFilter}
-          multipleSelect
-        />
-      </Modal>
       <Nav />
       <form className="flex flex-col gap-y-2.5 px-5 py-6">
         <label className="text-sm">Title</label>
@@ -60,11 +53,31 @@ const CreateActivityPageContent = () => {
         </div>
         <label className="text-sm">Tag</label>
         <button
+          type="button"
           className="h-[30px] w-full rounded-lg bg-slate-200"
           onClick={() => setIsModalOpen(true)}
         />
         <label className="text-sm">Location</label>
         <input className="h-[30px] w-full rounded-lg bg-slate-200 text-xs" />
+        <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
+          <InterestModalContent initInterest={filter} onFilter={onFilter} />
+        </Modal>
+        <div className='flex flex-row gap-x-2.5'>
+        <button
+          type="button"
+          className="h-[30px] w-full rounded-lg bg-slate-200"
+          onClick={() => setIsModalOpen(true)}
+        >
+          Create
+        </button>
+        <button
+          type="button"
+          className="h-[30px] w-full rounded-lg bg-slate-200"
+          onClick={() => setIsModalOpen(true)}
+        >
+          Cancel
+        </button>
+        </div>
       </form>
     </>
   )
