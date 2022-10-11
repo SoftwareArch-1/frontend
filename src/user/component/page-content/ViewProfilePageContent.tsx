@@ -23,10 +23,12 @@ const ViewProfilePageContent = () => {
   )
 
   return (
-    <>
+    <div className='h-screen'>
       <Nav />
       {!data ? (
-        <LoadingSpinner />
+        <div className='flex justify-center items-center self-center h-full'>
+          <LoadingSpinner/>
+        </div>
       ) : (
         <>
           <Modal
@@ -81,7 +83,7 @@ const ViewProfilePageContent = () => {
           </main>
         </>
       )}
-    </>
+    </div>
   )
 }
 
