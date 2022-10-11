@@ -44,10 +44,10 @@ const ViewProfilePageContent = () => {
               <UserCard
                 name={data.profile.name}
                 surname={data.profile.surname}
-                detail={'ajskdhiadhkasdhakdhakshdkasjhd'}
+                detail={data.profile.description? data.profile.description: '-'}
                 editable={false}
               />
-              <ContactCard line={'lineId'} discord={'discordId'} />
+              <ContactCard line={data.profile.lineId? data.profile.lineId: '-'} discord={data.profile.discordId? data.profile.discordId : '-'} />
             </main>
             <main className="flex flex-col gap-3">
               <ReviewSummary
@@ -74,7 +74,7 @@ const ViewProfilePageContent = () => {
                     key = {review.id}
                     stars={review.stars}
                     description= {review.content}
-                    reviewDate={new Date()}
+                    reviewDate={review.createdAt}
                   />
                 ))}
               </div>
