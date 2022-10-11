@@ -1,7 +1,7 @@
-import { useMutation } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import dayjs from 'dayjs'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import FloatingActionButton from '../../../core/components/FloatingActionButton'
 import { IconifyIcon } from '../../../core/components/IconifyIcon'
 import LoadingSpinner from '../../../core/components/LoadingSpinner'
@@ -20,35 +20,13 @@ const ActivitiesPageContent = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [filter, setFilter] = useState<string[]>([])
   const [search, setSearch] = useState<string>('')
-  const [isLoading, setIsLoading] = useState(false)
   const [activities, setActivities] = useState<EachActvity[] | []>([])
 
-  const { mutate: fetchActivitiesMutate } = useMutation(getActivities, {
-    onSuccess: (fetchedActivities) => {
-      //mock check loading
-      setTimeout(function () {
-        setActivities(fetchedActivities)
-        // setAllActivities(fetchedActivities)
-        setIsLoading(false)
-      }, 1000)
-    },
-    onError: (error) => {
-      console.error(error)
-      setIsLoading(false)
+  const { isLoading } = useQuery(['fetchActivities'], getActivities, {
+    onSuccess: (data) => {
+      setActivities(data)
     },
   })
-
-  const fetchActivities = () => {
-    console.log('fecth')
-    setIsLoading(true)
-    fetchActivitiesMutate()
-  }
-
-  useEffect(() => {
-    if (!isLoading) {
-      fetchActivities()
-    }
-  }, [])
 
   const onSort = () => {
     setActivities((prev) => {
@@ -78,9 +56,11 @@ const ActivitiesPageContent = () => {
     }
   })
 
+  console.log(activitiesFilterd)
+
   const activitiesList = activitiesFilterd.map((activityItem) => (
     <ActivityCard
-      currentParticipant={activityItem.joinedUserIds.length + 1}
+      currentParticipant={activityItem.joinedUserIds.length}
       date={dayjs(activityItem.targetDate).format(
         // ex 01 Jan 2000
         'DD/MM/YYYY'

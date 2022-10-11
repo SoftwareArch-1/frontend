@@ -11,7 +11,7 @@ import { getActivity } from '../../api/getActivity'
 import ActivityDetailCard from '../ActivityDetailCard'
 import ParticipantList from '../ParticipantList'
 import ParticipantListTabs from '../ParticipantListTabs'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { FindOneActivity } from '../../../core/sync-with-backend/dto/activity/dto/findOne.dto'
 import { useUserStore } from '../../../user/userStore'
 import { joinActivity } from '../../api/joinActivity'
@@ -26,15 +26,9 @@ const ActivityPageContent = () => {
     id,
   }))
 
-  const [activityDetail, setActivityDetail] = useState<
-    FindOneActivity | undefined
-  >()
-
-  const [isLoading, setIsLoading] = useState(false)
-
   const { mutate: joinActivityMutate } = useMutation(joinActivity, {
     onSuccess: () => {
-      fecthActivityDetail()
+      refetchActivity()
     },
     onError: (error) => {
       console.error(error)
@@ -43,7 +37,7 @@ const ActivityPageContent = () => {
 
   const { mutate: updateParticipantMutate } = useMutation(updateParticipant, {
     onSuccess: () => {
-      fecthActivityDetail()
+      refetchActivity()
     },
     onError: (error) => {
       console.error(error)
@@ -59,29 +53,10 @@ const ActivityPageContent = () => {
     console.log(data)
   }
 
-  const { mutate: fetchActivityDetailMutate } = useMutation(getActivity, {
-    onSuccess: (fetchedActivities) => {
-      setTimeout(function () {
-        setActivityDetail(fetchedActivities)
-        setIsLoading(false)
-      }, 1000)
-    },
-    onError: (error) => {
-      console.error(error)
-      setIsLoading(false)
-    },
-  })
-
-  const fecthActivityDetail = () => {
-    setIsLoading(true)
-    fetchActivityDetailMutate(String(id))
-  }
-
-  useEffect(() => {
-    if (!isLoading) {
-      fecthActivityDetail()
-    }
-  }, [])
+  const { data: activityDetail, refetch: refetchActivity } = useQuery(
+    ['getActivity'],
+    () => getActivity(String(id))
+  )
 
   const onSort = () => {
     // setActivities((prev) => {
@@ -132,7 +107,7 @@ const ActivityPageContent = () => {
             <ActivityDetailCard
               name={activityDetail.ownerName}
               title={activityDetail.name}
-              currentParticipant={activityDetail.joinedUsers.length + 1}
+              currentParticipant={activityDetail.joinedUsers.length}
               maxParticipant={activityDetail.maxParticipants}
               date={dayjs(activityDetail.targetDate).format(
                 // ex 01 Jan 2000
