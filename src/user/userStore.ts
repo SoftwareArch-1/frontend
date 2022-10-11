@@ -2,7 +2,11 @@ import create from 'zustand'
 
 import { User } from '../core/sync-with-backend/dto/user/user'
 
-interface UserStore extends Partial<User> {
+type Store = User & {
+  accessToken: string
+}
+
+interface UserStore extends Partial<Store> {
   /**
    * @example
    * // 3 equivalent ways to update the store
@@ -14,7 +18,7 @@ interface UserStore extends Partial<User> {
    * update({ name: 'new name' })
    */
   update: (
-    updater: ((prev: Partial<User>) => Partial<User>) | Partial<User>
+    updater: ((prev: Partial<Store>) => Partial<Store>) | Partial<Store>
   ) => void
 }
 
@@ -27,6 +31,7 @@ export const useUserStore = create<UserStore>()((set, get) => ({
   description: undefined,
   discord: undefined,
   line: undefined,
+  accessToken: undefined,
 
   update: (updater) => {
     const prev = get()

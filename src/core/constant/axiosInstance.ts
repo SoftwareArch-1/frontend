@@ -1,11 +1,16 @@
 import axios from 'axios'
 import Router from 'next/router'
 import errorMap from 'zod/lib/locales/en'
+import { useUserStore } from '../../user/userStore'
 import { pagePath } from '../utils/pagePath'
 
 export const axiosInstance = axios.create({
   withCredentials: true,
 })
+
+axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${
+  useUserStore.getState().accessToken
+}`
 
 axiosInstance.interceptors.response.use(
   function (response) {

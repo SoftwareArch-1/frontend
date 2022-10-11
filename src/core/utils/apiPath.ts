@@ -12,6 +12,7 @@ export const apiPath = {
     updateUser: () => `${config.gatewayUrl}/update-user`,
     review: () => `${config.gatewayUrl}/review`,
     profile: (id: string) => `${config.gatewayUrl}/user/${id}`,
+    user: () => `${config.gatewayUrl}/user`,
   },
 
   /** for activity service */
@@ -24,5 +25,6 @@ export const apiPath = {
       `${config.gatewayUrl}/activity/owned/${id}`,
     acceptParticipant: () => `${config.gatewayUrl}/activity/accept-join`,
     rejectParticipant: () => `${config.gatewayUrl}/activity/decline-join`,
+    joinActivity: () => `${config.gatewayUrl}/activity/request-join`,
   },
 } as const

@@ -14,6 +14,7 @@ import { pagePath } from '../../../core/utils/pagePath'
 import { login } from '../../api/login'
 import { useUserStore } from '../../userStore'
 import WithSignInBackground from '../withSigninBackground'
+import { axiosInstance } from '../../../core/constant/axiosInstance'
 
 export const LoginPageContent = () => {
   const router = useRouter()
@@ -31,6 +32,10 @@ export const LoginPageContent = () => {
   const { mutate: loginMutate } = useMutation(login, {
     onSuccess: (userDto) => {
       update(userDto.user.profile)
+      update({ accessToken: userDto.access_token })
+      axiosInstance.defaults.headers.common[
+        'Authorization'
+      ] = `Bearer ${userDto.access_token}`
       router.push(pagePath.ProfilePage())
     },
     onError: (error) => console.error(error),

@@ -15,6 +15,8 @@ import { useUserStore } from '../../../user/userStore'
 import { joinActivity } from '../../api/joinActivity'
 import { acceptParticipant } from '../../api/acceptParticipant'
 import { rejectParticipant } from '../../api/rejectParticipant'
+import { FindOneActivity } from '../../../core/sync-with-backend/dto/activity/dto/findOne.dto'
+import { useState } from 'react'
 
 const ActivityPageContent = () => {
   const router = useRouter()
@@ -24,18 +26,18 @@ const ActivityPageContent = () => {
     id,
   }))
 
-  // const { mutate: joinActivityMutate } = useMutation(joinActivity, {
-  //   onSuccess: () => {
-  //     refetchActivity()
-  //   },
-  //   onError: (error) => {
-  //     console.error(error)
-  //   },
-  // })
+  const [activityDetail, setActivityDetail] = useState<FindOneActivity>()
+
+  const { mutate: joinActivityMutate } = useMutation(joinActivity, {
+    onSuccess: () => {},
+    onError: (error) => {
+      console.error(error)
+    },
+  })
 
   const { mutate: acceptParticipantMutate } = useMutation(acceptParticipant, {
-    onSuccess: () => {
-      refetchActivity()
+    onSuccess: (data) => {
+      setActivityDetail(data)
     },
     onError: (error) => {
       console.error(error)
@@ -50,8 +52,8 @@ const ActivityPageContent = () => {
   }
 
   const { mutate: rejectParticipantMutate } = useMutation(rejectParticipant, {
-    onSuccess: () => {
-      refetchActivity()
+    onSuccess: (data) => {
+      setActivityDetail(data)
     },
     onError: (error) => {
       console.error(error)
@@ -65,9 +67,14 @@ const ActivityPageContent = () => {
     })
   }
 
-  const { data: activityDetail, refetch: refetchActivity } = useQuery(
+  const { refetch: refetchActivity } = useQuery(
     ['getActivity'],
-    () => getActivity(String(id))
+    () => getActivity(String(id)),
+    {
+      onSuccess: (data) => {
+        setActivityDetail(data)
+      },
+    }
   )
 
   const onSort = () => {

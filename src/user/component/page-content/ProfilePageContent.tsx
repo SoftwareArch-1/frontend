@@ -3,8 +3,13 @@ import { Nav } from '../../../core/components/Nav'
 import UserCard from '../UserCard'
 import { useUserStore } from '../../userStore'
 import shallow from 'zustand/shallow'
+import FloatingActionButton from '../../../core/components/FloatingActionButton'
+import { useRouter } from 'next/router'
+import { pagePath } from '../../../core/utils/pagePath'
 
 export const ProfilePageContent = () => {
+  const router = useRouter()
+
   const { name, surname, description, birthDate, email } = useUserStore(
     ({ name, surname, description, birthDate, email }) => ({
       name,
@@ -32,6 +37,14 @@ export const ProfilePageContent = () => {
           email={email ?? 'email@example.com'}
           birthday={birthDate ?? new Date()}
         />
+        <FloatingActionButton
+          className="bg-sky-500"
+          onClick={() => {
+            router.push(pagePath.ActivityPage())
+          }}
+        >
+          Activity
+        </FloatingActionButton>
       </main>
     </>
   )
