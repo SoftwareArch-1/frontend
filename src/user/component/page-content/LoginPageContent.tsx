@@ -29,7 +29,10 @@ export const LoginPageContent = () => {
   const update = useUserStore((state) => state.update)
 
   const { mutate: loginMutate } = useMutation(login, {
-    onSuccess: (userDto) => update(userDto),
+    onSuccess: (userDto) => {
+      update(userDto)
+      router.push(pagePath.ProfilePage())
+    },
     onError: (error) => console.error(error),
   })
 
