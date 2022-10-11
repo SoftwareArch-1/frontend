@@ -1,9 +1,5 @@
 import SearchBar from '../../core/components/SearchBar'
-import { useUserStore } from '../../user/userStore'
-import { FormEventHandler, useEffect, useState } from 'react'
-import { getInterest } from '../../user/api/getInterest'
-import { interestSchemaType } from '../../core/constant/zod/interestSchema'
-import LoadingSpinner from '../../core/components/LoadingSpinner'
+import { FormEventHandler, useState } from 'react'
 import { tagList } from '../constant/tag'
 
 interface InterestModalProps {
