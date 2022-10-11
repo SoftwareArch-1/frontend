@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -6,6 +7,7 @@ import { number, z } from 'zod'
 import { Modal } from '../../../core/components/Modal'
 import { Nav } from '../../../core/components/Nav'
 import { createActivityFormSchema } from '../../../core/constant/zod/form-schema/createActivityFormSchema'
+import { createActivity } from '../../api/createActivity'
 import InterestModalContent from '../InterestModalContent'
 
 const CreateActivityPageContent = () => {
@@ -21,7 +23,14 @@ const CreateActivityPageContent = () => {
     formState: { errors },
   } = useForm<z.infer<typeof createActivityFormSchema>>({
     resolver: zodResolver(createActivityFormSchema),
-    defaultValues: { location: null },
+    defaultValues: { location: null , ownerId: ''},
+  })
+
+  const { mutate: createActivityMutate } = useMutation(createActivity, {
+    onSuccess: () => {
+      router.back()
+    },
+    onError: () => {},
   })
 
   const onFilter = (filterArray: string[]) => {
@@ -33,7 +42,7 @@ const CreateActivityPageContent = () => {
 
 
   const onSubmit = handleSubmit((data) => {
-    console.log(data)
+    createActivityMutate(data)
   })
 
   return (

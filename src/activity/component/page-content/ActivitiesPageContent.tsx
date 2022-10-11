@@ -106,7 +106,7 @@ const ActivitiesPageContent = () => {
         className="bg-sky-500"
         onClick={() => {
           console.log('Go to create Activity page')
-          //router.push(pagePath.CreateActivityPage())
+          router.push(pagePath.CreateActivityPage())
         }}
       >
         <IconifyIcon icon="plus" className="h-7 w-7 text-white" />

@@ -26,5 +26,6 @@ export const apiPath = {
     acceptParticipant: () => `${config.gatewayUrl}/activity/accept-join`,
     rejectParticipant: () => `${config.gatewayUrl}/activity/decline-join`,
     joinActivity: () => `${config.gatewayUrl}/activity/request-join`,
+    createActivity: () => `${config.gatewayUrl}/activity`
   },
 } as const
