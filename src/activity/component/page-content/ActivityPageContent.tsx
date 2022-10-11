@@ -29,7 +29,9 @@ const ActivityPageContent = () => {
   const [activityDetail, setActivityDetail] = useState<FindOneActivity>()
 
   const { mutate: joinActivityMutate } = useMutation(joinActivity, {
-    onSuccess: () => {},
+    onSuccess: (data) => {
+      setActivityDetail(data)
+    },
     onError: (error) => {
       console.error(error)
     },
