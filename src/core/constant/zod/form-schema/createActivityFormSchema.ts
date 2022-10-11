@@ -3,6 +3,7 @@ import { number, z } from 'zod'
 export const createActivityFormSchema = z.object({
   name: z.string(),
   description: z.string(),
+  ownerId: z.string(),
   targetDate: z.string(),
   maxParticipants: z.preprocess((v) => {
     return Number(v)
