@@ -1,5 +1,5 @@
 import { axiosInstance } from '../../core/constant/axiosInstance'
-import { findOneActivity } from '../../core/sync-with-backend/dto/activity/dto/findOne.dto'
+import { returnUpdate } from '../../core/sync-with-backend/dto/activity/dto/findOne.dto'
 import {
   updateParticipantDto,
   updateParticipantDtoSchema,
@@ -11,5 +11,5 @@ export const joinActivity = async (dto: updateParticipantDto) => {
     apiPath.activity.joinActivity(),
     updateParticipantDtoSchema.parse(dto)
   )
-  return findOneActivity.parse(data)
+  return returnUpdate.parse(data)
 }

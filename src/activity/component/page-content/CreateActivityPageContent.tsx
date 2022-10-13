@@ -7,6 +7,7 @@ import { number, z } from 'zod'
 import { Modal } from '../../../core/components/Modal'
 import { Nav } from '../../../core/components/Nav'
 import { createActivityFormSchema } from '../../../core/constant/zod/form-schema/createActivityFormSchema'
+import { useUserStore } from '../../../user/userStore'
 import { createActivity } from '../../api/createActivity'
 import InterestModalContent from '../InterestModalContent'
 
@@ -23,7 +24,7 @@ const CreateActivityPageContent = () => {
     formState: { errors },
   } = useForm<z.infer<typeof createActivityFormSchema>>({
     resolver: zodResolver(createActivityFormSchema),
-    defaultValues: { location: null , ownerId: ''},
+    defaultValues: { location: null, ownerId: useUserStore.getState().id },
   })
 
   const { mutate: createActivityMutate } = useMutation(createActivity, {
@@ -39,7 +40,6 @@ const CreateActivityPageContent = () => {
     console.log(filterArray)
     setIsModalOpen(false)
   }
-
 
   const onSubmit = handleSubmit((data) => {
     createActivityMutate(data)

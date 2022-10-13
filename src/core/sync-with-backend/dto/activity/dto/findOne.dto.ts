@@ -44,6 +44,12 @@ export const findOneActivity = ActivityModel.omit({
   pendingUsers: activityUser.array().nullish(),
 })
 
+export const returnUpdate = ActivityModel.omit({
+  pendingUserIds: true,
+})
+
+export type ReturnUpdateActivity = z.infer<typeof returnUpdate>
+
 export type FindOneActivity = z.infer<typeof findOneActivity>
 
 // export const findOneByOwner = base.extend({

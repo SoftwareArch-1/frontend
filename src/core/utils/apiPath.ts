@@ -9,7 +9,7 @@ export const apiPath = {
   user: {
     login: () => `${config.gatewayUrl}/auth/login`,
     createUser: () => `${config.gatewayUrl}/user`,
-    updateUser: () => `${config.gatewayUrl}/update-user`,
+    updateUser: () => `${config.gatewayUrl}/user`,
     review: () => `${config.gatewayUrl}/review`,
     profile: (id: string) => `${config.gatewayUrl}/user/${id}`,
     user: () => `${config.gatewayUrl}/user`,
@@ -26,6 +26,6 @@ export const apiPath = {
     acceptParticipant: () => `${config.gatewayUrl}/activity/accept-join`,
     rejectParticipant: () => `${config.gatewayUrl}/activity/decline-join`,
     joinActivity: () => `${config.gatewayUrl}/activity/request-join`,
-    createActivity: () => `${config.gatewayUrl}/activity`
+    createActivity: () => `${config.gatewayUrl}/activity`,
   },
 } as const

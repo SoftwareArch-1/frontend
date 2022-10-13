@@ -10,16 +10,24 @@ import { pagePath } from '../../../core/utils/pagePath'
 export const ProfilePageContent = () => {
   const router = useRouter()
 
-  const { name, surname, description, birthDate, email, discord, line } =
+  const { name, surname, description, birthDate, email, discordId, lineId } =
     useUserStore(
-      ({ name, surname, description, birthDate, email, discord, line }) => ({
+      ({
         name,
         surname,
         description,
         birthDate,
         email,
-        discord,
-        line,
+        discordId,
+        lineId,
+      }) => ({
+        name,
+        surname,
+        description,
+        birthDate,
+        email,
+        discordId,
+        lineId,
       }),
       shallow
     )
@@ -41,8 +49,8 @@ export const ProfilePageContent = () => {
           surname={surname ?? 'Doe'}
           email={email ?? 'email@example.com'}
           birthday={birthDate ?? new Date()}
-          line={line}
-          discord={discord}
+          line={lineId}
+          discord={discordId}
           editable={true}
         />
         <FloatingActionButton

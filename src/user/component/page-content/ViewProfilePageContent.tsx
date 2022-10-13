@@ -17,16 +17,20 @@ const ViewProfilePageContent = () => {
   const router = useRouter()
   const { id } = router.query
 
-  const { data } = useQuery([getProfile.name], () =>
-    getProfile(String(id)), {enabled: !!id}
+  const { data, refetch } = useQuery(
+    [getProfile.name],
+    () => getProfile(String(id)),
+    {
+      enabled: !!id,
+    }
   )
 
   return (
-    <div className='h-screen'>
+    <div className="h-screen">
       <Nav />
       {!data ? (
-        <div className='flex justify-center items-center self-center h-full'>
-          <LoadingSpinner/>
+        <div className="flex h-full items-center justify-center self-center">
+          <LoadingSpinner />
         </div>
       ) : (
         <>
@@ -37,17 +41,25 @@ const ViewProfilePageContent = () => {
               'flex h-auto flex-col justify-center rounded-lg bg-slate-700 drop-shadow-md'
             }
           >
-            <AddReviewCard />
+            <AddReviewCard
+              refetch={refetch}
+              onCloseModal={() => setShowModal(false)}
+            />
           </Modal>
           <main className="flex flex-col gap-7 px-5 py-5">
             <main className="flex flex-col gap-3">
               <UserCard
                 name={data.profile.name}
                 surname={data.profile.surname}
-                detail={data.profile.description? data.profile.description: '-'}
+                detail={
+                  data.profile.description ? data.profile.description : '-'
+                }
                 editable={false}
               />
-              <ContactCard line={data.profile.lineId? data.profile.lineId: '-'} discord={data.profile.discordId? data.profile.discordId : '-'} />
+              <ContactCard
+                line={data.profile.lineId ? data.profile.lineId : '-'}
+                discord={data.profile.discordId ? data.profile.discordId : '-'}
+              />
             </main>
             <main className="flex flex-col gap-3">
               <ReviewSummary
@@ -71,9 +83,9 @@ const ViewProfilePageContent = () => {
               <div className="flex flex-col gap-1">
                 {data.reviews.map((review) => (
                   <ReviewCard
-                    key = {review.id}
+                    key={review.id}
                     stars={review.stars}
-                    description= {review.content}
+                    description={review.content}
                     reviewDate={review.createdAt}
                   />
                 ))}

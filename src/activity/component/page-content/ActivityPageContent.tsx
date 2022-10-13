@@ -10,31 +10,43 @@ import { useUserStore } from '../../../user/userStore'
 import { joinActivity } from '../../api/joinActivity'
 import { acceptParticipant } from '../../api/acceptParticipant'
 import { rejectParticipant } from '../../api/rejectParticipant'
-import { FindOneActivity } from '../../../core/sync-with-backend/dto/activity/dto/findOne.dto'
+import {
+  findOneActivity,
+  FindOneActivity,
+} from '../../../core/sync-with-backend/dto/activity/dto/findOne.dto'
 import { useState } from 'react'
 
 const ActivityPageContent = () => {
   const router = useRouter()
   const { id } = router.query
 
-  const { id: userId } = useUserStore(({ id }) => ({
-    id,
-  }))
+  const userId = useUserStore((s) => s.id)
 
   const [activityDetail, setActivityDetail] = useState<FindOneActivity>()
 
   const { mutate: joinActivityMutate } = useMutation(joinActivity, {
     onSuccess: (data) => {
-      setActivityDetail(data)
+      refetchActivity()
+      // setActivityDetail((prev) => {
+      //   const temp = { ...prev, joinedUserIds: data.joinedUserIds }
+      //   return findOneActivity.parse(temp)
+      // })
     },
     onError: (error) => {
       console.error(error)
     },
   })
 
+  const onJoin = () => {
+    joinActivityMutate({
+      activityId: String(id),
+      joinerId: userId!,
+    })
+  }
+
   const { mutate: acceptParticipantMutate } = useMutation(acceptParticipant, {
     onSuccess: (data) => {
-      setActivityDetail(data)
+      refetchActivity()
     },
     onError: (error) => {
       console.error(error)
@@ -50,7 +62,7 @@ const ActivityPageContent = () => {
 
   const { mutate: rejectParticipantMutate } = useMutation(rejectParticipant, {
     onSuccess: (data) => {
-      setActivityDetail(data)
+      refetchActivity()
     },
     onError: (error) => {
       console.error(error)
@@ -92,14 +104,16 @@ const ActivityPageContent = () => {
               tag={activityDetail.tag}
               description={activityDetail.description}
               buttonText={
-                activityDetail.joinedUserIds.includes(userId ?? '')
-                  ? 'Chat'
-                  : 'Join'
+                activityDetail.status === 'not-joined'
+                  ? 'Join'
+                  : activityDetail.status === 'pending'
+                  ? 'Pending'
+                  : 'Chat'
               }
               location={activityDetail.location}
               onClick={
                 activityDetail.status === 'not-joined'
-                  ? () => {}
+                  ? onJoin
                   : activityDetail.status === 'pending'
                   ? () => {}
                   : () => {}

@@ -7,6 +7,7 @@ interface ParticipantCardProps {
   description?: string | null
   line?: string | null
   discord?: string | null
+  onClick?: MouseEventHandler<HTMLDivElement>
 }
 
 const ParticipantCard = ({
@@ -15,9 +16,13 @@ const ParticipantCard = ({
   description,
   line,
   discord,
+  onClick,
 }: ParticipantCardProps) => {
   return (
-    <div className="flex h-[80px] w-full overflow-hidden rounded-[10px] shadow-md">
+    <div
+      className="flex h-[80px] w-full overflow-hidden rounded-[10px] shadow-md"
+      onClick={onClick}
+    >
       <div className="flex w-[40px] items-center justify-center bg-sky-500" />
       <div className="flex flex-1 flex-col justify-center gap-y-2 overflow-hidden bg-white px-2.5 py-[22px]">
         <div className="flex flex-col">
