@@ -31,11 +31,13 @@ export const LoginPageContent = () => {
 
   const { mutate: loginMutate } = useMutation(login, {
     onSuccess: (userDto) => {
+      console.log(userDto)
       update(userDto.user.profile)
       update({ accessToken: userDto.access_token })
       axiosInstance.defaults.headers.common[
         'Authorization'
       ] = `Bearer ${userDto.access_token}`
+      localStorage.setItem('access_token', userDto.access_token)
       router.push(pagePath.ProfilePage())
     },
     onError: (error) => console.error(error),

@@ -10,7 +10,7 @@ export const ReviewCard = (reviewCardProps: {
   reviewDate: Date
 }) => {
   return (
-    <section className="flex flex-col w-100 max-h-24 justify-center rounded-lg bg-slate-500 drop-shadow-md">
+    <section className="w-100 flex max-h-24 flex-col justify-center rounded-lg bg-slate-500 drop-shadow-md">
       <div className="flex w-full items-center justify-between p-3 text-xs">
         <div className="flex gap-x-0">
           <IconifyIcon
@@ -71,7 +71,7 @@ export const ReviewCard = (reviewCardProps: {
         </div>
       </div>
       <p className="flex w-full items-center justify-between px-3 pb-8 text-sm text-white">
-        {'adadasdasdasdasdasd'}
+        {reviewCardProps.description}
       </p>
     </section>
   )

@@ -75,7 +75,7 @@ export const AccountInfoList = ({
             }}
             value={discordId ?? ''}
             editable={editable}
-            onSave={() => updateUserMutate({ discord: discordId })}
+            onSave={() => updateUserMutate({ discordId: discordId })}
           />
         }
         {
@@ -87,7 +87,7 @@ export const AccountInfoList = ({
             }}
             value={lineId ?? ''}
             editable={editable}
-            onSave={() => updateUserMutate({ line: lineId })}
+            onSave={() => updateUserMutate({ lineId: lineId })}
           />
         }
       </ul>

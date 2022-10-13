@@ -1,6 +1,8 @@
 import { Tab } from '@headlessui/react'
 import classNames from 'classnames'
+import { useRouter } from 'next/router'
 import { ActivityUser } from '../../core/sync-with-backend/dto/activity/activity-user'
+import { pagePath } from '../../core/utils/pagePath'
 import ParticipantCard from './ParticipantCard'
 import RequestCard from './RequestCard'
 
@@ -17,6 +19,8 @@ const ParticipantListTabs = ({
   onAccept,
   onReject,
 }: ParticipantListTabsProps) => {
+  const router = useRouter()
+
   return (
     <Tab.Group>
       <Tab.List className="flex gap-x-[10px] rounded-[10px] bg-slate-400 p-1">
@@ -52,6 +56,9 @@ const ParticipantListTabs = ({
         <Tab.Panel className="flex flex-col gap-y-[15px]">
           {participant.map((person) => (
             <ParticipantCard
+              onClick={() => {
+                router.push(pagePath.ViewProfilePage(person.id))
+              }}
               name={person.name}
               id={person.id}
               description={person.description}
@@ -69,10 +76,10 @@ const ParticipantListTabs = ({
               name={person.name}
               detail={person.description}
               onCancel={() => {
-                onAccept(person.id)
+                onReject(person.id)
               }}
               onConfirm={() => {
-                onReject(person.id)
+                onAccept(person.id)
               }}
             />
           ))}
