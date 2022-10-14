@@ -6,6 +6,7 @@ import shallow from 'zustand/shallow'
 import FloatingActionButton from '../../../core/components/FloatingActionButton'
 import { useRouter } from 'next/router'
 import { pagePath } from '../../../core/utils/pagePath'
+import BottomNavigation from '../../../core/components/ButtomNavigation'
 
 export const ProfilePageContent = () => {
   const router = useRouter()
@@ -37,6 +38,7 @@ export const ProfilePageContent = () => {
   return (
     <>
       <Nav />
+      <BottomNavigation />
       <main className="flex flex-col gap-4 px-5 py-5">
         <UserCard
           name={name ?? 'John'}
@@ -53,14 +55,14 @@ export const ProfilePageContent = () => {
           discord={discordId}
           editable={true}
         />
-        <FloatingActionButton
+        {/* <FloatingActionButton
           className="bg-sky-500"
           onClick={() => {
             router.push(pagePath.ActivityPage())
           }}
         >
           Activity
-        </FloatingActionButton>
+        </FloatingActionButton> */}
       </main>
     </>
   )

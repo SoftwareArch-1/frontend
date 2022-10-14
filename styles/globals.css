@@ -8,6 +8,9 @@
   html {
     @apply bg-slate-100 font-Inter;
   }
+  body {
+    @apply pb-[60px] pt-[50px];
+  }
 }
 
 @layer components {
