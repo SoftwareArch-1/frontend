@@ -38,7 +38,6 @@ export const ProfilePageContent = () => {
   return (
     <>
       <Nav />
-      <BottomNavigation />
       <main className="flex flex-col gap-4 px-5 py-5">
         <UserCard
           name={name ?? 'John'}
@@ -64,6 +63,7 @@ export const ProfilePageContent = () => {
           Activity
         </FloatingActionButton> */}
       </main>
+      <BottomNavigation />
     </>
   )
 }
