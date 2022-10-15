@@ -15,7 +15,7 @@ const FloatingActionButton = ({
     <button
       onClick={onClick}
       className={classNames(
-        'z-90 fixed bottom-10 right-8 flex min-h-[45px] min-w-[45px] items-center justify-center rounded-full shadow-md',
+        'z-90 fixed bottom-[80px] right-8 flex min-h-[45px] min-w-[45px] items-center justify-center rounded-full shadow-md',
         className
       )}
     >

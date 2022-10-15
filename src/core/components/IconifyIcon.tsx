@@ -31,6 +31,7 @@ const availableIcons = {
   party: 'bx:party',
   'account-group': 'mdi:account-group',
   logout: 'mdi:logout',
+  'ios-back': 'eva:arrow-ios-back-fill',
 } as const
 
 /**

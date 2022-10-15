@@ -38,7 +38,7 @@ export const LoginPageContent = () => {
         'Authorization'
       ] = `Bearer ${userDto.access_token}`
       localStorage.setItem('access_token', userDto.access_token)
-      router.push(pagePath.ProfilePage())
+      router.push(pagePath.ActivityPage())
     },
     onError: (error) => console.error(error),
   })

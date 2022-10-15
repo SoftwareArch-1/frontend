@@ -30,7 +30,7 @@ const SignUpPageContent = () => {
       axiosInstance.defaults.headers.common[
         'Authorization'
       ] = `Bearer ${userDto.access_token}`
-      router.push(pagePath.ProfilePage())
+      router.push(pagePath.ActivityPage())
     },
     onError: (error) => console.error(error),
   })

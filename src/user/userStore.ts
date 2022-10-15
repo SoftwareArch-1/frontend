@@ -20,9 +20,11 @@ interface UserStore extends Partial<Store> {
   update: (
     updater: ((prev: Partial<Store>) => Partial<Store>) | Partial<Store>
   ) => void
+
+  reset: () => void
 }
 
-export const useUserStore = create<UserStore>()((set, get) => ({
+const initState = {
   email: undefined,
   id: undefined,
   name: undefined,
@@ -32,10 +34,15 @@ export const useUserStore = create<UserStore>()((set, get) => ({
   discord: undefined,
   line: undefined,
   accessToken: undefined,
+}
+
+export const useUserStore = create<UserStore>()((set, get) => ({
+  ...initState,
 
   update: (updater) => {
     const prev = get()
     const partial = typeof updater === 'function' ? updater(prev) : updater
     set((state) => ({ ...state, ...partial }))
   },
+  reset: () => set(initState),
 }))
