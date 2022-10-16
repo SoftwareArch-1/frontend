@@ -11,7 +11,7 @@ export const Nav = ({ text, backButtonEnable = false }: NavProp) => {
   return (
     <>
       <div className="h-[50px]"></div>
-      <header className="fixed top-0 z-50 flex w-full items-center bg-slate-700 p-[.625rem]">
+      <header className="fixed top-0 z-50 flex w-full items-center bg-slate-700 py-[.625rem] px-5">
         {backButtonEnable && (
           <span>
             <IconifyIcon

@@ -25,7 +25,7 @@ const MyActivityPageContent = () => {
   )
 
   const { isLoading: joinedActivityIsLoading } = useQuery(
-    ['fetchActivities'],
+    ['joinedActivityIsLoading'],
     () => getJoinedActivity(),
     {
       onSuccess: (data) => {
@@ -35,7 +35,7 @@ const MyActivityPageContent = () => {
   )
 
   const { isLoading: ownedActivityIsLoading } = useQuery(
-    ['fetchActivities'],
+    ['ownedActivityIsLoading'],
     () => getOwnedActivity(),
     {
       onSuccess: (data) => {
