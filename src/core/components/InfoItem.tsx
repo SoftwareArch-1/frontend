@@ -1,3 +1,4 @@
+import { useAutoAnimate } from '@formkit/auto-animate/react'
 import classNames from 'classnames'
 import dayjs from 'dayjs'
 import { ChangeEventHandler, useState } from 'react'
@@ -31,12 +32,17 @@ export const InfoItem = ({
 }: InfoItemProps) => {
   const [editing, setEditing] = useState(false)
 
+  const [animateParent] = useAutoAnimate<any>({
+    duration: 150,
+  })
+
   return (
     <div
       className={classNames(
         'flex flex-col gap-1 border-b-2 border-sky-500 pb-2',
         className
       )}
+      ref={animateParent}
     >
       <span
         className="flex items-center justify-between font-bold text-black"

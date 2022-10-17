@@ -1,6 +1,7 @@
 import { useQueries, useQuery } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import BottomNavigation from '../../../core/components/ButtomNavigation'
 import LoadingSpinner from '../../../core/components/LoadingSpinner'
 import { Modal } from '../../../core/components/Modal'
 import { Nav } from '../../../core/components/Nav'
@@ -18,7 +19,7 @@ const ViewProfilePageContent = () => {
   const { id } = router.query
 
   const { data, refetch } = useQuery(
-    [getProfile.name],
+    ['getProfile', id],
     () => getProfile(String(id)),
     {
       enabled: !!id,
@@ -94,6 +95,7 @@ const ViewProfilePageContent = () => {
           </main>
         </>
       )}
+      <BottomNavigation />
     </div>
   )
 }

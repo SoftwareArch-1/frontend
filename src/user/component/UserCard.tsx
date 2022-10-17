@@ -91,7 +91,7 @@ const UserCard = ({ name, surname, detail, editable }: UserCardProps) => {
             )}
           </div>
           {!editDetail && (
-            <p className="max-w-[500px] text-base text-slate-800">
+            <p className="w-full max-w-[500px] text-base text-slate-800">
               {detail ?? 'No description'}
             </p>
           )}

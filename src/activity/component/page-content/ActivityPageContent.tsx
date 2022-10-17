@@ -15,6 +15,7 @@ import {
   FindOneActivity,
 } from '../../../core/sync-with-backend/dto/activity/dto/findOne.dto'
 import { useState } from 'react'
+import BottomNavigation from '../../../core/components/ButtomNavigation'
 
 const ActivityPageContent = () => {
   const router = useRouter()
@@ -88,7 +89,7 @@ const ActivityPageContent = () => {
 
   return (
     <>
-      <Nav />
+      <Nav backButtonEnable />
       <div className="flex flex-col gap-y-5 px-3 py-5">
         {activityDetail && (
           <>
@@ -133,6 +134,7 @@ const ActivityPageContent = () => {
           </>
         )}
       </div>
+      <BottomNavigation />
     </>
   )
 }

@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import dayjs from 'dayjs'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+import BottomNavigation from '../../../core/components/ButtomNavigation'
 import FloatingActionButton from '../../../core/components/FloatingActionButton'
 import { IconifyIcon } from '../../../core/components/IconifyIcon'
 import LoadingSpinner from '../../../core/components/LoadingSpinner'
@@ -76,42 +77,45 @@ const ActivitiesPageContent = () => {
   ))
 
   return (
-    <div className="flex h-screen flex-col">
-      <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <InterestModalContent
-          initInterest={filter}
-          onFilter={onFilter}
-          multipleSelect
-        />
-      </Modal>
-      <Nav />
-      <div className="flex h-full flex-col gap-y-3 px-5 pt-[25px] pb-5">
-        <div className="flex w-full flex-row items-center gap-x-2.5">
-          <div className="w-full">
-            <SearchBar onSearch={onSearch} placeHolder="Search Activity" />
+    <>
+      <div className="flex h-screen flex-col">
+        <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
+          <InterestModalContent
+            initInterest={filter}
+            onFilter={onFilter}
+            multipleSelect
+          />
+        </Modal>
+        <Nav text="Activities" />
+        <div className="flex h-full flex-col gap-y-3 px-5 pt-[25px] pb-5">
+          <div className="flex w-full flex-row items-center gap-x-2.5">
+            <div className="w-full">
+              <SearchBar onSearch={onSearch} placeHolder="Search Activity" />
+            </div>
+            <IconifyIcon icon="filter" onClick={() => setIsModalOpen(true)} />
+            <IconifyIcon icon="sort" onClick={onSort} />
           </div>
-          <IconifyIcon icon="filter" onClick={() => setIsModalOpen(true)} />
-          <IconifyIcon icon="sort" onClick={onSort} />
+          {isLoading && (
+            <div className="flex h-full w-full flex-col items-center justify-center">
+              <LoadingSpinner />
+            </div>
+          )}
+          {!isLoading && (
+            <div className="flex flex-col gap-y-3 pb-5">{activitiesList}</div>
+          )}
         </div>
-        {isLoading && (
-          <div className="flex h-full w-full flex-col items-center justify-center">
-            <LoadingSpinner />
-          </div>
-        )}
-        {!isLoading && (
-          <div className="flex flex-col gap-y-3 pb-5">{activitiesList}</div>
-        )}
+        <FloatingActionButton
+          className="bg-sky-500"
+          onClick={() => {
+            console.log('Go to create Activity page')
+            router.push(pagePath.CreateActivityPage())
+          }}
+        >
+          <IconifyIcon icon="plus" className="h-7 w-7 text-white" />
+        </FloatingActionButton>
+        <BottomNavigation />
       </div>
-      <FloatingActionButton
-        className="bg-sky-500"
-        onClick={() => {
-          console.log('Go to create Activity page')
-          router.push(pagePath.CreateActivityPage())
-        }}
-      >
-        <IconifyIcon icon="plus" className="h-7 w-7 text-white" />
-      </FloatingActionButton>
-    </div>
+    </>
   )
 }
 

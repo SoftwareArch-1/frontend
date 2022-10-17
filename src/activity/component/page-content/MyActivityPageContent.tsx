@@ -12,6 +12,7 @@ import { pagePath } from '../../../core/utils/pagePath'
 import { EachActvity } from '../../../core/sync-with-backend/dto/activity/dto/finAll.dto'
 import { getJoinedActivity } from '../../api/getJoinedActivities'
 import { getOwnedActivity } from '../../api/getOwnedActivities'
+import BottomNavigation from '../../../core/components/ButtomNavigation'
 
 const MyActivityPageContent = () => {
   const router = useRouter()
@@ -24,8 +25,8 @@ const MyActivityPageContent = () => {
   )
 
   const { isLoading: joinedActivityIsLoading } = useQuery(
-    ['fetchActivities'],
-    () => getJoinedActivity(''),
+    ['joinedActivityIsLoading'],
+    () => getJoinedActivity(),
     {
       onSuccess: (data) => {
         setJoinedActivities(data)
@@ -34,8 +35,8 @@ const MyActivityPageContent = () => {
   )
 
   const { isLoading: ownedActivityIsLoading } = useQuery(
-    ['fetchActivities'],
-    () => getOwnedActivity(''),
+    ['ownedActivityIsLoading'],
+    () => getOwnedActivity(),
     {
       onSuccess: (data) => {
         setCreatedActivities(data)
@@ -56,7 +57,7 @@ const MyActivityPageContent = () => {
 
   return (
     <div className="flex h-screen flex-col">
-      <Nav />
+      <Nav text="My Activity" />
       <div className="flex h-full flex-col gap-y-[5px] px-5 pt-[25px] pb-5">
         <Tab.Group>
           <Tab.List className="flex gap-x-[10px] rounded-[10px] bg-slate-400 p-1">
@@ -141,6 +142,7 @@ const MyActivityPageContent = () => {
           )}
         </Tab.Group>
       </div>
+      <BottomNavigation />
     </div>
   )
 }

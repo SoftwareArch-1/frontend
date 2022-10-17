@@ -28,6 +28,10 @@ const availableIcons = {
   starSolid: 'material-symbols:star',
   lineIcon: 'bi:line',
   discordIcon: 'logos:discord-icon',
+  party: 'bx:party',
+  'account-group': 'mdi:account-group',
+  logout: 'mdi:logout',
+  'ios-back': 'eva:arrow-ios-back-fill',
 } as const
 
 /**

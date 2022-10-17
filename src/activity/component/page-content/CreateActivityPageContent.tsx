@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { number, z } from 'zod'
+import BottomNavigation from '../../../core/components/ButtomNavigation'
 import { Modal } from '../../../core/components/Modal'
 import { Nav } from '../../../core/components/Nav'
 import { createActivityFormSchema } from '../../../core/constant/zod/form-schema/createActivityFormSchema'
@@ -47,7 +48,7 @@ const CreateActivityPageContent = () => {
 
   return (
     <>
-      <Nav />
+      <Nav backButtonEnable text="Create Activity" />
       <form className="flex flex-col gap-y-2.5 px-5 py-6" onSubmit={onSubmit}>
         <label className="text-sm">
           Title<span className="text-red-500"> *</span>
@@ -136,6 +137,7 @@ const CreateActivityPageContent = () => {
       <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <InterestModalContent initInterest={filter} onFilter={onFilter} />
       </Modal>
+      <BottomNavigation />
     </>
   )
 }
