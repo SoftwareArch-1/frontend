@@ -11,4 +11,5 @@ export const pagePath = {
   ViewProfilePage: (id: string) => `/profile/${id}`,
   CreateActivityPage: () => '/activity/create',
   ActivityDetailPage: (id: string) => `/activity/${id}`,
+  MessagePage: (id:string) => `/message/${id}`,
 }
