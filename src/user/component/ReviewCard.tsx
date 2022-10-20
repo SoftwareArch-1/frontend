@@ -63,11 +63,9 @@ export const ReviewCard = (reviewCardProps: {
           )}
         </div>
         <div className=" text-slate-300">
-          {('0' + reviewCardProps.reviewDate.getDate()).slice(-2) +
-            '/' +
-            ('0' + (reviewCardProps.reviewDate.getMonth() + 1)).slice(-2) +
-            '/' +
-            reviewCardProps.reviewDate.getFullYear()}
+        {dayjs(reviewCardProps.reviewDate).format(
+              "DD/MM/YYYY - HH:mm" 
+            )}
         </div>
       </div>
       <p className="break-all text-sm text-white">
