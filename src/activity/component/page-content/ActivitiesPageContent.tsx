@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import dayjs from 'dayjs'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import BottomNavigation from '../../../core/components/ButtomNavigation'
@@ -78,6 +79,9 @@ const ActivitiesPageContent = () => {
 
   return (
     <>
+      <Head>
+        <title>Activities</title>
+      </Head>
       <div className="flex h-screen flex-col">
         <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
           <InterestModalContent

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 
 import { InfoItem } from '../../core/components/InfoItem'
 import { updateUser } from '../api/update'
+import { useUserStore } from '../userStore'
 
 export interface AccountInfoListProps {
   name: string
@@ -33,9 +34,20 @@ export const AccountInfoList = ({
     setFullName(`${name} ${surname}`)
     setEmailAddress(email)
     setBirthDate(birthday)
-  }, [birthday, email, name, surname])
+    setDiscord(discord)
+    setLine(line)
+  }, [birthday, email, name, surname, discord, line])
 
-  const { mutate: updateUserMutate } = useMutation(updateUser)
+  const update = useUserStore((state) => state.update)
+
+  const { mutate: updateUserMutate } = useMutation(updateUser, {
+    onSuccess: (dto) => {
+      update(dto)
+    },
+    onError: (error) => {
+      console.log(error)
+    },
+  })
 
   return (
     <section className="rounded-[10px] bg-white p-4 shadow-md">
@@ -61,7 +73,9 @@ export const AccountInfoList = ({
         <InfoItem
           label="Day of Birth"
           type="date"
-          onChange={(e) => setBirthDate(new Date(e.target.value))}
+          onChange={(e) => {
+            setBirthDate(new Date(e.target.value))
+          }}
           value={birthDate.toISOString().split('T')[0]}
           onSave={() => updateUserMutate({ birthDate })}
           editable={editable}

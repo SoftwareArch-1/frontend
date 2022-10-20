@@ -1,13 +1,15 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { number, z } from 'zod'
+import { z } from 'zod'
 import BottomNavigation from '../../../core/components/ButtomNavigation'
 import { Modal } from '../../../core/components/Modal'
 import { Nav } from '../../../core/components/Nav'
 import { createActivityFormSchema } from '../../../core/constant/zod/form-schema/createActivityFormSchema'
+import { CreateActivityModel } from '../../../core/sync-with-backend/dto/activity/zod/createActivity'
 import { useUserStore } from '../../../user/userStore'
 import { createActivity } from '../../api/createActivity'
 import InterestModalContent from '../InterestModalContent'
@@ -43,11 +45,15 @@ const CreateActivityPageContent = () => {
   }
 
   const onSubmit = handleSubmit((data) => {
-    createActivityMutate(data)
+    const parsedData = CreateActivityModel.parse(data)
+    createActivityMutate(parsedData)
   })
 
   return (
     <>
+      <Head>
+        <title>Create Activity</title>
+      </Head>
       <Nav backButtonEnable text="Create Activity" />
       <form className="flex flex-col gap-y-2.5 px-5 py-6" onSubmit={onSubmit}>
         <label className="text-sm">

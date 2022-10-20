@@ -3,14 +3,10 @@ import { Nav } from '../../../core/components/Nav'
 import UserCard from '../UserCard'
 import { useUserStore } from '../../userStore'
 import shallow from 'zustand/shallow'
-import FloatingActionButton from '../../../core/components/FloatingActionButton'
-import { useRouter } from 'next/router'
-import { pagePath } from '../../../core/utils/pagePath'
 import BottomNavigation from '../../../core/components/ButtomNavigation'
+import Head from 'next/head'
 
 export const ProfilePageContent = () => {
-  const router = useRouter()
-
   const { name, surname, description, birthDate, email, discordId, lineId } =
     useUserStore(
       ({
@@ -33,10 +29,11 @@ export const ProfilePageContent = () => {
       shallow
     )
 
-  console.log(birthDate)
-
   return (
     <>
+      <Head>
+        <title>Account</title>
+      </Head>
       <Nav text="Account" />
       <main className="flex flex-col gap-4 px-5 py-5">
         <UserCard

@@ -1,7 +1,5 @@
 import type { NextPage } from 'next'
-import { IconifyIcon } from '../src/core/components/IconifyIcon'
 import { LoginPageContent } from '../src/user/component/page-content/LoginPageContent'
-import { withAuth } from '../src/user/component/withAuth'
 
 const HomePage: NextPage = () => {
   return (
