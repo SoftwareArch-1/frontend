@@ -10,8 +10,8 @@ export const ReviewCard = (reviewCardProps: {
   reviewDate: Date
 }) => {
   return (
-    <section className="w-100 flex max-h-24 flex-col justify-center rounded-lg bg-slate-500 drop-shadow-md">
-      <div className="flex w-full items-center justify-between p-3 text-xs">
+    <section className="w-full flex min-h-[87px] flex-col rounded-lg bg-slate-500 px-3 py-3 drop-shadow-md">
+      <div className="flex w-full items-center justify-between text-xs">
         <div className="flex gap-x-0">
           <IconifyIcon
             icon="starSolid"
@@ -70,7 +70,7 @@ export const ReviewCard = (reviewCardProps: {
             reviewCardProps.reviewDate.getFullYear()}
         </div>
       </div>
-      <p className="flex w-full items-center justify-between px-3 pb-8 text-sm text-white">
+      <p className="break-all text-sm text-white">
         {reviewCardProps.description}
       </p>
     </section>
