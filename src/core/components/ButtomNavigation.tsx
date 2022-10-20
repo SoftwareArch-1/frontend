@@ -62,7 +62,7 @@ const BottomNavigation = () => {
             // TODO: logout
             delete axiosInstance.defaults.headers.common['Authorization']
             reset()
-            router.push(pagePath.HomePage())
+            router.push(pagePath.LoginPage())
           }}
         >
           <IconifyIcon icon="logout" className="h-6 w-6" />

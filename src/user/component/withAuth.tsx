@@ -1,14 +1,14 @@
 import { useRouter } from 'next/router'
 import { pagePath } from '../../core/utils/pagePath'
 import { useUserStore } from '../userStore'
-import { LoginPageContent } from './page-content/LoginPageContent'
+// import { LoginPageContent } from './page-content/LoginPageContent'
 
 const ProtectedComponent = ({ children }: { children: () => JSX.Element }) => {
   const userId = useUserStore((state) => state.id)
   const router = useRouter()
 
   if (!userId) {
-    router.push(pagePath.HomePage())
+    router.push(pagePath.LoginPage())
     return <></>
   }
 
