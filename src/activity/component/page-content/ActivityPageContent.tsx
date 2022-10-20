@@ -14,6 +14,7 @@ import { FindOneActivity } from '../../../core/sync-with-backend/dto/activity/dt
 import { useState } from 'react'
 import BottomNavigation from '../../../core/components/ButtomNavigation'
 import Head from 'next/head'
+import { pagePath } from '../../../core/utils/pagePath'
 
 const ActivityPageContent = () => {
   const router = useRouter()
@@ -115,7 +116,9 @@ const ActivityPageContent = () => {
                   ? onJoin
                   : activityDetail.status === 'pending'
                   ? () => {}
-                  : () => {}
+                  : () => {
+                      router.push(pagePath.MessagePage(String(id)))
+                    }
               }
             />
             {activityDetail.status !== 'owned' && (
