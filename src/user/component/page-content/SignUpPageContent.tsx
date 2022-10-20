@@ -1,9 +1,7 @@
 import Head from 'next/head'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-
 import { zodResolver } from '@hookform/resolvers/zod'
-
 import TextField from '../../../core/components/textField'
 import { signUpFormSchema } from '../../../core/constant/zod/form-schema/signUpFormSchema'
 import WithSignInBackground from '../withSigninBackground'

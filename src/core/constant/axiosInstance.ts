@@ -19,7 +19,10 @@ axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${
 //     return response
 //   },
 //   function (error) {
-//     if (error.response.status === 401) {
+//     if (
+//       error.response.status === 401 &&
+//       Router.pathname != pagePath.HomePage()
+//     ) {
 //       Router.push(pagePath.HomePage())
 //     }
 //     // Any status codes that falls outside the range of 2xx cause this function to trigger

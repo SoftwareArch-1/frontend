@@ -1,6 +1,7 @@
-import { useQueries, useQuery } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import BottomNavigation from '../../../core/components/ButtomNavigation'
 import LoadingSpinner from '../../../core/components/LoadingSpinner'
 import { Modal } from '../../../core/components/Modal'
@@ -28,6 +29,9 @@ const ViewProfilePageContent = () => {
 
   return (
     <div className="h-screen">
+      <Head>
+        <title>View Profile</title>
+      </Head>
       <Nav />
       {!data ? (
         <div className="flex h-full items-center justify-center self-center">

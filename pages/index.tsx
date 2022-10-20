@@ -1,17 +1,13 @@
-import type { NextPage } from 'next'
-import { IconifyIcon } from '../src/core/components/IconifyIcon'
-import { LoginPageContent } from '../src/user/component/page-content/LoginPageContent'
+import { useRouter } from 'next/router'
+// import ActivitiesPageContent from '../src/activity/component/page-content/ActivitiesPageContent'
+import { pagePath } from '../src/core/utils/pagePath'
+// import { LoginPageContent } from '../src/user/component/page-content/LoginPageContent'
 import { withAuth } from '../src/user/component/withAuth'
 
-const HomePage: NextPage = () => {
-  return (
-    // <div>
-    //   <h1 className="text-red-400">Hi</h1>
-    //   <IconifyIcon className="text-3xl" icon="partyPopper" />
-    // </div>
-    <LoginPageContent />
-  )
+const HomePage = () => {
+  const router = useRouter()
+  router.push(pagePath.ActivityPage())
+  return <></>
 }
 
-// export default withAuth(HomePage)
-export default HomePage
+export default withAuth(HomePage)

@@ -13,6 +13,7 @@ import { EachActvity } from '../../../core/sync-with-backend/dto/activity/dto/fi
 import { getJoinedActivity } from '../../api/getJoinedActivities'
 import { getOwnedActivity } from '../../api/getOwnedActivities'
 import BottomNavigation from '../../../core/components/ButtomNavigation'
+import Head from 'next/head'
 
 const MyActivityPageContent = () => {
   const router = useRouter()
@@ -57,6 +58,9 @@ const MyActivityPageContent = () => {
 
   return (
     <div className="flex h-screen flex-col">
+      <Head>
+        <title>My Activitie</title>
+      </Head>
       <Nav text="My Activity" />
       <div className="flex h-full flex-col gap-y-[5px] px-5 pt-[25px] pb-5">
         <Tab.Group>

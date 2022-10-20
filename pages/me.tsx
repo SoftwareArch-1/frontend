@@ -5,4 +5,4 @@ const ProfilePage = () => {
   return <ProfilePageContent />
 }
 
-export default ProfilePage
+export default withAuth(ProfilePage)

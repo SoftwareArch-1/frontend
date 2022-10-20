@@ -1,10 +1,8 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
-
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
-
 import TextField from '../../../core/components/textField'
 import {
   credentialsSchema,
@@ -22,6 +20,7 @@ export const LoginPageContent = () => {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<LoginCredentials>({
     resolver: zodResolver(credentialsSchema),
@@ -31,16 +30,20 @@ export const LoginPageContent = () => {
 
   const { mutate: loginMutate } = useMutation(login, {
     onSuccess: (userDto) => {
-      console.log(userDto)
       update(userDto.user.profile)
       update({ accessToken: userDto.access_token })
       axiosInstance.defaults.headers.common[
         'Authorization'
       ] = `Bearer ${userDto.access_token}`
-      localStorage.setItem('access_token', userDto.access_token)
       router.push(pagePath.ActivityPage())
     },
-    onError: (error) => console.error(error),
+    onError: (error) => {
+      console.error(error)
+      setError('password', {
+        type: 'Mismatch',
+        message: 'Invalid Username or Password!',
+      })
+    },
   })
 
   const onSubmit = handleSubmit((data) => {

@@ -1,4 +1,5 @@
 import create from 'zustand'
+import { persist } from 'zustand/middleware'
 
 import { User } from '../core/sync-with-backend/dto/user/user'
 
@@ -20,7 +21,6 @@ interface UserStore extends Partial<Store> {
   update: (
     updater: ((prev: Partial<Store>) => Partial<Store>) | Partial<Store>
   ) => void
-
   reset: () => void
 }
 
@@ -31,18 +31,31 @@ const initState = {
   surname: undefined,
   birthDate: undefined,
   description: undefined,
-  discord: undefined,
-  line: undefined,
+  discordId: undefined,
+  lineId: undefined,
   accessToken: undefined,
 }
 
-export const useUserStore = create<UserStore>()((set, get) => ({
-  ...initState,
+export const useUserStore = create<UserStore>()(
+  persist(
+    (set, get) => ({
+      ...initState,
 
-  update: (updater) => {
-    const prev = get()
-    const partial = typeof updater === 'function' ? updater(prev) : updater
-    set((state) => ({ ...state, ...partial }))
-  },
-  reset: () => set(initState),
-}))
+      update: (updater) => {
+        const prev = get()
+        const partial = typeof updater === 'function' ? updater(prev) : updater
+        set((state) => ({ ...state, ...partial }))
+      },
+      reset: () => set({ ...initState }),
+    }),
+    {
+      name: 'user-storage', // unique name
+      serialize: (state) => JSON.stringify(state),
+      deserialize: (str) => {
+        let state = JSON.parse(str)
+        state.state.birthDate = new Date(state.state.birthDate)
+        return state
+      },
+    }
+  )
+)

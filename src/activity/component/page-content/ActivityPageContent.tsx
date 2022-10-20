@@ -10,12 +10,11 @@ import { useUserStore } from '../../../user/userStore'
 import { joinActivity } from '../../api/joinActivity'
 import { acceptParticipant } from '../../api/acceptParticipant'
 import { rejectParticipant } from '../../api/rejectParticipant'
-import {
-  findOneActivity,
-  FindOneActivity,
-} from '../../../core/sync-with-backend/dto/activity/dto/findOne.dto'
+import { FindOneActivity } from '../../../core/sync-with-backend/dto/activity/dto/findOne.dto'
 import { useState } from 'react'
 import BottomNavigation from '../../../core/components/ButtomNavigation'
+import Head from 'next/head'
+import { pagePath } from '../../../core/utils/pagePath'
 
 const ActivityPageContent = () => {
   const router = useRouter()
@@ -28,10 +27,6 @@ const ActivityPageContent = () => {
   const { mutate: joinActivityMutate } = useMutation(joinActivity, {
     onSuccess: (data) => {
       refetchActivity()
-      // setActivityDetail((prev) => {
-      //   const temp = { ...prev, joinedUserIds: data.joinedUserIds }
-      //   return findOneActivity.parse(temp)
-      // })
     },
     onError: (error) => {
       console.error(error)
@@ -84,13 +79,17 @@ const ActivityPageContent = () => {
       onSuccess: (data) => {
         setActivityDetail(data)
       },
+      enabled: !!id,
     }
   )
 
   return (
     <>
       <Nav backButtonEnable />
-      <div className="flex flex-col gap-y-5 px-3 py-5">
+      <Head>
+        <title>{activityDetail?.name ?? 'Activity'}</title>
+      </Head>
+      <div className="flex flex-col gap-y-5 px-5 py-5">
         {activityDetail && (
           <>
             <ActivityDetailCard
@@ -117,7 +116,9 @@ const ActivityPageContent = () => {
                   ? onJoin
                   : activityDetail.status === 'pending'
                   ? () => {}
-                  : () => {}
+                  : () => {
+                      router.push(pagePath.MessagePage(String(id)))
+                    }
               }
             />
             {activityDetail.status !== 'owned' && (
