@@ -62,7 +62,7 @@ const MessagePageContent = () => {
         return (
           <MessageCard
             key={message.id}
-            sender={'John Doe'}
+            sender={message.name}
             description={message.content}
             sendDate={message.createdAt}
             likes={message.likes}
