@@ -103,10 +103,7 @@ const ActivityPageContent = () => {
         }
       >
         <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cumque qui
-          possimus unde vero quia, excepturi voluptatum aliquid quaerat
-          temporibus, nemo reiciendis? Facere ipsam quis, ab modi quasi eius
-          quisquam exercitationem.
+          Full
         </p>
       </Modal>
       <Head>
