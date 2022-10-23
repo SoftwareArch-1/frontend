@@ -15,6 +15,7 @@ import { useState } from 'react'
 import BottomNavigation from '../../../core/components/ButtomNavigation'
 import Head from 'next/head'
 import { pagePath } from '../../../core/utils/pagePath'
+import { Modal } from '../../../core/components/Modal'
 
 const ActivityPageContent = () => {
   const router = useRouter()
@@ -23,6 +24,8 @@ const ActivityPageContent = () => {
   const userId = useUserStore((s) => s.id)
 
   const [activityDetail, setActivityDetail] = useState<FindOneActivity>()
+
+  const [showModal, setShowModal] = useState(false)
 
   const { mutate: joinActivityMutate } = useMutation(joinActivity, {
     onSuccess: (data) => {
@@ -50,10 +53,16 @@ const ActivityPageContent = () => {
   })
 
   const onAccept = (joinedId: string) => {
-    acceptParticipantMutate({
-      activityId: String(id),
-      joinerId: joinedId,
-    })
+    if (
+      activityDetail?.maxParticipants === activityDetail?.joinedUsers.length
+    ) {
+      setShowModal(true)
+    } else {
+      acceptParticipantMutate({
+        activityId: String(id),
+        joinerId: joinedId,
+      })
+    }
   }
 
   const { mutate: rejectParticipantMutate } = useMutation(rejectParticipant, {
@@ -86,6 +95,17 @@ const ActivityPageContent = () => {
   return (
     <>
       <Nav backButtonEnable />
+      <Modal
+        open={showModal}
+        onClose={() => setShowModal(false)}
+        className={
+          'flex h-auto flex-col justify-center rounded-lg bg-slate-700 drop-shadow-md'
+        }
+      >
+        <p>
+          Full
+        </p>
+      </Modal>
       <Head>
         <title>{activityDetail?.name ?? 'Activity'}</title>
       </Head>

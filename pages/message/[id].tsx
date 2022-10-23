@@ -5,4 +5,5 @@ const MessagePage = () => {
   return <MessagePageContent />
 }
 
+//export default MessagePage
 export default withAuth(MessagePage)
