@@ -102,9 +102,7 @@ const ActivityPageContent = () => {
           'flex h-auto flex-col justify-center rounded-lg bg-slate-700 drop-shadow-md'
         }
       >
-        <p>
-          Full
-        </p>
+        <p className="text-white">Full</p>
       </Modal>
       <Head>
         <title>{activityDetail?.name ?? 'Activity'}</title>

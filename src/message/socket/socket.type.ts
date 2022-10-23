@@ -1,18 +1,19 @@
 import { z } from 'zod'
 import { Socket } from 'socket.io-client'
+import { dateSchema } from '../../core/constant/zod/zodDateSchema'
 
 export const chatMessageSchema = z.object({
   id: z.string(),
   content: z.string(),
-  createdAt: z.string(),
+  createdAt: dateSchema,
   userId: z.string(),
   name: z.string(), // name of the user who sent the message
-  likes: z.number().int().min(0).default(0),
+  likedUsers: z.string().array(),
 })
 
 export type ChatMessage = z.infer<typeof chatMessageSchema>
 
-export type ChatMsgLikesUpdated = Pick<ChatMessage, 'id' | 'likes'>
+export type ChatMsgLikesUpdated = Pick<ChatMessage, 'id' | 'likedUsers'>
 
 // data or error, but not both
 export type WsRes<T> =

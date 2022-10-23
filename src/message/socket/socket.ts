@@ -4,12 +4,13 @@ import {
   InitialData,
   initialDataDto,
 } from '../../core/sync-with-backend/dto/message/dto/initialData'
-import {
-  Message,
-  MessageModel,
-} from '../../core/sync-with-backend/dto/message/zod/message'
 import { useUserStore } from '../../user/userStore'
-import { ChatSocket } from './socket.type'
+import {
+  ChatMessage,
+  chatMessageSchema,
+  ChatMsgLikesUpdated,
+  ChatSocket,
+} from './socket.type'
 
 let socket: ChatSocket | undefined
 
@@ -33,8 +34,8 @@ export const disconnect = () => {
 
 export const onInitData = (
   callbackInitData: (data: InitialData) => void,
-  callbackPostData: (data: Message) => void,
-  callbackFavoriteData: (data: Message) => void,
+  callbackPostData: (data: ChatMessage) => void,
+  callbackFavoriteData: (data: ChatMsgLikesUpdated) => void,
   activityId: string
 ) => {
   initSocket(activityId)
@@ -58,14 +59,18 @@ export const toggleFavorite = (messageId: string) => {
   socket?.emit('favorite', { messageId })
 }
 
-export const getPost = (callback: (data: Message) => void) => {
+export const getPost = (callback: (data: ChatMessage) => void) => {
   socket?.on('posted', ({ data, error }) => {
-    callback(MessageModel.parse(data))
+    callback(chatMessageSchema.parse(data))
   })
 }
 
-export const getFavorite = (callback: (data: Message) => void) => {
+export const getFavorite = (callback: (data: ChatMsgLikesUpdated) => void) => {
   socket?.on('favorited', ({ data, error }) => {
-    callback(MessageModel.parse(data))
+    if (error) {
+      console.log(error)
+    } else {
+      callback(data!)
+    }
   })
 }

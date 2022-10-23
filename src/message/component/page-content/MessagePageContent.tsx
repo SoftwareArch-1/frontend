@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import shallow from 'zustand/shallow'
 // import shallow from 'zustand/shallow'
 import BottomNavigation from '../../../core/components/ButtomNavigation'
 import FloatingActionButton from '../../../core/components/FloatingActionButton'
@@ -20,12 +21,12 @@ import { SenderCard } from '../SenderCard'
 import { SendMessageCard } from '../SendMessageCard'
 
 const MessagePageContent = () => {
-  // const { id: userId } = useUserStore(
-  //   ({ id }) => ({
-  //     id,
-  //   }),
-  //   shallow
-  // )
+  const { id: userId } = useUserStore(
+    ({ id }) => ({
+      id,
+    }),
+    shallow
+  )
 
   const router = useRouter()
   const { id: activityId } = router.query
@@ -46,7 +47,16 @@ const MessagePageContent = () => {
             return [postedData, ...prev]
           })
         },
-        () => {},
+        (likedData) => {
+          console.log(likedData)
+          setData((prev) => {
+            const index = prev.findIndex(
+              (message) => message.id === likedData.id
+            )
+            prev[index].likedUsers = likedData.likedUsers
+            return [...prev]
+          })
+        },
         String(activityId)
       )
     }
@@ -59,25 +69,26 @@ const MessagePageContent = () => {
   const messageCardList = (
     <div className="w-100 flex flex-col gap-y-4 px-5 py-7">
       {data.map((message) => {
-        return (
+        return message.userId !== userId ? (
           <MessageCard
             key={message.id}
+            id={message.id}
             sender={message.name}
             description={message.content}
             sendDate={message.createdAt}
-            likes={message.likes}
-            liked={false}
+            likes={message.likedUsers.length}
+            liked={message.likedUsers.includes(userId ?? '')}
+          />
+        ) : (
+          <SenderCard
+            key={message.id}
+            id={message.id}
+            description={message.content}
+            sendDate={message.createdAt}
+            likes={message.likedUsers.length}
           />
         )
       })}
-      {/* <MessageCard
-        sender={'Baimon'}
-        description={
-          'helloajdkashdjkasjdlajdlasjdlkajdlajdlkajsdlsajdlajdlajsldjasldjsaldjlajdslksajdlasjdlsaj'
-        }
-        sendDate={new Date()}
-      />
-      <SenderCard description={'how are you?'} sendDate={new Date()} /> */}
     </div>
   )
 

@@ -1,6 +1,6 @@
 import { z } from 'zod'
-import { MessageModel } from '../zod/message'
+import { chatMessageSchema } from '../../../../../message/socket/socket.type'
 
-export const initialDataDto = MessageModel.array()
+export const initialDataDto = chatMessageSchema.array()
 
 export type InitialData = z.infer<typeof initialDataDto>
