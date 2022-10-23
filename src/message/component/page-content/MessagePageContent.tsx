@@ -1,5 +1,6 @@
+import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import shallow from 'zustand/shallow'
+// import shallow from 'zustand/shallow'
 import BottomNavigation from '../../../core/components/ButtomNavigation'
 import FloatingActionButton from '../../../core/components/FloatingActionButton'
 import { IconifyIcon } from '../../../core/components/IconifyIcon'
@@ -8,36 +9,52 @@ import { Nav } from '../../../core/components/Nav'
 import { InitialData } from '../../../core/sync-with-backend/dto/message/dto/initialData'
 import { AddReviewCard } from '../../../user/component/AddReviewCard'
 import { useUserStore } from '../../../user/userStore'
-import { getFavorite, getPost, onInitData } from '../../socket/socket'
+import {
+  disconnect,
+  getFavorite,
+  getPost,
+  onInitData,
+} from '../../socket/socket'
 import { MessageCard } from '../MessageCard'
 import { SenderCard } from '../SenderCard'
 import { SendMessageCard } from '../SendMessageCard'
 
 const MessagePageContent = () => {
-  const { id: userId } = useUserStore(
-    ({ id }) => ({
-      id,
-    }),
-    shallow
-  )
+  // const { id: userId } = useUserStore(
+  //   ({ id }) => ({
+  //     id,
+  //   }),
+  //   shallow
+  // )
 
-  console.log(userId)
+  const router = useRouter()
+  const { id: activityId } = router.query
 
   const [showModal, setShowModal] = useState(false)
 
   const [data, setData] = useState<InitialData | []>([])
 
   useEffect(() => {
-    onInitData((initData) => {
-      setData(initData)
-    })
-    getPost((data) => {
-      console.log('post', { data })
-    })
-    getFavorite((data) => {
-      console.log('favorite', { data })
-    })
-  }, [])
+    if (activityId) {
+      onInitData(
+        (initData) => {
+          setData(initData.reverse())
+          console.log(...initData)
+        },
+        (postedData) => {
+          setData((prev) => {
+            return [postedData, ...prev]
+          })
+        },
+        () => {},
+        String(activityId)
+      )
+    }
+
+    return () => {
+      disconnect()
+    }
+  }, [activityId])
 
   const messageCardList = (
     <div className="w-100 flex flex-col gap-y-4 px-5 py-7">

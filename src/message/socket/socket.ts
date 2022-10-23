@@ -17,12 +17,11 @@ export const initSocket = (activityId: string) => {
   if (!socket) {
     socket = io(config.gatewayUrl, {
       query: {
-        userId: useUserStore.getState().accessToken,
+        userId: useUserStore.getState().id,
         activityId: activityId,
       },
     })
   }
-  console.log('connect')
 }
 
 export const disconnect = () => {
@@ -30,22 +29,32 @@ export const disconnect = () => {
     socket.disconnect()
     socket = undefined
   }
-  console.log('disconnect')
 }
 
-export const onInitData = (callback: (data: InitialData) => void) => {
-  socket?.once('initialData', ({ data, error }) => {
-    const initData = initialDataDto.parse(data)
-    console.log(initData)
-    callback(initData)
+export const onInitData = (
+  callbackInitData: (data: InitialData) => void,
+  callbackPostData: (data: Message) => void,
+  callbackFavoriteData: (data: Message) => void,
+  activityId: string
+) => {
+  initSocket(activityId)
+  socket?.on('connect', () => {
+    console.log(socket?.id)
+    socket?.emit('initialData', ({ data, error }) => {
+      const initData = initialDataDto.parse(data)
+      console.log(initData)
+      callbackInitData(initData)
+    })
+    getPost(callbackPostData)
+    getFavorite(callbackFavoriteData)
   })
 }
 
-export const post = (content: string) => {
+export const createPost = (content: string) => {
   socket?.emit('post', { content })
 }
 
-export const favorite = (messageId: string) => {
+export const toggleFavorite = (messageId: string) => {
   socket?.emit('favorite', { messageId })
 }
 

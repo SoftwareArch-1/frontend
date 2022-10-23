@@ -6,8 +6,8 @@ export const MessageModel = z.object({
   content: z.string(),
   likes: z.number().int(),
   createdAt: dateSchema,
-  // name: z.string(),
-  // userId: z.string(),
+  name: z.string(),
+  userId: z.string(),
 })
 
 export type Message = z.infer<typeof MessageModel>
