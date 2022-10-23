@@ -4,7 +4,7 @@ import { IconifyIcon } from "../../core/components/IconifyIcon"
 export const SenderCard = (senderCardProps: {
   description: string
   sendDate: Date
-  like: number
+  likes: number
 }) => {
   return (
     <div className="w-full flex min-h-[87px] flex-col rounded-lg bg-slate-500 px-3 py-3 drop-shadow-md text-white">
@@ -26,7 +26,7 @@ export const SenderCard = (senderCardProps: {
               icon="heartSolid"
               className="min-h-[16px] min-w-[16px] text-red-500"
             />
-            <p>{senderCardProps.like}</p>
+            <p>{senderCardProps.likes}</p>
       </div>
       
     </div>

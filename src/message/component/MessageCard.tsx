@@ -6,11 +6,11 @@ export const MessageCard = (messageCardProps: {
   sender: string
   description: string
   sendDate: Date
-  like: number
+  likes: number
   liked: boolean
 }) => {
   const [liked, setLiked] = useState(messageCardProps.liked)
-  const [like, setLike] = useState(messageCardProps.like)
+  const [likes, setLike] = useState(messageCardProps.likes)
   return (
     <div className="flex min-h-[87px] w-full flex-col rounded-lg bg-sky-500 px-3 py-3 text-white drop-shadow-md">
       <div className="flex w-full items-center justify-between text-xs">
@@ -32,11 +32,11 @@ export const MessageCard = (messageCardProps: {
             className="min-h-[16px] min-w-[16px] text-red-500"
             onClick={() => {
               setLiked(true)
-              setLike(like+1)
+              setLike(likes+1)
             }}
           />
         )}
-        <p>{like}</p>
+        <p>{likes}</p>
       </div>
     </div>
   )

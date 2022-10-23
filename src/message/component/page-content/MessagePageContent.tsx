@@ -4,7 +4,6 @@ import FloatingActionButton from '../../../core/components/FloatingActionButton'
 import { IconifyIcon } from '../../../core/components/IconifyIcon'
 import { Modal } from '../../../core/components/Modal'
 import { Nav } from '../../../core/components/Nav'
-import { AddReviewCard } from '../../../user/component/AddReviewCard'
 import { MessageCard } from '../MessageCard'
 import { SenderCard } from '../SenderCard'
 import { SendMessageCard } from '../SendMessageCard'
@@ -34,20 +33,20 @@ const MessagePageContent = () => {
             'helloajdkashdjkasjdlajdlasjdlkajdlajdlkajsdlsajdlajdlajsldjasldjsaldjlajdslksajdlasjdlsaj'
           }
           sendDate={new Date()}
-          like={3}
+          likes={3}
           liked={true}
         />
         <MessageCard
           sender={'Baimon'}
           description={'helloajdkashdjkasjdlajdlasj'}
           sendDate={new Date()}
-          like={0}
+          likes={0}
           liked={false}
         />
         <SenderCard
           description={'how are you?'}
           sendDate={new Date()}
-          like={3}
+          likes={3}
         />
       </div>
       <FloatingActionButton
