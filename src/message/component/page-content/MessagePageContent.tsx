@@ -34,8 +34,21 @@ const MessagePageContent = () => {
             'helloajdkashdjkasjdlajdlasjdlkajdlajdlkajsdlsajdlajdlajsldjasldjsaldjlajdslksajdlasjdlsaj'
           }
           sendDate={new Date()}
+          like={3}
+          liked={true}
         />
-        <SenderCard description={'how are you?'} sendDate={new Date()} />
+        <MessageCard
+          sender={'Baimon'}
+          description={'helloajdkashdjkasjdlajdlasj'}
+          sendDate={new Date()}
+          like={0}
+          liked={false}
+        />
+        <SenderCard
+          description={'how are you?'}
+          sendDate={new Date()}
+          like={3}
+        />
       </div>
       <FloatingActionButton
         onClick={() => {

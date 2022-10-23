@@ -72,7 +72,15 @@ const ActivityDetailCard = ({
       </div>
       <div className="h-[40px]"></div>
       <div className="flex items-center justify-center">
-        <ButtonLong onClick={onClick} text={buttonText} />
+        <ButtonLong
+          onClick={onClick}
+          text={buttonText}
+          disable={
+            buttonText === 'Join' && maxParticipant === currentParticipant
+              ? true
+              : false
+          }
+        />
       </div>
     </div>
   )

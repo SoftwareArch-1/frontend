@@ -1,24 +1,42 @@
-import dayjs from "dayjs"
+import dayjs from 'dayjs'
+import { useState } from 'react'
+import { IconifyIcon } from '../../core/components/IconifyIcon'
 
 export const MessageCard = (messageCardProps: {
   sender: string
   description: string
   sendDate: Date
+  like: number
+  liked: boolean
 }) => {
+  const [liked, setLiked] = useState(messageCardProps.liked)
+  const [like, setLike] = useState(messageCardProps.like)
   return (
-    <div className="w-full flex min-h-[87px] flex-col rounded-lg bg-sky-500 px-3 py-3 drop-shadow-md">
+    <div className="flex min-h-[87px] w-full flex-col rounded-lg bg-sky-500 px-3 py-3 text-white drop-shadow-md">
       <div className="flex w-full items-center justify-between text-xs">
-        <div className="flex gap-x-0 text-white">
-          {messageCardProps.sender}
-        </div>
-        <div className=" text-white">
-            {dayjs(messageCardProps.sendDate).format(
-              "DD/MM/YYYY - HH:mm" 
-            )}
+        <div className="flex gap-x-0">{messageCardProps.sender}</div>
+        <div>
+          {dayjs(messageCardProps.sendDate).format('DD/MM/YYYY - HH:mm')}
         </div>
       </div>
-      <div className="break-all text-sm text-white">
-            {messageCardProps.description}
+      <div className="break-all text-sm">{messageCardProps.description}</div>
+      <div className="flex w-full justify-end self-center pt-3 text-xs">
+        {liked ? (
+          <IconifyIcon
+            icon="heartSolid"
+            className="min-h-[12px] min-w-[12px] text-red-500"
+          />
+        ) : (
+          <IconifyIcon
+            icon="heartOutline"
+            className="min-h-[12px] min-w-[12px] text-red-500"
+            onClick={() => {
+              setLiked(true)
+              setLike(like+1)
+            }}
+          />
+        )}
+        <p>{like}</p>
       </div>
     </div>
   )

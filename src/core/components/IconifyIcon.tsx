@@ -26,6 +26,8 @@ const availableIcons = {
   discord: 'bi:discord',
   starOultine: 'material-symbols:star-outline',
   starSolid: 'material-symbols:star',
+  heartOutline: 'ant-design:heart-outlined',
+  heartSolid: 'ant-design:heart-filled',
   lineIcon: 'bi:line',
   discordIcon: 'logos:discord-icon',
   party: 'bx:party',
