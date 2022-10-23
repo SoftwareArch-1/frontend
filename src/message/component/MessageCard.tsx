@@ -20,16 +20,16 @@ export const MessageCard = (messageCardProps: {
         </div>
       </div>
       <div className="break-all text-sm">{messageCardProps.description}</div>
-      <div className="flex w-full justify-end self-center pt-3 text-xs">
+      <div className="flex w-full justify-end self-center pt-3 text-xs gap-x-0.5">
         {liked ? (
           <IconifyIcon
             icon="heartSolid"
-            className="min-h-[12px] min-w-[12px] text-red-500"
+            className="min-h-[16px] min-w-[16px] text-red-500"
           />
         ) : (
           <IconifyIcon
             icon="heartOutline"
-            className="min-h-[12px] min-w-[12px] text-red-500"
+            className="min-h-[16px] min-w-[16px] text-red-500"
             onClick={() => {
               setLiked(true)
               setLike(like+1)

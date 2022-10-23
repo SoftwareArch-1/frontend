@@ -21,10 +21,10 @@ export const SenderCard = (senderCardProps: {
       <div className="break-all text-sm">
             {senderCardProps.description}
       </div>
-      <div className="flex w-full justify-end pt-3 self-center text-xs">
+      <div className="flex w-full justify-end pt-3 self-center text-xs gap-x-0.5">
           <IconifyIcon
               icon="heartSolid"
-              className="min-h-[12px] min-w-[12px] text-red-500"
+              className="min-h-[16px] min-w-[16px] text-red-500"
             />
             <p>{senderCardProps.like}</p>
       </div>
