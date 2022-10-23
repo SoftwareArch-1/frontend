@@ -1,15 +1,68 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import shallow from 'zustand/shallow'
 import BottomNavigation from '../../../core/components/ButtomNavigation'
 import FloatingActionButton from '../../../core/components/FloatingActionButton'
 import { IconifyIcon } from '../../../core/components/IconifyIcon'
 import { Modal } from '../../../core/components/Modal'
 import { Nav } from '../../../core/components/Nav'
+import { InitialData } from '../../../core/sync-with-backend/dto/message/dto/initialData'
+import { AddReviewCard } from '../../../user/component/AddReviewCard'
+import { useUserStore } from '../../../user/userStore'
+import { getFavorite, getPost, onInitData } from '../../socket/socket'
 import { MessageCard } from '../MessageCard'
 import { SenderCard } from '../SenderCard'
 import { SendMessageCard } from '../SendMessageCard'
 
 const MessagePageContent = () => {
+  const { id: userId } = useUserStore(
+    ({ id }) => ({
+      id,
+    }),
+    shallow
+  )
+
+  console.log(userId)
+
   const [showModal, setShowModal] = useState(false)
+
+  const [data, setData] = useState<InitialData | []>([])
+
+  useEffect(() => {
+    onInitData((initData) => {
+      setData(initData)
+    })
+    getPost((data) => {
+      console.log('post', { data })
+    })
+    getFavorite((data) => {
+      console.log('favorite', { data })
+    })
+  }, [])
+
+  const messageCardList = (
+    <div className="w-100 flex flex-col gap-y-4 px-5 py-7">
+      {data.map((message) => {
+        return (
+          <MessageCard
+            key={message.id}
+            sender={'John Doe'}
+            description={message.content}
+            sendDate={message.createdAt}
+            likes={message.likes}
+            liked={false}
+          />
+        )
+      })}
+      {/* <MessageCard
+        sender={'Baimon'}
+        description={
+          'helloajdkashdjkasjdlajdlasjdlkajdlajdlkajsdlsajdlajdlajsldjasldjsaldjlajdslksajdlasjdlsaj'
+        }
+        sendDate={new Date()}
+      />
+      <SenderCard description={'how are you?'} sendDate={new Date()} /> */}
+    </div>
+  )
 
   return (
     <div className="h-screen">
@@ -26,7 +79,8 @@ const MessagePageContent = () => {
           onCloseModal={() => setShowModal(false)}
         />
       </Modal>
-      <div className="w-100 flex flex-col gap-y-4 px-5 py-7">
+      {messageCardList}
+      {/* <div className="w-100 flex flex-col gap-y-4 px-5 py-7">
         <MessageCard
           sender={'Baimon'}
           description={
@@ -49,6 +103,8 @@ const MessagePageContent = () => {
           likes={3}
         />
       </div>
+        <SenderCard description={'how are you?'} sendDate={new Date()} />
+      </div> */}
       <FloatingActionButton
         onClick={() => {
           setShowModal(true)
