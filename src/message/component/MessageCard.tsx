@@ -1,16 +1,16 @@
 import dayjs from 'dayjs'
 import { useState } from 'react'
 import { IconifyIcon } from '../../core/components/IconifyIcon'
+import { toggleFavorite } from '../socket/socket'
 
 export const MessageCard = (messageCardProps: {
+  id: string
   sender: string
   description: string
   sendDate: Date
   likes: number
   liked: boolean
 }) => {
-  const [liked, setLiked] = useState(messageCardProps.liked)
-  const [likes, setLike] = useState(messageCardProps.likes)
   return (
     <div className="flex min-h-[87px] w-full flex-col rounded-lg bg-sky-500 px-3 py-3 text-white drop-shadow-md">
       <div className="flex w-full items-center justify-between text-xs">
@@ -20,8 +20,8 @@ export const MessageCard = (messageCardProps: {
         </div>
       </div>
       <div className="break-all text-sm">{messageCardProps.description}</div>
-      <div className="flex w-full justify-end self-center pt-3 text-xs gap-x-1">
-        {liked ? (
+      <div className="flex w-full justify-end gap-x-1 self-center pt-3 text-xs">
+        {messageCardProps.liked ? (
           <IconifyIcon
             icon="heartSolid"
             className="min-h-[16px] min-w-[16px] text-red-500"
@@ -31,12 +31,11 @@ export const MessageCard = (messageCardProps: {
             icon="heartOutline"
             className="min-h-[16px] min-w-[16px] text-white"
             onClick={() => {
-              setLiked(true)
-              setLike(likes+1)
+              toggleFavorite(messageCardProps.id)
             }}
           />
         )}
-        <p>{likes}</p>
+        <p>{messageCardProps.likes}</p>
       </div>
     </div>
   )

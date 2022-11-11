@@ -15,3 +15,7 @@
 
 @layer components {
 }
+
+::-ms-reveal {
+  display: none;
+}

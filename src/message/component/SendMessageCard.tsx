@@ -1,6 +1,7 @@
 import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import { useRef, useState } from 'react'
+import { createPost } from '../socket/socket'
 
 interface SendMessageProps {
   // refetch: () => {}
@@ -29,6 +30,8 @@ export const SendMessageCard = ({
     //   senderId: String(id),
     // })
     console.log(textRef.current!.value)
+    createPost(textRef.current!.value)
+    onCloseModal()
   }
 
   return (

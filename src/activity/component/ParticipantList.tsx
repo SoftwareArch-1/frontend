@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import { ActivityUser } from '../../core/sync-with-backend/dto/activity/activity-user'
 import { pagePath } from '../../core/utils/pagePath'
+import { useUserStore } from '../../user/userStore'
 import ParticipantCard from './ParticipantCard'
 
 interface ParticipantListProps {
@@ -26,7 +27,11 @@ const ParticipantList = ({ participant }: ParticipantListProps) => {
             line={person.lineId}
             key={person.id}
             onClick={() => {
-              router.push(pagePath.ViewProfilePage(person.id))
+              if (useUserStore.getState().id === person.id) {
+                router.push(pagePath.ProfilePage())
+              } else {
+                router.push(pagePath.ViewProfilePage(person.id))
+              }
             }}
           />
         ))}
