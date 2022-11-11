@@ -21,6 +21,7 @@ export const initSocket = (activityId: string) => {
         userId: useUserStore.getState().id,
         activityId: activityId,
       },
+      withCredentials: true,
     })
   }
 }
@@ -41,9 +42,11 @@ export const onInitData = (
   initSocket(activityId)
   socket?.on('connect', () => {
     console.log(socket?.id)
+    console.log('hi')
     socket?.emit('initialData', ({ data, error }) => {
+      console.log('error', error)
+      console.log(data)
       const initData = initialDataDto.parse(data)
-      console.log(initData)
       callbackInitData(initData)
     })
     getPost(callbackPostData)
