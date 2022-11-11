@@ -94,7 +94,6 @@ interface ClientToServerEvents {
 
 export type ClientToServerEventNames = keyof ClientToServerEvents
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface InterServerEvents {}
 
 interface SocketData {

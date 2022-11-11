@@ -36,26 +36,37 @@ const initState = {
   accessToken: undefined,
 }
 
-export const useUserStore = create<UserStore>()(
-  persist(
-    (set, get) => ({
-      ...initState,
+// export const useUserStore = create<UserStore>()(
+//   persist(
+//     (set, get) => ({
+//       ...initState,
 
-      update: (updater) => {
-        const prev = get()
-        const partial = typeof updater === 'function' ? updater(prev) : updater
-        set((state) => ({ ...state, ...partial }))
-      },
-      reset: () => set({ ...initState }),
-    }),
-    {
-      name: 'user-storage', // unique name
-      serialize: (state) => JSON.stringify(state),
-      deserialize: (str) => {
-        let state = JSON.parse(str)
-        state.state.birthDate = new Date(state.state.birthDate)
-        return state
-      },
-    }
-  )
-)
+//       update: (updater) => {
+//         const prev = get()
+//         const partial = typeof updater === 'function' ? updater(prev) : updater
+//         set((state) => ({ ...state, ...partial }))
+//       },
+//       reset: () => set({ ...initState }),
+//     }),
+//     {
+//       name: 'user-storage', // unique name
+//       serialize: (state) => JSON.stringify(state),
+//       deserialize: (str) => {
+//         let state = JSON.parse(str)
+//         state.state.birthDate = new Date(state.state.birthDate)
+//         return state
+//       },
+//     }
+//   )
+// )
+
+export const useUserStore = create<UserStore>()((set, get) => ({
+  ...initState,
+
+  update: (updater) => {
+    const prev = get()
+    const partial = typeof updater === 'function' ? updater(prev) : updater
+    set((state) => ({ ...state, ...partial }))
+  },
+  reset: () => set({ ...initState }),
+}))

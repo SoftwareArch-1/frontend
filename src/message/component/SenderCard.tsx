@@ -8,7 +8,7 @@ export const SenderCard = (senderCardProps: {
   likes: number
 }) => {
   return (
-    <div className="flex min-h-[87px] w-full flex-col rounded-lg bg-slate-500 px-3 py-3 text-white drop-shadow-md">
+    <div className="flex min-h-[87px] w-full flex-col rounded-lg bg-sky-500 px-3 py-3 text-white drop-shadow-md">
       <div className="flex w-full items-center justify-between text-xs">
         <div className="flex gap-x-0">{'Me'}</div>
         <div>

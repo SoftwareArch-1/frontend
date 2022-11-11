@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { MouseEventHandler } from 'react'
 import ButtonLong from '../../core/components/ButtonLong'
 import { IconifyIcon } from '../../core/components/IconifyIcon'

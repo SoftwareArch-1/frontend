@@ -102,37 +102,9 @@ const MessagePageContent = () => {
           'flex h-auto flex-col justify-center rounded-lg bg-slate-700 drop-shadow-md'
         }
       >
-        <SendMessageCard
-          // refetch={}
-          onCloseModal={() => setShowModal(false)}
-        />
+        <SendMessageCard onCloseModal={() => setShowModal(false)} />
       </Modal>
       {messageCardList}
-      {/* <div className="w-100 flex flex-col gap-y-4 px-5 py-7">
-        <MessageCard
-          sender={'Baimon'}
-          description={
-            'helloajdkashdjkasjdlajdlasjdlkajdlajdlkajsdlsajdlajdlajsldjasldjsaldjlajdslksajdlasjdlsaj'
-          }
-          sendDate={new Date()}
-          likes={3}
-          liked={true}
-        />
-        <MessageCard
-          sender={'Baimon'}
-          description={'helloajdkashdjkasjdlajdlasj'}
-          sendDate={new Date()}
-          likes={0}
-          liked={false}
-        />
-        <SenderCard
-          description={'how are you?'}
-          sendDate={new Date()}
-          likes={3}
-        />
-      </div>
-        <SenderCard description={'how are you?'} sendDate={new Date()} />
-      </div> */}
       <FloatingActionButton
         onClick={() => {
           setShowModal(true)

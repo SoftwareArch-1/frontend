@@ -6,6 +6,7 @@ import { updateUserDto } from '../../core/sync-with-backend/dto/user/updateUser'
 import { updateUser } from '../api/update'
 import { useUserStore } from '../../user/userStore'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
+import Image from 'next/image'
 
 interface UserCardProps {
   name: string
