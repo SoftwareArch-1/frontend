@@ -6,7 +6,10 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 import type { AppProps } from 'next/app'
 import { useEffect, useState } from 'react'
-import { useUserStore } from '../src/user/userStore'
+
+import getConfig from 'next/config'
+
+const { publicRuntimeConfig } = getConfig()
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -20,6 +23,8 @@ dayjs.extend(require('dayjs/plugin/relativeTime'))
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [isInit, setIsInit] = useState(true)
+
+  console.log(publicRuntimeConfig)
 
   useEffect(() => {
     // const hydrate = useUserStore.persist.onFinishHydration(() => {

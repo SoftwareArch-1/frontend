@@ -1,4 +1,7 @@
-import { config } from '../constant/env-config'
+// import { config } from '../constant/env-config'
+import getConfig from 'next/config'
+
+const { publicRuntimeConfig } = getConfig()
 
 /**
  * @example
@@ -7,23 +10,24 @@ import { config } from '../constant/env-config'
 export const apiPath = {
   /** for user service */
   user: {
-    login: () => `${config.gatewayUrl}/auth/login`,
-    createUser: () => `${config.gatewayUrl}/user`,
-    updateUser: () => `${config.gatewayUrl}/user`,
-    review: () => `${config.gatewayUrl}/review`,
-    profile: (id: string) => `${config.gatewayUrl}/user/${id}`,
-    user: () => `${config.gatewayUrl}/user`,
+    login: () => `${publicRuntimeConfig.url}/auth/login`,
+    createUser: () => `${publicRuntimeConfig.url}/user`,
+    updateUser: () => `${publicRuntimeConfig.url}/user`,
+    review: () => `${publicRuntimeConfig.url}/review`,
+    profile: (id: string) => `${publicRuntimeConfig.url}/user/${id}`,
+    user: () => `${publicRuntimeConfig.url}/user`,
   },
 
   /** for activity service */
   activity: {
-    getActivities: () => `${config.gatewayUrl}/activity`,
-    getActivityById: (id: string) => `${config.gatewayUrl}/activity/${id}`,
-    getJoinedActivities: () => `${config.gatewayUrl}/activity/joined`,
-    getOwnedActivities: () => `${config.gatewayUrl}/activity/owned`,
-    acceptParticipant: () => `${config.gatewayUrl}/activity/accept-join`,
-    rejectParticipant: () => `${config.gatewayUrl}/activity/decline-join`,
-    joinActivity: () => `${config.gatewayUrl}/activity/request-join`,
-    createActivity: () => `${config.gatewayUrl}/activity`,
+    getActivities: () => `${publicRuntimeConfig.url}/activity`,
+    getActivityById: (id: string) =>
+      `${publicRuntimeConfig.url}/activity/${id}`,
+    getJoinedActivities: () => `${publicRuntimeConfig.url}/activity/joined`,
+    getOwnedActivities: () => `${publicRuntimeConfig.url}/activity/owned`,
+    acceptParticipant: () => `${publicRuntimeConfig.url}/activity/accept-join`,
+    rejectParticipant: () => `${publicRuntimeConfig.url}/activity/decline-join`,
+    joinActivity: () => `${publicRuntimeConfig.url}/activity/request-join`,
+    createActivity: () => `${publicRuntimeConfig.url}/activity`,
   },
 } as const
