@@ -40,3 +40,5 @@ notes.txt
 notes.md
 note.txt
 note.md
+.env.development
+.env
