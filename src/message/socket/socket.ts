@@ -12,7 +12,7 @@ import {
   ChatSocket,
 } from './socket.type'
 import getConfig from 'next/config'
-import { config } from '../../core/constant/env-config'
+// import { config } from '../../core/constant/env-config'
 
 const { publicRuntimeConfig } = getConfig()
 
@@ -20,7 +20,7 @@ let socket: ChatSocket | undefined
 
 export const initSocket = (activityId: string) => {
   if (!socket) {
-    socket = io(config.gatewayUrl, {
+    socket = io(publicRuntimeConfig.url, {
       query: {
         userId: useUserStore.getState().id,
         activityId: activityId,
