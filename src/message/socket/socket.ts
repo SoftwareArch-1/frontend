@@ -11,10 +11,7 @@ import {
   ChatMsgLikesUpdated,
   ChatSocket,
 } from './socket.type'
-import getConfig from 'next/config'
 import { config } from '../../core/constant/env-config'
-
-const { publicRuntimeConfig } = getConfig()
 
 let socket: ChatSocket | undefined
 
